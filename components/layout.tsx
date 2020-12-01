@@ -1,5 +1,5 @@
 import Footer from 'components/footer';
-import Header from 'components/header';
+import Header from 'components/header/header';
 import React from 'react';
 import styled from 'styled-components';
 import { sideMain } from 'styles/layout';

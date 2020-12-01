@@ -15,7 +15,7 @@ const Base: React.FC<Props> = ({ className }) => {
 };
 
 const Index = styled(Base)`
-  color: blue;
+  background-color: blue;
 `;
 
 export default Index;
