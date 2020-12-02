@@ -6,13 +6,17 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  return <h1 className={`${className}`}>TeamWinRate</h1>;
+  return <div className={`${className}`}>TeamWinRate</div>;
 };
 
 const Title = styled(Base)`
-  width: 100%;
-  height: 83px;
-  background-color: #4e4e4e;
+  font-size: 20px;
+  color: #e6e8ed;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin-left: 20px;
 `;
 
 export default Title;

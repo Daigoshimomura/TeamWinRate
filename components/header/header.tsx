@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import title from './title';
+import Login from './login';
+import Title from './title';
 
 type Props = {
   className?: string;
@@ -9,15 +10,17 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   return (
     <header className={`${className}`}>
-      <title />
+      <Title />
+      <Login />
     </header>
   );
 };
 
 const Header = styled(Base)`
+  height: 50px;
   width: 100%;
-  height: 83px;
   background-color: #4e4e4e;
+  position: relative;
 `;
 
 export default Header;
