@@ -10,7 +10,7 @@ const Base: React.FC<Props> = ({ className }) => {
 };
 
 const Title = styled(Base)`
-  font-size: 20px;
+  font-size: 30px;
   color: #e6e8ed;
   position: absolute;
   top: 50%;

@@ -1,5 +1,6 @@
-import Footer from 'components/footer';
 import Header from 'components/header/header';
+import PageTitle from 'components/header/pagetitle';
+import SideMenu from 'components/header/sidemenu';
 import React from 'react';
 import styled from 'styled-components';
 import { sideMain } from 'styles/layout';
@@ -10,18 +11,26 @@ type Props = {
 
 const Base: React.FC<Props> = ({ children, className }) => {
   return (
-    <>
-      <Header></Header>
-      <div className={`${className}`}>
+    <div className={`${className}`}>
+      <Header />
+      <div className={`${className}__wrapper`}>
+        <SideMenu />
+        <PageTitle />
+      </div>
+      <div>
         <main>{children}</main>
       </div>
-      <Footer />
-    </>
+    </div>
   );
 };
 
 const Layout = styled(Base)`
-  ${sideMain}
+  height: 100%;
+  overflow: hidden;
+  background-color: #585755;
+  &__wrapper {
+    display: flex;
+  }
 `;
 
 export default Layout;

@@ -17,7 +17,7 @@ const Base: React.FC<Props> = ({ className }) => {
 
 const Login = styled(Base)`
   width: 100%;
-  font-size: 14px;
+  font-size: 20px;
   color: #e6e8ed;
   position: absolute;
   top: 50%;
