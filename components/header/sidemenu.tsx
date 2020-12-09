@@ -1,40 +1,56 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { MenuButton } from '../button/menu';
+import { MenuButton, Menu, RankList } from '../button/menu';
 
 type Props = {
   className?: string;
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  //WinRateflag
+  const [isWinOpen, setIsWinOpen] = useState(false);
+
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
         <div className={`${className}__flame`}>
           <Link href={`/`}>
-            <MenuButton className={`${className}__buttom`}>Home</MenuButton>
+            <MenuButton>Home</MenuButton>
           </Link>
         </div>
         <div className={`${className}__flame`}>
           <Link href={`/`}>
-            <MenuButton className={`${className}__buttom`}>
-              Team Building
-            </MenuButton>
+            <MenuButton>Team Building</MenuButton>
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <div>
-            <MenuButton className={`${className}__buttom`}>Win Rate</MenuButton>
-          </div>
+          <Menu
+            onClick={() => {
+              setIsWinOpen(!isWinOpen);
+            }}
+          >
+            Win Rate
+            <img
+              className={`${className}__arrow`}
+              src={`/button/arrow-down.png`}
+            />
+          </Menu>
         </div>
+        {isWinOpen ? (
+          <ul className={`${className}__flameList`}>
+            <RankList>
+              <a>Challenger</a>
+            </RankList>
+          </ul>
+        ) : null}
       </div>
     </div>
   );
 };
 
 const Header = styled(Base)`
-  height: 1440px;
+  height: 100vh;
   width: 11%;
   position: relative;
   border-right: 1px solid;
@@ -45,10 +61,18 @@ const Header = styled(Base)`
     margin-right: 6px;
   }
   &__flame {
-    height: 30px;
+    height: 32px;
     margin-bottom: 10px;
     border-bottom: 1px solid;
     border-color: #8c8c8c;
+  }
+  &__flameList {
+    list-style: none;
+    margin-top: 5px;
+    margin-left: 13px;
+  }
+  &__arrow {
+    margin-left: 82px;
   }
 `;
 
