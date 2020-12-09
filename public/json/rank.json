@@ -1,0 +1,36 @@
+{
+  "rank": [
+    {
+      "key": "Emblem_Challenger",
+      "name": "Challenger"
+    },
+    {
+      "key": "Emblem_Master",
+      "name": "Master"
+    },
+    {
+      "key": "Emblem_Diamond",
+      "name": "Diamond"
+    },
+    {
+      "key": "Emblem_Platinum",
+      "name": "Platinum"
+    },
+    {
+      "key": "Emblem_Gold",
+      "name": "Gold"
+    },
+    {
+      "key": "Emblem_Silver",
+      "name": "Silver"
+    },
+    {
+      "key": "Emblem_Bronze",
+      "name": "Bronze"
+    },
+    {
+      "key": "Emblem_Iron",
+      "name": "Iron"
+    }
+  ]
+}
