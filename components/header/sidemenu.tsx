@@ -10,6 +10,8 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   //WinRateflag
   const [isWinOpen, setIsWinOpen] = useState(false);
+  //ChampPickflag
+  const [isChampOpen, setIsChampOpen] = useState(false);
   //rank一覧
   const rankList = rank.rank.map((elm, index) => {
     return (
@@ -19,7 +21,7 @@ const Base: React.FC<Props> = ({ className }) => {
           alt={elm.name}
           className={`${className}__rankPng`}
         />
-        <a>{elm.name}</a>
+        <a className={`${className}__rankWord`}>{elm.name}</a>
       </li>
     );
   });
@@ -39,19 +41,50 @@ const Base: React.FC<Props> = ({ className }) => {
         </div>
         <div className={`${className}__flame`}>
           <div
-            className={`${className}__menuList`}
+            className={`${className}__menuButton`}
             onClick={() => {
               setIsWinOpen(!isWinOpen);
             }}
           >
             Win Rate
-            <img
-              className={`${className}__arrow`}
-              src={`/button/arrow-down.png`}
-            />
+            {isWinOpen ? (
+              <img
+                className={`${className}__arrow`}
+                src={`/button/arrow-up16.png`}
+              />
+            ) : (
+              <img
+                className={`${className}__arrow`}
+                src={`/button/arrow-down16.png`}
+              />
+            )}
           </div>
         </div>
         {isWinOpen ? (
+          <ul className={`${className}__flameList`}>{rankList}</ul>
+        ) : null}
+        <div className={`${className}__flame`}>
+          <div
+            className={`${className}__menuButton`}
+            onClick={() => {
+              setIsChampOpen(!isChampOpen);
+            }}
+          >
+            Champ Pick Rate
+            {isChampOpen ? (
+              <img
+                className={`${className}__arrow`}
+                src={`/button/arrow-up16.png`}
+              />
+            ) : (
+              <img
+                className={`${className}__arrow`}
+                src={`/button/arrow-down16.png`}
+              />
+            )}
+          </div>
+        </div>
+        {isChampOpen ? (
           <ul className={`${className}__flameList`}>{rankList}</ul>
         ) : null}
       </div>
@@ -81,30 +114,6 @@ const Header = styled(Base)`
     color: #b2b2b2;
     text-decoration: none;
     position: relative;
-    display: inline-block;
-    transition: 0.1s;
-    cursor: pointer;
-    ::after {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      content: '';
-      width: 0;
-      height: 2px;
-      background-color: #b2b2b2;
-      transition: 0.3s;
-      transform: translateX(-50%);
-    }
-    :hover::after {
-      width: 100%;
-    }
-  }
-  &__menuList {
-    font-size: 18px;
-    color: #b2b2b2;
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
     transition: 0.1s;
     cursor: pointer;
     ::after {
@@ -128,14 +137,19 @@ const Header = styled(Base)`
     margin-left: 13px;
   }
   &__arrow {
-    margin-left: 82px;
+    float: right;
+    margin: 2px 3px 0 0;
   }
   &__rankPng {
-    height: 20px;
+    height: 24px;
     width: 23px;
+    margin: 4px 2px 0px 3px;
+  }
+  &__rankWord {
+    margin-bottom: 5px;
   }
   &__rankList {
-    display: inline-block;
+    display: block;
     font-size: 18px;
     font-weight: bold;
     height: 32px;
@@ -143,9 +157,6 @@ const Header = styled(Base)`
     border-radius: 10px;
     color: #ffffff;
     background-color: #5987cd;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-bottom: 5px;
   }
 `;
