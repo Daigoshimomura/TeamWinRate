@@ -4,6 +4,7 @@ import Layout from '../../components/layout';
 
 //TODO 変数名修正。
 type Props = {
+  page: string;
   className?: string;
 };
 
@@ -13,9 +14,9 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ className }) => {
+const Post: React.FC<Props> = ({ page, className }) => {
   return (
-    <Layout>
+    <Layout page={page}>
       <div className={className}>winRank</div>
     </Layout>
   );
@@ -24,6 +25,7 @@ const Post: React.FC<Props> = ({ className }) => {
 export const getStaticProps = async ({ params }: Paths) => {
   return {
     props: {
+      page: 'WinRate',
       data: params,
     },
   };

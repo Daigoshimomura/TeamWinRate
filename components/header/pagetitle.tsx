@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Todo 各ページの情報を受け取って変更する。
 type Props = {
+  page?: string;
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ page, className }) => {
   return (
     <div className={`${className}`}>
-      <div className={`${className}__word`}>Home</div>
+      <div className={`${className}__word`}>{page}</div>
     </div>
   );
 };
