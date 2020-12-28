@@ -29,7 +29,7 @@ const Base: React.FC<Props> = ({ className }) => {
   });
   const teamRankList = rank.rank.map((elm, index) => {
     return (
-      <Link href={`/teamBuilding/${elm.name}`} key={index}>
+      <Link href={`/winRate/${elm.name}`} key={index}>
         <li className={`${className}__rankList`}>
           <img
             src={`rank/${elm.key}.png`}

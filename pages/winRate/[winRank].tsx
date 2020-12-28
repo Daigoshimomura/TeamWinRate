@@ -9,14 +9,14 @@ type Props = {
 
 type Paths = {
   params: {
-    teamRank: string;
+    winRank: string;
   };
 };
 
 const Post: React.FC<Props> = ({ className }) => {
   return (
     <Layout>
-      <div className={className}>teamRank</div>
+      <div className={className}>winRank</div>
     </Layout>
   );
 };
@@ -32,14 +32,14 @@ export const getStaticProps = async ({ params }: Paths) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [
-      { params: { teamRank: 'Challenger' } },
-      { params: { teamRank: 'Master' } },
-      { params: { teamRank: 'Diamond' } },
-      { params: { teamRank: 'Platinum' } },
-      { params: { teamRank: 'Gold' } },
-      { params: { teamRank: 'Silver' } },
-      { params: { teamRank: 'Bronze' } },
-      { params: { teamRank: 'Iron' } },
+      { params: { winRank: 'Challenger' } },
+      { params: { winRank: 'Master' } },
+      { params: { winRank: 'Diamond' } },
+      { params: { winRank: 'Platinum' } },
+      { params: { winRank: 'Gold' } },
+      { params: { winRank: 'Silver' } },
+      { params: { winRank: 'Bronze' } },
+      { params: { winRank: 'Iron' } },
     ],
     fallback: false,
   };
