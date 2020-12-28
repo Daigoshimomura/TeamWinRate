@@ -13,16 +13,32 @@ const Base: React.FC<Props> = ({ className }) => {
   //ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
   //rank一覧
-  const rankList = rank.rank.map((elm, index) => {
+  const champRankList = rank.rank.map((elm, index) => {
     return (
-      <li key={index} className={`${className}__rankList`}>
-        <img
-          src={`rank/${elm.key}.png`}
-          alt={elm.name}
-          className={`${className}__rankPng`}
-        />
-        <a className={`${className}__rankWord`}>{elm.name}</a>
-      </li>
+      <Link href={`/champPickRate/${elm.name}`} key={index}>
+        <li className={`${className}__rankList`}>
+          <img
+            src={`rank/${elm.key}.png`}
+            alt={elm.name}
+            className={`${className}__rankPng`}
+          />
+          <a className={`${className}__rankWord`}>{elm.name}</a>
+        </li>
+      </Link>
+    );
+  });
+  const teamRankList = rank.rank.map((elm, index) => {
+    return (
+      <Link href={`/teamBuilding/${elm.name}`} key={index}>
+        <li className={`${className}__rankList`}>
+          <img
+            src={`rank/${elm.key}.png`}
+            alt={elm.name}
+            className={`${className}__rankPng`}
+          />
+          <a className={`${className}__rankWord`}>{elm.name}</a>
+        </li>
+      </Link>
     );
   });
 
@@ -61,7 +77,7 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isWinOpen ? (
-          <ul className={`${className}__flameList`}>{rankList}</ul>
+          <ul className={`${className}__flameList`}>{teamRankList}</ul>
         ) : null}
         <div className={`${className}__flame`}>
           <div
@@ -85,7 +101,7 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isChampOpen ? (
-          <ul className={`${className}__flameList`}>{rankList}</ul>
+          <ul className={`${className}__flameList`}>{champRankList}</ul>
         ) : null}
       </div>
     </div>
