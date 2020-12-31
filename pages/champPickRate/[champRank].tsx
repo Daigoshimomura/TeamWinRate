@@ -1,10 +1,11 @@
+import Layout from 'components/champPickRate/champPickRate';
 import { GetStaticPaths } from 'next';
 import React from 'react';
-import Layout from '../../components/champPickRate/champPickRate';
 
 //TODO 変数名修正。
 type Props = {
   page: string;
+  rank: string;
   className?: string;
 };
 
@@ -14,9 +15,9 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ page, className }) => {
+const Post: React.FC<Props> = ({ className, page, rank }) => {
   return (
-    <Layout page={page}>
+    <Layout page={page} rank={rank}>
       <div className={className}>rank</div>
     </Layout>
   );
@@ -25,8 +26,8 @@ const Post: React.FC<Props> = ({ page, className }) => {
 export const getStaticProps = async ({ params }: Paths) => {
   return {
     props: {
-      page: 'ChampPickRate',
-      data: params,
+      page: 'Champ Pick Rate',
+      rank: params.champRank,
     },
   };
 };
