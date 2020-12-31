@@ -5,16 +5,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
+  page: string;
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ children, className }) => {
+const Base: React.FC<Props> = ({ page, children, className }) => {
   return (
     <div className={`${className}`}>
       <Header />
       <div className={`${className}__wrapper`}>
         <SideMenu />
-        <PageTitle />
+        <PageTitle page={page} />
       </div>
       <div>
         champPickだよ

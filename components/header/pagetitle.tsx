@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Todo 各ページの情報を受け取って変更する。
 type Props = {
-  page?: string;
+  page: string;
   className?: string;
 };
 

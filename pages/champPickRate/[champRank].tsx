@@ -1,6 +1,6 @@
 import { GetStaticPaths } from 'next';
 import React from 'react';
-import Layout from '../../components/layout';
+import Layout from '../../components/champPickRate/champPickRate';
 
 //TODO 変数名修正。
 type Props = {
