@@ -14,7 +14,6 @@ const Title = styled(Base)`
   color: #e6e8ed;
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   margin-left: 20px;
 `;
