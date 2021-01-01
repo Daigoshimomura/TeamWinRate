@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import rank from 'public/json/rank.json';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import rank from '../../public/json/rank.json';
 
 type Props = {
   className?: string;
@@ -162,10 +162,12 @@ const Header = styled(Base)`
     margin: 4px 2px 0px 3px;
   }
   &__rankWord {
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 2px;
   }
   &__rankList {
-    display: block;
+    display: flex;
+    flex-direction: row;
     font-size: 18px;
     font-weight: bold;
     height: 32px;
