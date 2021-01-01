@@ -1,21 +1,22 @@
 import Header from 'components/header/header';
-import PageTitle from 'components/header/pagetitle';
+import PageTitle from 'components/header/pageTitleRank';
 import SideMenu from 'components/header/sidemenu';
 import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  page: string;
   className?: string;
+  page: string;
+  rank: string;
 };
 
-const Base: React.FC<Props> = ({ page, children, className }) => {
+const Base: React.FC<Props> = ({ className, page, children, rank }) => {
   return (
     <div className={`${className}`}>
       <Header />
       <div className={`${className}__wrapper`}>
         <SideMenu />
-        <PageTitle page={page} />
+        <PageTitle page={page} rank={rank} />
       </div>
       <div>
         champPickだよ

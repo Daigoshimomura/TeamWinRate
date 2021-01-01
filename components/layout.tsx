@@ -1,5 +1,5 @@
 import Header from 'components/header/header';
-import PageTitle from 'components/header/pagetitle';
+import PageTitle from 'components/header/pageTitle';
 import SideMenu from 'components/header/sidemenu';
 import React from 'react';
 import styled from 'styled-components';
