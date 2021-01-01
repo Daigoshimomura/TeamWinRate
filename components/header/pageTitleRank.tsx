@@ -32,22 +32,28 @@ const PageTitleRank = styled(Base)`
     margin-left: 50px;
   }
   &__rank {
+    display: flex;
     font-size: 32px;
     margin-left: 50px;
+    margin-right: auto;
     height: 60px;
     width: 270px;
     border-radius: 10px;
     color: #ffffff;
     background-color: #5987cd;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
   &__img {
     height: 45px;
     width: 40px;
+    margin-left: 5px;
   }
   &__wordrank {
+    margin-left: 15px;
+    margin-right: 80px;
+    font-weight: bold;
   }
 `;
 
