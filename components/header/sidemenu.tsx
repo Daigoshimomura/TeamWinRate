@@ -1,3 +1,4 @@
+import RankMenu from 'components/header/rankMenu';
 import Link from 'next/link';
 import rank from 'public/json/rank.json';
 import React, { useState } from 'react';
@@ -12,36 +13,6 @@ const Base: React.FC<Props> = ({ className }) => {
   const [isWinOpen, setIsWinOpen] = useState(false);
   //ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
-  //rank一覧
-  const champRankList = rank.rank.map((elm, index) => {
-    return (
-      <Link href={`/champPickRate/${elm.name}`} key={index}>
-        <li className={`${className}__rankList`}>
-          <img
-            src={`rank/${elm.key}.png`}
-            alt={elm.name}
-            className={`${className}__rankPng`}
-          />
-          <a className={`${className}__rankWord`}>{elm.name}</a>
-        </li>
-      </Link>
-    );
-  });
-  const teamRankList = rank.rank.map((elm, index) => {
-    return (
-      <Link href={`/winRate/${elm.name}`} key={index}>
-        <li className={`${className}__rankList`}>
-          <img
-            src={`rank/${elm.key}.png`}
-            alt={elm.name}
-            className={`${className}__rankPng`}
-          />
-          <a className={`${className}__rankWord`}>{elm.name}</a>
-        </li>
-      </Link>
-    );
-  });
-
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
@@ -77,7 +48,9 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isWinOpen ? (
-          <ul className={`${className}__flameList`}>{teamRankList}</ul>
+          <ul className={`${className}__flameList`}>
+            <RankMenu baseUrl="winRate" />
+          </ul>
         ) : null}
         <div className={`${className}__flame`}>
           <div
@@ -101,7 +74,9 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isChampOpen ? (
-          <ul className={`${className}__flameList`}>{champRankList}</ul>
+          <ul className={`${className}__flameList`}>
+            <RankMenu baseUrl="champPickRate" />
+          </ul>
         ) : null}
       </div>
     </div>
@@ -155,27 +130,6 @@ const Header = styled(Base)`
   &__arrow {
     float: right;
     margin: 2px 3px 0 0;
-  }
-  &__rankPng {
-    height: 24px;
-    width: 23px;
-    margin: 4px 2px 0px 3px;
-  }
-  &__rankWord {
-    margin-top: 5px;
-    margin-left: 2px;
-  }
-  &__rankList {
-    display: flex;
-    flex-direction: row;
-    font-size: 18px;
-    font-weight: bold;
-    height: 32px;
-    width: 149px;
-    border-radius: 10px;
-    color: #ffffff;
-    background-color: #5987cd;
-    margin-bottom: 5px;
   }
 `;
 
