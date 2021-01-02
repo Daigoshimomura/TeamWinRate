@@ -12,14 +12,14 @@ const Base: React.FC<Props> = ({ className, baseUrl }) => {
   const rankMenu = rank.rank.map((elm, index) => {
     return (
       <Link href={`/${baseUrl}/${elm.name}`} key={index}>
-        <li className={`${className}__rankList`}>
+        <div className={`${className}__rankList`}>
           <img
-            src={`rank/${elm.key}.png`}
+            src={`/rank/${elm.key}.png`}
             alt={elm.name}
             className={`${className}__rankPng`}
           />
           <a className={`${className}__rankWord`}>{elm.name}</a>
-        </li>
+        </div>
       </Link>
     );
   });

@@ -13,6 +13,8 @@ const Base: React.FC<Props> = ({ className }) => {
   const [isWinOpen, setIsWinOpen] = useState(false);
   //ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
+  const [count, setCount] = useState(0);
+  const [isCount, setIsCount] = useState(false);
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
@@ -48,9 +50,9 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isWinOpen ? (
-          <ul className={`${className}__flameList`}>
+          <div className={`${className}__flameList`}>
             <RankMenu baseUrl="winRate" />
-          </ul>
+          </div>
         ) : null}
         <div className={`${className}__flame`}>
           <div
@@ -74,9 +76,9 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         </div>
         {isChampOpen ? (
-          <ul className={`${className}__flameList`}>
+          <div className={`${className}__flameList`}>
             <RankMenu baseUrl="champPickRate" />
-          </ul>
+          </div>
         ) : null}
       </div>
     </div>
