@@ -1,6 +1,7 @@
 import Header from 'components/header/header';
 import PageTitle from 'components/header/pageTitleRank';
 import SideMenu from 'components/header/sidemenu';
+import WinList from 'components/winRate/winList';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -26,6 +27,19 @@ const Base: React.FC<Props> = ({ className, page, rank }) => {
               <th className={`${className}__1th`}>1th</th>
               <th className={`${className}__4th`}>4th</th>
             </tr>
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
+            <WinList rank={rank} />
           </table>
         </div>
       </div>
@@ -46,7 +60,7 @@ const winRate = styled(Base)`
     margin: 0;
   }
   &__mainElement {
-    margin: 30px 10px 0px 30px;
+    margin: 30px 50px 0px 50px;
   }
   &__itemList {
     color: #b2b2b2;
@@ -57,19 +71,19 @@ const winRate = styled(Base)`
     border-bottom: 1px solid;
   }
   &__symergies {
-    padding-right: 600px;
+    padding-right: 550px;
     border-bottom: 1px solid;
   }
   &__champions {
-    padding-right: 600px;
+    padding-right: 550px;
     border-bottom: 1px solid;
   }
   &__1th {
-    padding-right: 30px;
+    padding-right: 35px;
     border-bottom: 1px solid;
   }
   &__4th {
-    padding-right: 30px;
+    padding-right: 35px;
     border-bottom: 1px solid;
   }
 `;
