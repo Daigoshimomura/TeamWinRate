@@ -13,8 +13,6 @@ const Base: React.FC<Props> = ({ className }) => {
   const [isWinOpen, setIsWinOpen] = useState(false);
   //ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
-  const [count, setCount] = useState(0);
-  const [isCount, setIsCount] = useState(false);
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
@@ -91,6 +89,7 @@ const Header = styled(Base)`
   position: relative;
   border-right: 1px solid;
   border-color: #8c8c8c;
+  min-width: 200px;
   &__menu {
     margin-top: 86px;
     margin-left: 19px;

@@ -50,21 +50,27 @@ const winRate = styled(Base)`
   }
   &__itemList {
     color: #b2b2b2;
+    border-bottom: 1px solid;
   }
   &__teamType {
     padding-right: 50px;
+    border-bottom: 1px solid;
   }
   &__symergies {
     padding-right: 600px;
+    border-bottom: 1px solid;
   }
   &__champions {
     padding-right: 600px;
+    border-bottom: 1px solid;
   }
   &__1th {
     padding-right: 30px;
+    border-bottom: 1px solid;
   }
   &__4th {
     padding-right: 30px;
+    border-bottom: 1px solid;
   }
 `;
 
