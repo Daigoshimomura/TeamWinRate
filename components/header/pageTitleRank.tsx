@@ -24,7 +24,7 @@ const PageTitleRank = styled(Base)`
   color: #b2b2b2;
   position: relative;
   height: 105px;
-  width: 89%;
+  width: 100%;
   border-bottom: 1px solid;
   border-color: #8c8c8c;
   flex-direction: column;
