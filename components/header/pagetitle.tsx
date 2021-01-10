@@ -9,13 +9,9 @@ type Props = {
 
 const Base: React.FC<Props> = ({ page, className, rank }) => {
   return (
-    <div
-      className={
-        !(page === `WinRate`) ? `${className}__main` : `${className}__mainRank`
-      }
-    >
+    <div className={rank ? `${className}__mainRank` : `${className}__main`}>
       <div className={`${className}__word`}>{page}</div>
-      {page === `WinRate` ? (
+      {rank ? (
         <div className={`${className}__rank`}>
           <img
             className={`${className}__img`}
@@ -40,7 +36,7 @@ const PageTitle = styled(Base)`
     align-items: center;
   }
   &__mainRank {
-    font-size: 20px;
+    font-size: 24px;
     color: #b2b2b2;
     position: relative;
     height: 105px;
