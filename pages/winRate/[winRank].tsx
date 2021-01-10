@@ -1,4 +1,5 @@
-import Layout from 'components/winRate/winRate';
+import Layout from 'components/layout';
+import WinRate from 'components/winRate/winRate';
 import { GetStaticPaths } from 'next';
 import React from 'react';
 
@@ -17,8 +18,8 @@ type Paths = {
 
 const Post: React.FC<Props> = ({ className, page, rank }) => {
   return (
-    <Layout page={page} rank={rank}>
-      <div className={className}>winRank</div>
+    <Layout page={'WinRate'}>
+      <WinRate rank={rank}></WinRate>
     </Layout>
   );
 };

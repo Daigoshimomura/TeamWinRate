@@ -85,10 +85,10 @@ const Base: React.FC<Props> = ({ className }) => {
 
 const Header = styled(Base)`
   height: 100vh;
-  width: 11%;
   position: relative;
   border-right: 1px solid;
   border-color: #8c8c8c;
+  width: 11vw;
   min-width: 200px;
   &__menu {
     margin-top: 86px;

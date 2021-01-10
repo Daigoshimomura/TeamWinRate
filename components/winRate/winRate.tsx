@@ -1,91 +1,68 @@
-import Header from 'components/header/header';
-import PageTitle from 'components/header/pageTitleRank';
-import SideMenu from 'components/header/sidemenu';
 import WinList from 'components/winRate/winList';
 import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
   className?: string;
-  page: string;
   rank: string;
 };
 
-const Base: React.FC<Props> = ({ className, page, rank }) => {
+const Base: React.FC<Props> = ({ className, rank }) => {
   return (
-    <div className={`${className}`}>
-      <Header />
-      <div className={`${className}__wrapper`}>
-        <SideMenu />
-        <div className={`${className}__mainScreen`}>
-          <PageTitle page={page} rank={rank} />
-          <table className={`${className}__mainElement`}>
-            <tr className={`${className}__itemList`}>
-              <th className={`${className}__teamType`}>Team Type</th>
-              <th className={`${className}__symergies`}>Synergies</th>
-              <th className={`${className}__champions`}>Champions</th>
-              <th className={`${className}__1th`}>1th</th>
-              <th className={`${className}__4th`}>4th</th>
-            </tr>
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-            <WinList rank={rank} />
-          </table>
-        </div>
+    <div className={`${className}__mainElement`}>
+      <div className={`${className}__itemList`}>
+        <div className={`${className}__teamType`}>Team Type</div>
+        <div className={`${className}__symergies`}>Synergies</div>
+        <div className={`${className}__champions`}>Champions</div>
+        <div className={`${className}__1st`}>1st</div>
+        <div className={`${className}__4th`}>4th</div>
       </div>
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
+      <WinList rank={rank} />
     </div>
   );
 };
 
-const winRate = styled(Base)`
+const WinRate = styled(Base)`
   height: 100%;
-  overflow: hidden;
   background-color: #585755;
-  &__wrapper {
-    display: flex;
-  }
-  &__mainScreen {
-    display: row;
-    width: 100%;
-    margin: 0;
-  }
   &__mainElement {
-    margin: 30px 50px 0px 50px;
+    margin: 30px 5px 0px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   &__itemList {
+    display: flex;
     color: #b2b2b2;
     border-bottom: 1px solid;
   }
   &__teamType {
-    padding-right: 50px;
-    border-bottom: 1px solid;
+    min-width: 150px;
   }
   &__symergies {
-    padding-right: 550px;
-    border-bottom: 1px solid;
+    min-width: 450px;
   }
   &__champions {
-    padding-right: 550px;
-    border-bottom: 1px solid;
+    min-width: 500px;
   }
-  &__1th {
-    padding-right: 35px;
-    border-bottom: 1px solid;
+  &__1st {
+    min-width: 65px;
   }
   &__4th {
-    padding-right: 35px;
-    border-bottom: 1px solid;
+    min-width: 65px;
   }
 `;
 
-export default winRate;
+export default WinRate;

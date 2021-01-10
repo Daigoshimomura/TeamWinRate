@@ -19,7 +19,6 @@ const PageTitle = styled(Base)`
   color: #b2b2b2;
   position: relative;
   height: 62px;
-  width: 89%;
   border-bottom: 1px solid;
   border-color: #8c8c8c;
   &__word {

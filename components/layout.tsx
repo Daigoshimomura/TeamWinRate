@@ -3,7 +3,6 @@ import PageTitle from 'components/header/pageTitle';
 import SideMenu from 'components/header/sidemenu';
 import React from 'react';
 import styled from 'styled-components';
-import { sideMain } from 'styles/layout';
 
 type Props = {
   page: string;
@@ -16,10 +15,10 @@ const Base: React.FC<Props> = ({ page, children, className }) => {
       <Header />
       <div className={`${className}__wrapper`}>
         <SideMenu />
-        <PageTitle page={page} />
-      </div>
-      <div>
-        <main>{children}</main>
+        <div className={`${className}__main`}>
+          <PageTitle page={page} />
+          <main>{children}</main>
+        </div>
       </div>
     </div>
   );
@@ -27,10 +26,14 @@ const Base: React.FC<Props> = ({ page, children, className }) => {
 
 const Layout = styled(Base)`
   height: 100%;
-  overflow: hidden;
   background-color: #585755;
   &__wrapper {
+    height: 100%;
     display: flex;
+  }
+  &__main {
+    width: 89vw;
+    overflow: hidden;
   }
 `;
 
