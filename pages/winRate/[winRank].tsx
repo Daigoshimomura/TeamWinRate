@@ -1,11 +1,13 @@
+import Layout from 'components/layout';
+import WinRate from 'components/winRate/winRate';
 import { GetStaticPaths } from 'next';
 import React from 'react';
-import Layout from '../../components/layout';
 
 //TODO 変数名修正。
 type Props = {
-  page: string;
   className?: string;
+  page: string;
+  rank: string;
 };
 
 type Paths = {
@@ -14,10 +16,10 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ page, className }) => {
+const Post: React.FC<Props> = ({ className, page, rank }) => {
   return (
-    <Layout page={page}>
-      <div className={className}>winRank</div>
+    <Layout page={'WinRate'} rank={rank}>
+      <WinRate rank={rank}></WinRate>
     </Layout>
   );
 };
@@ -26,7 +28,7 @@ export const getStaticProps = async ({ params }: Paths) => {
   return {
     props: {
       page: 'WinRate',
-      data: params,
+      rank: params.winRank,
     },
   };
 };

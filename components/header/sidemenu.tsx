@@ -1,6 +1,5 @@
 import RankMenu from 'components/header/rankMenu';
 import Link from 'next/link';
-import rank from 'public/json/rank.json';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -13,8 +12,6 @@ const Base: React.FC<Props> = ({ className }) => {
   const [isWinOpen, setIsWinOpen] = useState(false);
   //ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
-  const [count, setCount] = useState(0);
-  const [isCount, setIsCount] = useState(false);
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
@@ -87,10 +84,11 @@ const Base: React.FC<Props> = ({ className }) => {
 
 const Header = styled(Base)`
   height: 100vh;
-  width: 11%;
   position: relative;
   border-right: 1px solid;
   border-color: #8c8c8c;
+  width: 11vw;
+  min-width: 200px;
   &__menu {
     margin-top: 86px;
     margin-left: 19px;
