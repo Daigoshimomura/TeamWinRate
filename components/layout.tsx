@@ -7,16 +7,17 @@ import styled from 'styled-components';
 type Props = {
   page: string;
   className?: string;
+  rank?: string;
 };
 
-const Base: React.FC<Props> = ({ page, children, className }) => {
+const Base: React.FC<Props> = ({ page, children, className, rank }) => {
   return (
     <div className={`${className}`}>
       <Header />
       <div className={`${className}__wrapper`}>
         <SideMenu />
         <div className={`${className}__main`}>
-          <PageTitle page={page} />
+          <PageTitle page={page} rank={rank} />
           <main>{children}</main>
         </div>
       </div>

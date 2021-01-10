@@ -1,6 +1,5 @@
 import RankMenu from 'components/header/rankMenu';
 import Link from 'next/link';
-import rank from 'public/json/rank.json';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
