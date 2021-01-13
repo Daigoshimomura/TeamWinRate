@@ -9,7 +9,7 @@ const Base: React.FC<Props> = ({ className }) => {
   return (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__mainSection`}>
-        <div className={`${className}__buliding`}>
+        <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}></div>
           <div className={`${className}__underTeam`}></div>
         </div>
@@ -25,19 +25,23 @@ const TeamBuilding = styled(Base)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
   }
   &__mainSection {
     display: flex;
     flex-direction: row;
+    margin-bottom: 5px;
   }
   &__building {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    margin-right: 10px;
   }
   &__topTeam {
     height: 315px;
     width: 695px;
     background: #656565;
+    margin-bottom: 5px;
   }
   &__underTeam {
     height: 315px;
@@ -45,13 +49,13 @@ const TeamBuilding = styled(Base)`
     background: #656565;
   }
   &__teamList {
-    height: 600px;
+    height: 635px;
     width: 495px;
     background: #656565;
   }
   &__poolSection {
     height: 315px;
-    width: 1190px;
+    width: 1200px;
     background: #656565;
   }
 `;
