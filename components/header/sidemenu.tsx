@@ -21,7 +21,7 @@ const Base: React.FC<Props> = ({ className }) => {
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <Link href={`/`}>
+          <Link href={`/teamBuilding/teamBuilding`}>
             <a className={`${className}__menuButton`}>Team Building</a>
           </Link>
         </div>
