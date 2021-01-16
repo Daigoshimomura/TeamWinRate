@@ -1,3 +1,4 @@
+import Traits from 'components/teamBuilding/traitsList';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -19,7 +20,18 @@ const Base: React.FC<Props> = ({ className }) => {
         </div>
       </div>
       <div className={`${className}__bulid`}>
-        <div className={`${className}__traitsList`}></div>
+        <div className={`${className}__traitsList`}>
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+          <Traits />
+        </div>
         <div className={`${className}__placementPlace`}></div>
       </div>
     </div>
@@ -34,6 +46,7 @@ const Building = styled(Base)`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
   &__teamName {
     max-width: 445px;
@@ -42,6 +55,7 @@ const Building = styled(Base)`
     white-space: nowrap;
     overflow: hidden;
     color: #e6e8ed;
+    margin-top: 13px;
   }
   &__buttonList {
     font-size: 14px;
@@ -67,6 +81,14 @@ const Building = styled(Base)`
     border-radius: 6px;
     background-color: #ffffff;
     color: #5987cd;
+  }
+  &__build {
+    background-color: #ffffff;
+  }
+  &__traitsList {
+    display: flex;
+    flex-wrap: wrap;
+    width: 216px;
   }
 `;
 
