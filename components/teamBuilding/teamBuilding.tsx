@@ -1,3 +1,4 @@
+import Building from 'components/teamBuilding/building';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -10,8 +11,12 @@ const Base: React.FC<Props> = ({ className }) => {
     <div className={`${className}__mainElement`}>
       <div className={`${className}__mainSection`}>
         <div className={`${className}__building`}>
-          <div className={`${className}__topTeam`}></div>
-          <div className={`${className}__underTeam`}></div>
+          <div className={`${className}__topTeam`}>
+            <Building />
+          </div>
+          <div className={`${className}__underTeam`}>
+            <Building />
+          </div>
         </div>
         <div className={`${className}__teamList`}></div>
       </div>
@@ -42,21 +47,26 @@ const TeamBuilding = styled(Base)`
     width: 695px;
     background: #656565;
     margin-bottom: 5px;
+    border-radius: 6px;
   }
   &__underTeam {
     height: 315px;
     width: 695px;
     background: #656565;
+    border-radius: 6px;
   }
   &__teamList {
     height: 635px;
     width: 495px;
     background: #656565;
+    border-radius: 6px;
   }
   &__poolSection {
     height: 315px;
     width: 1200px;
     background: #656565;
+    border-radius: 6px;
+    margin-bottom: 10px;
   }
 `;
 
