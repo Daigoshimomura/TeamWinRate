@@ -23,7 +23,7 @@ const Base: React.FC<Props> = ({ className }) => {
     <div className={`${className}`}>
       <div className={`${className}__header`}>
         <div className={`${className}__teamName`}>
-          とっても長いチーム名をつけるとこういう感じです。
+          とっても長いチーム名をつけるとこういう感じになります。
         </div>
         <div className={`${className}__buttonList`}>
           <button className={`${className}__save`}>Save</button>
