@@ -7,6 +7,18 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  const pentagon = (color: string) => {
+    const pentagon = [];
+    for (let i = 0; i < 7; i++) {
+      pentagon.push(
+        <img
+          className={`${className}__pentagonImg`}
+          src={`/build/Pentagon-${color}.png`}
+        />
+      );
+    }
+    return pentagon;
+  };
   return (
     <div className={`${className}`}>
       <div className={`${className}__header`}>
@@ -19,7 +31,7 @@ const Base: React.FC<Props> = ({ className }) => {
           <button className={`${className}__new`}>New</button>
         </div>
       </div>
-      <div className={`${className}__bulid`}>
+      <div className={`${className}__build`}>
         <div className={`${className}__traitsList`}>
           <Traits />
           <Traits />
@@ -32,7 +44,21 @@ const Base: React.FC<Props> = ({ className }) => {
           <Traits />
           <Traits />
         </div>
-        <div className={`${className}__placementPlace`}></div>
+        <div className={`${className}__placementPlace`}>
+          <div className={`${className}__pentagonGrayListUp`}>
+            {pentagon(`gray`)}
+          </div>
+          <div className={`${className}__pentagonWhiteList`}>
+            {pentagon(`white`)}
+          </div>
+          <div className={`${className}__pentagonGrayListDown`}>
+            {pentagon(`gray`)}
+          </div>
+          <div className={`${className}__pentagonWhiteList`}>
+            {pentagon(`white`)}
+          </div>
+          <div className={`${className}__boad`}>Comparison Boad</div>
+        </div>
       </div>
     </div>
   );
@@ -83,12 +109,48 @@ const Building = styled(Base)`
     color: #5987cd;
   }
   &__build {
-    background-color: #ffffff;
+    height: 215px;
+    display: flex;
+    flex-direction: row;
   }
   &__traitsList {
     display: flex;
     flex-wrap: wrap;
     width: 216px;
+  }
+  &__placementPlace {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 423px;
+    margin-left: 24px;
+  }
+  &__pentagonGrayListUp {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: -14px;
+  }
+  &__pentagonGrayListDown {
+    display: flex;
+    flex-direction: row;
+    margin-top: -14px;
+    margin-bottom: -14px;
+  }
+  &__pentagonWhiteList {
+    display: flex;
+    flex-direction: row;
+    margin-left: 28px;
+  }
+  &__pentagonImg {
+    width: 54;
+    height: 62px;
+    margin-right: 2px;
+  }
+  &__boad {
+    color: #b2b2b2;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 0 auto;
   }
 `;
 
