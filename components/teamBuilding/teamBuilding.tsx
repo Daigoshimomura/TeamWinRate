@@ -1,4 +1,5 @@
 import Building from 'components/teamBuilding/building';
+import Pool from 'components/teamBuilding/pool';
 import TeamList from 'components/teamBuilding/teamList';
 import React from 'react';
 import styled from 'styled-components';
@@ -23,7 +24,9 @@ const Base: React.FC<Props> = ({ className }) => {
           <TeamList />
         </div>
       </div>
-      <div className={`${className}__poolSection`}></div>
+      <div className={`${className}__poolSection`}>
+        <Pool />
+      </div>
     </div>
   );
 };

@@ -12,6 +12,7 @@ const Base: React.FC<Props> = ({ className }) => {
     for (let i = 0; i < 7; i++) {
       pentagon.push(
         <img
+          key={i}
           className={`${className}__pentagonImg`}
           src={`/build/Pentagon-${color}.png`}
         />

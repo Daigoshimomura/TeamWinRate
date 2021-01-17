@@ -11,6 +11,7 @@ const Base: React.FC<Props> = ({ className }) => {
     for (let i = 0; i < 10; i++) {
       champions.push(
         <img
+          key={i}
           className={`${className}__championImg`}
           src={`/champions/TFT4_Ahri.png`}
         />
@@ -19,7 +20,7 @@ const Base: React.FC<Props> = ({ className }) => {
     const team = [];
     for (let i = 0; i < 5; i++) {
       team.push(
-        <div className={`${className}__team`}>
+        <div key={i} className={`${className}__team`}>
           <div className={`${className}__teamName`}>
             とっても長いチーム名をつけるとこういう感じになります。
           </div>
