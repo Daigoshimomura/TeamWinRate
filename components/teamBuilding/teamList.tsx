@@ -13,7 +13,7 @@ const Base: React.FC<Props> = ({ className }) => {
         <img
           key={i}
           className={`${className}__championImg`}
-          src={`/champions/TFT4_Ahri.png`}
+          src={`/champions/TFT4_Akali.png`}
         />
       );
     }

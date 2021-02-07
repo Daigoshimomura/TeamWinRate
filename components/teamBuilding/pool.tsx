@@ -1,4 +1,7 @@
+import { ItemTypes } from 'components/teamBuilding/itemType';
 import React from 'react';
+import { useDrag } from 'react-dnd';
+
 import styled from 'styled-components';
 
 type Props = {
@@ -6,14 +9,33 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.Aatrox },
+    collect: (monitor) => {
+      // console.log('monitor', monitor);
+      console.log('---------');
+      console.log('isDragging', monitor.isDragging());
+      console.log('canDrag', monitor.canDrag());
+      console.log('didDrop', monitor.didDrop());
+      console.log('---------');
+
+      return {
+        isDragging: monitor.isDragging(),
+      };
+    },
+  });
   const championList = () => {
     const champions = [];
-    for (let i = 0; i < 58; i++) {
+    for (let i = 0; i < 1; i++) {
       champions.push(
         <img
-          key={i}
+          ref={drag}
           className={`${className}__championImg`}
-          src={`/champions/TFT4_Ahri.png`}
+          src={
+            isDragging
+              ? `/champions/TFT4_Akali.png`
+              : `/champions/TFT4_Aatrox.png`
+          }
         />
       );
     }

@@ -2,6 +2,8 @@ import Building from 'components/teamBuilding/building';
 import Pool from 'components/teamBuilding/pool';
 import TeamList from 'components/teamBuilding/teamList';
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
 
 type Props = {
@@ -11,22 +13,24 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   return (
     <div className={`${className}__mainElement`}>
-      <div className={`${className}__mainSection`}>
-        <div className={`${className}__building`}>
-          <div className={`${className}__topTeam`}>
-            <Building />
+      <DndProvider backend={HTML5Backend}>
+        <div className={`${className}__mainSection`}>
+          <div className={`${className}__building`}>
+            <div className={`${className}__topTeam`}>
+              <Building />
+            </div>
+            <div className={`${className}__underTeam`}>
+              <Building />
+            </div>
           </div>
-          <div className={`${className}__underTeam`}>
-            <Building />
+          <div className={`${className}__teamList`}>
+            <TeamList />
           </div>
         </div>
-        <div className={`${className}__teamList`}>
-          <TeamList />
+        <div className={`${className}__poolSection`}>
+          <Pool />
         </div>
-      </div>
-      <div className={`${className}__poolSection`}>
-        <Pool />
-      </div>
+      </DndProvider>
     </div>
   );
 };
