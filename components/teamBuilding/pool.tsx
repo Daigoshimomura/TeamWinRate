@@ -1,4 +1,4 @@
-import { ItemTypes } from 'components/teamBuilding/itemType';
+import champions from 'public/json/champions.json';
 import React from 'react';
 import { useDrag } from 'react-dnd';
 
@@ -9,43 +9,29 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.Aatrox },
-    collect: (monitor) => {
-      // console.log('monitor', monitor);
-      console.log('---------');
-      console.log('isDragging', monitor.isDragging());
-      console.log('canDrag', monitor.canDrag());
-      console.log('didDrop', monitor.didDrop());
-      console.log('---------');
-
-      return {
-        isDragging: monitor.isDragging(),
-      };
-    },
+  const championList = champions.map((elm, index) => {
+    const [{ isDragging }, ref] = useDrag({
+      item: { type: `${elm.name}` },
+      collect: (monitor) => {
+        return {
+          isDragging: monitor.isDragging(),
+        };
+      },
+    });
+    return (
+      <img
+        key={index}
+        ref={ref}
+        className={`${className}__championImg`}
+        src={`/champions/${elm.championId}.png`}
+      />
+    );
   });
-  const championList = () => {
-    const champions = [];
-    for (let i = 0; i < 1; i++) {
-      champions.push(
-        <img
-          ref={drag}
-          className={`${className}__championImg`}
-          src={
-            isDragging
-              ? `/champions/TFT4_Akali.png`
-              : `/champions/TFT4_Aatrox.png`
-          }
-        />
-      );
-    }
-    return champions;
-  };
 
   return (
     <div className={`${className}`}>
       <div className={`${className}__header`}>Champion Pool</div>
-      <div className={`${className}__championList`}>{championList()}</div>
+      <div className={`${className}__championList`}>{championList}</div>
     </div>
   );
 };

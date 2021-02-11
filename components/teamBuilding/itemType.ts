@@ -57,5 +57,4 @@ export const ItemTypes = {
   Yuumi: 'Yuumi',
   Zed: 'Zed',
   Zilean: 'Zilean',
-  Target_Dummy: 'Target_Dummy',
 };

@@ -1,5 +1,7 @@
+import { type } from 'os';
 import { ItemTypes } from 'components/teamBuilding/itemType';
 import Traits from 'components/teamBuilding/traitsList';
+import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
@@ -13,25 +15,35 @@ const Base: React.FC<Props> = ({ className }) => {
   const moveChampion = () => {
     setIsChampion(false);
   };
-  const [, drop] = useDrop({
-    // ここ配列いける
-    accept: [ItemTypes.Aatrox],
-    drop: () => moveChampion(),
+
+  const types: string[] = champions.map((elm) => {
+    return elm.name;
   });
+
   const pentagon = (color: string) => {
     const pentagon = [];
     for (let i = 0; i < 7; i++) {
+      const [, ref] = useDrop({
+        accept: types,
+        drop: (monitor) => {
+          console.log(champions[0].name);
+          console.log(monitor);
+          moveChampion();
+        },
+      });
+
       pentagon.push(
         isChampion ? (
           <img
-            ref={drop}
+            ref={ref}
             key={i}
             className={`${className}__pentagonImg`}
             src={`/build/Pentagon-${color}.png`}
           />
-        ) : null
+        ) : (
+          <img src={`/champions/TFT4_Akali.png`} />
+        )
       );
-      isChampion ? <img src={`/champions/TFT4_Akali.png`} /> : null;
     }
     return pentagon;
   };
