@@ -12,8 +12,16 @@ type Props = {
 
 const Base: React.FC<Props> = ({ className }) => {
   const [isChampion, setIsChampion] = useState(true);
-  const moveChampion = () => {
+  const [championimg, setChampinoimg] = useState<string>('');
+  const [champion, setChampion] = useState<string>('');
+  const moveChampion = (monitor: string | symbol) => {
     setIsChampion(false);
+    const IdNumber: number = champions.findIndex(
+      (champion) => champion.name === monitor
+    );
+    const championId: string = champions[IdNumber].championId;
+    setChampion(String(championId));
+    setChampinoimg(`/champions/${String(champion)}.png`);
   };
 
   const types: string[] = champions.map((elm) => {
@@ -26,12 +34,10 @@ const Base: React.FC<Props> = ({ className }) => {
       const [, ref] = useDrop({
         accept: types,
         drop: (monitor) => {
-          console.log(champions[0].name);
-          console.log(monitor);
-          moveChampion();
+          console.log(`モニター${monitor}`);
+          moveChampion(monitor.type);
         },
       });
-
       pentagon.push(
         isChampion ? (
           <img
@@ -41,7 +47,7 @@ const Base: React.FC<Props> = ({ className }) => {
             src={`/build/Pentagon-${color}.png`}
           />
         ) : (
-          <img src={`/champions/TFT4_Akali.png`} />
+          <img src={`${championimg}`} />
         )
       );
     }
