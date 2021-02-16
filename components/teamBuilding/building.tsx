@@ -12,16 +12,13 @@ type Props = {
 
 const Base: React.FC<Props> = ({ className }) => {
   const [isChampion, setIsChampion] = useState(true);
-  const [championimg, setChampinoimg] = useState<string>('');
-  const [champion, setChampion] = useState<string>('');
+  const [championimg, setChampionimg] = useState<string>('');
   const moveChampion = (monitor: string | symbol) => {
     setIsChampion(false);
     const IdNumber: number = champions.findIndex(
       (champion) => champion.name === monitor
     );
-    const championId: string = champions[IdNumber].championId;
-    setChampion(String(championId));
-    setChampinoimg(`/champions/${String(champion)}.png`);
+    setChampionimg(`/champions/${champions[IdNumber].championId}.png`);
   };
 
   const types: string[] = champions.map((elm) => {
