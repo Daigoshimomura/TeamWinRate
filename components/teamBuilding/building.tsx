@@ -1,5 +1,3 @@
-import { type } from 'os';
-import { ItemTypes } from 'components/teamBuilding/itemType';
 import Traits from 'components/teamBuilding/traitsList';
 import champions from 'public/json/champions.json';
 import React, { useState } from 'react';

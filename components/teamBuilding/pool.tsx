@@ -19,11 +19,11 @@ const Base: React.FC<Props> = ({ className }) => {
       },
     });
     return (
-      <img
+      <ChampionImage
         key={index}
         ref={ref}
-        className={`${className}__championImg`}
         src={`/champions/${elm.championId}.png`}
+        color={`${elm.cost}`}
       />
     );
   });
@@ -35,6 +35,24 @@ const Base: React.FC<Props> = ({ className }) => {
     </div>
   );
 };
+
+const ChampionImage = styled.img`
+  width: 60px;
+  height: 62px;
+  border-radius: 6px;
+  margin-right: 3px;
+  border: 2px solid
+    ${(props) =>
+      props.color === `5`
+        ? `#DBDF1D`
+        : props.color === `4`
+        ? `#cd59b3`
+        : props.color === `3`
+        ? `#2446f0`
+        : props.color === `2`
+        ? `#2AEB3D`
+        : `#9C9494`};
+`;
 
 const Pool = styled(Base)`
   padding: 8px 12px 6px 12px;
@@ -49,9 +67,9 @@ const Pool = styled(Base)`
   &__championImg {
     width: 60px;
     height: 62px;
-    border: 2px solid #cd59b3;
     border-radius: 6px;
     margin-right: 3px;
+    border: 2px solid;
   }
 `;
 
