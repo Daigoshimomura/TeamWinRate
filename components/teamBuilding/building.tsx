@@ -1,7 +1,7 @@
 import Traits from 'components/teamBuilding/traitsList';
 import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
-import { useDrop } from 'react-dnd';
+import { useDrop, useDrag } from 'react-dnd';
 import styled from 'styled-components';
 
 type Props = {
@@ -19,32 +19,52 @@ const Base: React.FC<Props> = ({ className }) => {
     setChampionimg(`/champions/${champions[IdNumber].championId}.png`);
   };
 
+  //bulidingにあるchampionがpoolにドラッグされたときの処理
+  const movePool = () => {
+    setIsChampion(true);
+  };
+
+  //ドラッグ用のtypes
   const types: string[] = champions.map((elm) => {
     return elm.name;
   });
 
+  //ドラッグされたchampionのimgタグ
+  const dragChampion = () => {
+    const [, ref] = useDrag({
+      item: { type: 'champion' },
+      end: (draggedItem, monitor) => {
+        if (monitor.didDrop()) {
+          console.log(monitor.didDrop());
+          movePool();
+        }
+      },
+    });
+    return ref;
+  };
+
   const pentagon = (color: string) => {
     const pentagon = [];
+    const refDrag = dragChampion();
     for (let i = 0; i < 7; i++) {
       const [, ref] = useDrop({
         accept: types,
         drop: (monitor) => {
-          console.log(`モニター${monitor}`);
           moveChampion(monitor.type);
         },
       });
-      pentagon.push(
-        isChampion ? (
-          <img
-            ref={ref}
-            key={i}
-            className={`${className}__pentagonImg`}
-            src={`/build/Pentagon-${color}.png`}
-          />
-        ) : (
-          <img src={`${championimg}`} />
-        )
+      const championImg = (
+        <img
+          ref={ref}
+          key={i}
+          className={`${className}__pentagonImg`}
+          src={`/build/Pentagon-${color}.png`}
+        />
       );
+      const dragChampionImg = (
+        <img ref={refDrag} key={i} src={`${championimg}`} />
+      );
+      isChampion ? pentagon.push(championImg) : pentagon.push(dragChampionImg);
     }
     return pentagon;
   };

@@ -1,6 +1,6 @@
 import champions from 'public/json/champions.json';
 import React from 'react';
-import { useDrag } from 'react-dnd';
+import { useDrop, useDrag } from 'react-dnd';
 
 import styled from 'styled-components';
 
@@ -8,15 +8,15 @@ type Props = {
   className?: string;
 };
 
+//ドラッグ用のtypes
+const types: string[] = champions.map((elm) => {
+  return elm.name;
+});
+
 const Base: React.FC<Props> = ({ className }) => {
   const championList = champions.map((elm, index) => {
-    const [{ isDragging }, ref] = useDrag({
+    const [, ref] = useDrag({
       item: { type: `${elm.name}` },
-      collect: (monitor) => {
-        return {
-          isDragging: monitor.isDragging(),
-        };
-      },
     });
     return (
       <ChampionImage
@@ -28,12 +28,31 @@ const Base: React.FC<Props> = ({ className }) => {
     );
   });
 
+  const [, ref] = useDrop({
+    accept: 'champion',
+  });
+
   return (
-    <div className={`${className}`}>
+    <div ref={ref} className={`${className}`}>
       <div className={`${className}__header`}>Champion Pool</div>
       <div className={`${className}__championList`}>{championList}</div>
     </div>
   );
+};
+
+//チャンピオン画像枠の色用
+const chooseColor = (color?: string) => {
+  if (color === `5`) {
+    return `#DBDF1D`;
+  } else if (color === `4`) {
+    return `#cd59b3`;
+  } else if (color === `3`) {
+    return `#2446f0`;
+  } else if (color === `2`) {
+    return `#2AEB3D`;
+  } else {
+    return `#9C9494`;
+  }
 };
 
 const ChampionImage = styled.img`
@@ -41,17 +60,7 @@ const ChampionImage = styled.img`
   height: 62px;
   border-radius: 6px;
   margin-right: 3px;
-  border: 2px solid
-    ${(props) =>
-      props.color === `5`
-        ? `#DBDF1D`
-        : props.color === `4`
-        ? `#cd59b3`
-        : props.color === `3`
-        ? `#2446f0`
-        : props.color === `2`
-        ? `#2AEB3D`
-        : `#9C9494`};
+  border: 2px solid ${(props) => chooseColor(props.color)};
 `;
 
 const Pool = styled(Base)`
