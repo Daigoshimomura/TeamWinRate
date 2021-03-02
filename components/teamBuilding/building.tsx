@@ -9,10 +9,11 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  const [isChampion, setIsChampion] = useState(true);
-  const [championimg, setChampionimg] = useState<string>('');
+  //ボード上にチャンピオン画像の出力設定
+  const [championimg, setChampionimg] = useState<string>();
+  //ドラップ位置
+  const [championPosition, setChampionPosition] = useState<string>();
   const moveChampion = (monitor: string | symbol) => {
-    setIsChampion(false);
     const IdNumber: number = champions.findIndex(
       (champion) => champion.name === monitor
     );
@@ -21,7 +22,7 @@ const Base: React.FC<Props> = ({ className }) => {
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理
   const movePool = () => {
-    setIsChampion(true);
+    setChampionPosition(`pool`);
   };
 
   //ドラッグ用のtypes
@@ -35,7 +36,6 @@ const Base: React.FC<Props> = ({ className }) => {
       item: { type: 'champion' },
       end: (draggedItem, monitor) => {
         if (monitor.didDrop()) {
-          console.log(monitor.didDrop());
           movePool();
         }
       },
@@ -43,28 +43,33 @@ const Base: React.FC<Props> = ({ className }) => {
     return ref;
   };
 
-  const pentagon = (color: string) => {
+  const pentagon = (color: string, id: string) => {
     const pentagon = [];
     const refDrag = dragChampion();
     for (let i = 0; i < 7; i++) {
       const [, ref] = useDrop({
         accept: types,
-        drop: (monitor) => {
-          moveChampion(monitor.type);
+        drop: (item) => {
+          moveChampion(item.type);
+          console.log(`i=${i},id=${id}`);
+          setChampionPosition(`${id}-${i}`);
         },
       });
-      const championImg = (
-        <img
-          ref={ref}
-          key={i}
-          className={`${className}__pentagonImg`}
-          src={`/build/Pentagon-${color}.png`}
-        />
-      );
-      const dragChampionImg = (
-        <img ref={refDrag} key={i} src={`${championimg}`} />
-      );
-      isChampion ? pentagon.push(championImg) : pentagon.push(dragChampionImg);
+      const drapPosition = `${id}-${i}`;
+      const dragChampionImg = () => {
+        if (championPosition === drapPosition) {
+          return <img ref={refDrag} key={i} src={`${championimg}`} />;
+        }
+        return (
+          <img
+            ref={ref}
+            key={i}
+            className={`${className}__pentagonImg`}
+            src={`/build/Pentagon-${color}.png`}
+          />
+        );
+      };
+      pentagon.push(dragChampionImg());
     }
     return pentagon;
   };
@@ -82,6 +87,7 @@ const Base: React.FC<Props> = ({ className }) => {
       </div>
       <div className={`${className}__build`}>
         <div className={`${className}__traitsList`}>
+          <div></div>
           <Traits />
           <Traits />
           <Traits />
@@ -95,16 +101,16 @@ const Base: React.FC<Props> = ({ className }) => {
         </div>
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
-            {pentagon(`gray`)}
+            {pentagon(`gray`, `1`)}
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`)}
+            {pentagon(`white`, `2`)}
           </div>
           <div className={`${className}__pentagonGrayListDown`}>
-            {pentagon(`gray`)}
+            {pentagon(`gray`, `3`)}
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`)}
+            {pentagon(`white`, `4`)}
           </div>
           <div className={`${className}__boad`}>Comparison Boad</div>
         </div>
