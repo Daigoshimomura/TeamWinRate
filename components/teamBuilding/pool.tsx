@@ -8,11 +8,6 @@ type Props = {
   className?: string;
 };
 
-//ドラッグ用のtypes
-const types: string[] = champions.map((elm) => {
-  return elm.name;
-});
-
 const Base: React.FC<Props> = ({ className }) => {
   const championList = champions.map((elm, index) => {
     const [, ref] = useDrag({

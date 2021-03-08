@@ -9,20 +9,28 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //ボード上にチャンピオン画像の出力設定
-  const [championimg, setChampionimg] = useState<string>();
-  //ドラップ位置
-  const [championPosition, setChampionPosition] = useState<string>();
-  const moveChampion = (monitor: string | symbol) => {
+  //ボード上List位置
+  const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
+    new Map()
+  );
+  //ドロップ処理
+  const moveChampion = (monitor: string | symbol, Position: string) => {
     const IdNumber: number = champions.findIndex(
       (champion) => champion.name === monitor
     );
-    setChampionimg(`/champions/${champions[IdNumber].championId}.png`);
+    setBoadPosition(
+      new Map(
+        boadPosition
+          .set(Position, `/champions/${champions[IdNumber].championId}.png`)
+          .entries()
+      )
+    );
   };
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理
-  const movePool = () => {
-    setChampionPosition(`pool`);
+  const movePool = (Position: string) => {
+    boadPosition.delete(Position);
+    setBoadPosition(new Map(boadPosition.entries()));
   };
 
   //ドラッグ用のtypes
@@ -31,12 +39,13 @@ const Base: React.FC<Props> = ({ className }) => {
   });
 
   //ドラッグされたchampionのimgタグ
-  const dragChampion = () => {
+  const dragChampion = (Position: string) => {
     const [, ref] = useDrag({
       item: { type: 'champion' },
       end: (draggedItem, monitor) => {
         if (monitor.didDrop()) {
-          movePool();
+          console.log(Position);
+          movePool(Position);
         }
       },
     });
@@ -45,20 +54,22 @@ const Base: React.FC<Props> = ({ className }) => {
 
   const pentagon = (color: string, id: string) => {
     const pentagon = [];
-    const refDrag = dragChampion();
+
     for (let i = 0; i < 7; i++) {
       const [, ref] = useDrop({
         accept: types,
         drop: (item) => {
-          moveChampion(item.type);
-          console.log(`i=${i},id=${id}`);
-          setChampionPosition(`${id}-${i}`);
+          moveChampion(item.type, `${id}-${i}`);
         },
       });
-      const drapPosition = `${id}-${i}`;
+      //ドラッグされた位置
+      const dragPosition = `${id}-${i}`;
+      const refDrag = dragChampion(dragPosition);
       const dragChampionImg = () => {
-        if (championPosition === drapPosition) {
-          return <img ref={refDrag} key={i} src={`${championimg}`} />;
+        if (boadPosition.get(dragPosition)) {
+          return (
+            <img ref={refDrag} key={i} src={boadPosition.get(dragPosition)} />
+          );
         }
         return (
           <img
