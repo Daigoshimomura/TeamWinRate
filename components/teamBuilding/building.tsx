@@ -68,7 +68,20 @@ const Base: React.FC<Props> = ({ className }) => {
       const dragChampionImg = () => {
         if (boadPosition.get(dragPosition)) {
           return (
-            <img ref={refDrag} key={i} src={boadPosition.get(dragPosition)} />
+            <div className={`${className}__hexagon`}>
+              <div className={`${className}__hexagon__inner-1`}>
+                <div className={`${className}__hexagon__inner-2`}>
+                  <div className={`${className}__hexagon__inner-3`}>
+                    <img
+                      className={`${className}__hexagon__inner-image`}
+                      ref={refDrag}
+                      key={i}
+                      src={boadPosition.get(dragPosition)}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         }
         return (
@@ -217,6 +230,41 @@ const Building = styled(Base)`
     font-size: 18px;
     font-weight: bold;
     margin: 0 0 0 auto;
+  }
+  &__hexagon {
+    position: relative;
+    width: 53px;
+    overflow: hidden;
+    margin-right: 2px;
+  }
+  &__hexagon::before {
+    display: block;
+    padding-top: 115.4700538%;
+    content: '';
+  }
+  &__hexagon__inner-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: rotate(60deg);
+  }
+  &__hexagon__inner-2 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: rotate(60deg);
+  }
+  &__hexagon__inner-3 {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-120deg);
+  }
+  &__hexagon__inner-image {
+    width: 100%;
+    height: 100%;
   }
 `;
 
