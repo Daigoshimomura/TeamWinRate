@@ -11,9 +11,11 @@ type Props = {
 const Base: React.FC<Props> = ({ className, championList }) => {
   //画面に出力している特性
   const outputTraitsList = new Map<string, number>();
+  //重複している要素を削除
+  const newChampionList: string[] = [...new Set(championList)];
   //championの特性をoutputTraitsListに入れる
   champions.forEach((elm) => {
-    championList.forEach((element) => {
+    newChampionList.forEach((element) => {
       if (elm.championId === element) {
         elm.traits.forEach((item) => {
           //チャンピオン特性名から画像名に変換
@@ -45,11 +47,9 @@ const Base: React.FC<Props> = ({ className, championList }) => {
     outputTraits.forEach((key, value) => {
       const sets = () => {
         for (const item of traitsList) {
-          console.log('item', item);
           if (item.name === value) {
             const result: string[] = item.sets.map((elm, index) => {
               if (index !== item.sets.length - 1) {
-                console.log('elm.min', elm.min);
                 return `${elm.min}/`;
               }
               return `${elm.min}`;
