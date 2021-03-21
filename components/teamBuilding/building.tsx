@@ -121,7 +121,6 @@ const Base: React.FC<Props> = ({ className }) => {
       </div>
       <div className={`${className}__build`}>
         <div className={`${className}__traitsList`}>
-          <div></div>
           <Traits championList={championList} />
         </div>
         <div className={`${className}__placementPlace`}>
@@ -197,6 +196,8 @@ const Building = styled(Base)`
     display: flex;
     flex-wrap: wrap;
     width: 216px;
+    height: 215px;
+    overflow: hidden;
   }
   &__placementPlace {
     display: flex;

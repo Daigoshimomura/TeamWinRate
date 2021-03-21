@@ -37,7 +37,12 @@ const Base: React.FC<Props> = ({ className, championList }) => {
   //画面出力処理
   const traits = () => {
     const screenOutput: JSX.Element[] = [];
-    outputTraitsList.forEach((key, value) => {
+    //出力する前に値順に並べ替え
+    const outputTraits = new Map(
+      [...outputTraitsList.entries()].sort((a, b) => b[1] - a[1])
+    );
+
+    outputTraits.forEach((key, value) => {
       const sets = () => {
         for (const item of traitsList) {
           console.log('item', item);
@@ -54,21 +59,23 @@ const Base: React.FC<Props> = ({ className, championList }) => {
         }
       };
       screenOutput.push(
-        <div className={`${className}__traits`}>
-          <div className={`${className}__activateNumber`}>{key}</div>
-          <div>
-            <img
-              className={`${className}__traitsImg`}
-              src={`/traits/${value}.png`}
-            />
+        <div className={`${className}__mainElement`}>
+          <div className={`${className}__traits`}>
+            <div className={`${className}__activateNumber`}>{key}</div>
+            <div>
+              <img
+                className={`${className}__traitsImg`}
+                src={`/traits/${value}.png`}
+              />
+            </div>
+            <div className={`${className}__traitsNumber`}>{sets()}</div>
           </div>
-          <div className={`${className}__traitsNumber`}>{sets()}</div>
         </div>
       );
     });
     return screenOutput;
   };
-  return <div className={`${className}__mainElement`}>{traits()}</div>;
+  return <>{traits()}</>;
 };
 
 const TraitsList = styled(Base)`
