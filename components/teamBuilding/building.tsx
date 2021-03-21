@@ -13,6 +13,8 @@ const Base: React.FC<Props> = ({ className }) => {
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
   );
+  //特性の出力用
+  const [championList, setChampionList] = useState<string[]>([]);
   //ドロップ処理
   const moveChampion = (monitor: string | symbol, Position: string) => {
     const IdNumber: number = champions.findIndex(
@@ -20,15 +22,25 @@ const Base: React.FC<Props> = ({ className }) => {
     );
     setBoadPosition(
       new Map(
-        boadPosition
-          .set(Position, `/champions/${champions[IdNumber].championId}.png`)
-          .entries()
+        boadPosition.set(Position, champions[IdNumber].championId).entries()
       )
     );
+    const newChampionList: string[] = [
+      ...championList,
+      champions[IdNumber].championId,
+    ];
+    setChampionList(newChampionList);
+    console.log(`championList=${championList}`);
   };
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理
   const movePool = (Position: string) => {
+    console.log(`movepool前=${championList}`);
+    const index = championList.findIndex(
+      (item) => item === boadPosition.get(Position)
+    );
+    championList.splice(index, 1);
+    setChampionList(championList);
     boadPosition.delete(Position);
     setBoadPosition(new Map(boadPosition.entries()));
   };
@@ -44,7 +56,6 @@ const Base: React.FC<Props> = ({ className }) => {
       item: { type: 'champion' },
       end: (draggedItem, monitor) => {
         if (monitor.didDrop()) {
-          console.log(Position);
           movePool(Position);
         }
       },
@@ -54,7 +65,6 @@ const Base: React.FC<Props> = ({ className }) => {
 
   const pentagon = (color: string, id: string) => {
     const pentagon = [];
-
     for (let i = 0; i < 7; i++) {
       const [, ref] = useDrop({
         accept: types,
@@ -76,7 +86,7 @@ const Base: React.FC<Props> = ({ className }) => {
                       className={`${className}__hexagon__inner-image`}
                       ref={refDrag}
                       key={i}
-                      src={boadPosition.get(dragPosition)}
+                      src={`/champions/${boadPosition.get(dragPosition)}.png`}
                     />
                   </div>
                 </div>
@@ -112,16 +122,7 @@ const Base: React.FC<Props> = ({ className }) => {
       <div className={`${className}__build`}>
         <div className={`${className}__traitsList`}>
           <div></div>
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
+          <Traits championList={championList} />
         </div>
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
