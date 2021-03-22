@@ -107,39 +107,54 @@ const Base: React.FC<Props> = ({ className }) => {
     }
     return pentagon;
   };
+
+  const onButtonClick = () => {
+    const teamName: HTMLInputElement = document.getElementById(
+      'temeName'
+    ) as HTMLInputElement;
+    console.log('teamName', teamName.value);
+  };
   return (
-    <div className={`${className}`}>
-      <div className={`${className}__header`}>
-        <div className={`${className}__teamName`}>
-          とっても長いチーム名をつけるとこういう感じになります。
+    <form name="form" id="id_form" action="">
+      <div className={`${className}`}>
+        <div className={`${className}__header`}>
+          <input
+            id="temeName"
+            name="hofw"
+            type="text"
+            className={`${className}__teamName`}
+            placeholder="teamName"
+          />
+          <div className={`${className}__buttonList`}>
+            <button className={`${className}__save`} onClick={onButtonClick}>
+              Save
+            </button>
+            <button className={`${className}__remove`}>Remove</button>
+            <button className={`${className}__new`}>New</button>
+          </div>
         </div>
-        <div className={`${className}__buttonList`}>
-          <button className={`${className}__save`}>Save</button>
-          <button className={`${className}__remove`}>Remove</button>
-          <button className={`${className}__new`}>New</button>
+        <div className={`${className}__build`}>
+          <div className={`${className}__traitsList`}>
+            <Traits championList={championList} />
+          </div>
+          <div className={`${className}__placementPlace`}>
+            <div className={`${className}__pentagonGrayListUp`}>
+              {pentagon(`gray`, `1`)}
+            </div>
+            <div className={`${className}__pentagonWhiteList`}>
+              {pentagon(`white`, `2`)}
+            </div>
+            <div className={`${className}__pentagonGrayListDown`}>
+              {pentagon(`gray`, `3`)}
+            </div>
+            <div className={`${className}__pentagonWhiteList`}>
+              {pentagon(`white`, `4`)}
+            </div>
+            <div className={`${className}__boad`}>Comparison Boad</div>
+          </div>
         </div>
       </div>
-      <div className={`${className}__build`}>
-        <div className={`${className}__traitsList`}>
-          <Traits championList={championList} />
-        </div>
-        <div className={`${className}__placementPlace`}>
-          <div className={`${className}__pentagonGrayListUp`}>
-            {pentagon(`gray`, `1`)}
-          </div>
-          <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`, `2`)}
-          </div>
-          <div className={`${className}__pentagonGrayListDown`}>
-            {pentagon(`gray`, `3`)}
-          </div>
-          <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`, `4`)}
-          </div>
-          <div className={`${className}__boad`}>Comparison Boad</div>
-        </div>
-      </div>
-    </div>
+    </form>
   );
 };
 
