@@ -1,11 +1,14 @@
+import { TeamList } from 'components/teamBuilding/building';
 import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
   className?: string;
+  myTeamsList: TeamList[];
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ className, myTeamsList }) => {
+
   const teamList = () => {
     const champions = [];
     for (let i = 0; i < 10; i++) {
@@ -45,7 +48,7 @@ const Base: React.FC<Props> = ({ className }) => {
   );
 };
 
-const TeamList = styled(Base)`
+const MyTeam = styled(Base)`
   background-color: #656565;
   border-radius: 6px;
   height: 600px;
@@ -110,4 +113,4 @@ const TeamList = styled(Base)`
   }
 `;
 
-export default TeamList;
+export default MyTeam;

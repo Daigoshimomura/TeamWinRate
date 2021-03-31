@@ -1,7 +1,8 @@
 import Building from 'components/teamBuilding/building';
+import { TeamList } from 'components/teamBuilding/building';
+import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import TeamList from 'components/teamBuilding/teamList';
-import React from 'react';
+import React, { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
@@ -11,20 +12,28 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  //myTeams出力用
+  const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
+  const updateMyTeamList = (Myteam: TeamList) => {
+    const newMyteam: TeamList = Myteam;
+    const newMyTeamList: TeamList[] = [...myTeamsList, newMyteam];
+    setMyTeamList(newMyTeamList);
+  };
+
   return (
     <div className={`${className}__mainElement`}>
       <DndProvider backend={HTML5Backend}>
         <div className={`${className}__mainSection`}>
           <div className={`${className}__building`}>
             <div className={`${className}__topTeam`}>
-              <Building type={'top'} />
+              <Building updateMyTeamList={updateMyTeamList} />
             </div>
             <div className={`${className}__underTeam`}>
-              <Building type={'bottom'} />
+              <Building updateMyTeamList={updateMyTeamList} />
             </div>
           </div>
           <div className={`${className}__teamList`}>
-            <TeamList />
+            <MyTeam myTeamsList={myTeamsList} />
           </div>
         </div>
         <div className={`${className}__poolSection`}>

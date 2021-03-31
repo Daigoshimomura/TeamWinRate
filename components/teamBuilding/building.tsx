@@ -6,23 +6,22 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
-  type: string;
+  updateMyTeamList: (MyTeam: TeamList) => void;
 };
 
-type TeamList = {
+export type TeamList = {
   teamName: string;
   championList: Map<string, string>;
 };
 
-const Base: React.FC<Props> = ({ className, type }) => {
+const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
   );
   //特性の出力用
   const [championList, setChampionList] = useState<string[]>([]);
-  //myTeams出力用
-  const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
+
   //Team取得用
   const [teamName, setTeamName] = useState('');
 
@@ -41,12 +40,10 @@ const Base: React.FC<Props> = ({ className, type }) => {
       champions[IdNumber].championId,
     ];
     setChampionList(newChampionList);
-    console.log(`championList=${championList}`);
   };
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理
   const movePool = (Position: string) => {
-    console.log(`movepool前=${championList}`);
     const index = championList.findIndex(
       (item) => item === boadPosition.get(Position)
     );
@@ -126,8 +123,7 @@ const Base: React.FC<Props> = ({ className, type }) => {
         teamName: teamName,
         championList: boadPosition,
       };
-      const newMyTeamList: TeamList[] = [...myTeamsList, MyTeam];
-      setMyTeamList(newMyTeamList);
+      updateMyTeamList(MyTeam);
     } else {
       alert('TeamNameを入力してください。');
     }
