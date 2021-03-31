@@ -6,15 +6,26 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
+  type: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+type TeamList = {
+  teamName: string;
+  championList: Map<string, string>;
+};
+
+const Base: React.FC<Props> = ({ className, type }) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
   );
   //特性の出力用
   const [championList, setChampionList] = useState<string[]>([]);
+  //myTeams出力用
+  const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
+  //Team取得用
+  const [teamName, setTeamName] = useState('');
+
   //ドロップ処理
   const moveChampion = (monitor: string | symbol, Position: string) => {
     const IdNumber: number = champions.findIndex(
@@ -108,53 +119,61 @@ const Base: React.FC<Props> = ({ className }) => {
     return pentagon;
   };
 
-  const onButtonClick = () => {
-    const teamName: HTMLInputElement = document.getElementById(
-      'temeName'
-    ) as HTMLInputElement;
-    console.log('teamName', teamName.value);
+  //myteamに保存する処理
+  const onSaveClick = () => {
+    if (teamName) {
+      const MyTeam: TeamList = {
+        teamName: teamName,
+        championList: boadPosition,
+      };
+      const newMyTeamList: TeamList[] = [...myTeamsList, MyTeam];
+      setMyTeamList(newMyTeamList);
+    } else {
+      alert('TeamNameを入力してください。');
+    }
   };
+
   return (
-    <form name="form" id="id_form" action="">
-      <div className={`${className}`}>
-        <div className={`${className}__header`}>
-          <input
-            id="temeName"
-            name="hofw"
-            type="text"
-            className={`${className}__teamName`}
-            placeholder="teamName"
-          />
-          <div className={`${className}__buttonList`}>
-            <button className={`${className}__save`} onClick={onButtonClick}>
-              Save
-            </button>
-            <button className={`${className}__remove`}>Remove</button>
-            <button className={`${className}__new`}>New</button>
-          </div>
-        </div>
-        <div className={`${className}__build`}>
-          <div className={`${className}__traitsList`}>
-            <Traits championList={championList} />
-          </div>
-          <div className={`${className}__placementPlace`}>
-            <div className={`${className}__pentagonGrayListUp`}>
-              {pentagon(`gray`, `1`)}
-            </div>
-            <div className={`${className}__pentagonWhiteList`}>
-              {pentagon(`white`, `2`)}
-            </div>
-            <div className={`${className}__pentagonGrayListDown`}>
-              {pentagon(`gray`, `3`)}
-            </div>
-            <div className={`${className}__pentagonWhiteList`}>
-              {pentagon(`white`, `4`)}
-            </div>
-            <div className={`${className}__boad`}>Comparison Boad</div>
-          </div>
+    <div className={`${className}`}>
+      <div className={`${className}__header`}>
+        <input
+          type="text"
+          className={`${className}__teamName`}
+          placeholder="TeamName"
+          value={teamName}
+          onChange={(e) => {
+            setTeamName(e.target.value);
+          }}
+        />
+        <div className={`${className}__buttonList`}>
+          <button className={`${className}__save`} onClick={onSaveClick}>
+            Save
+          </button>
+          <button className={`${className}__remove`}>Remove</button>
+          <button className={`${className}__new`}>New</button>
         </div>
       </div>
-    </form>
+      <div className={`${className}__build`}>
+        <div className={`${className}__traitsList`}>
+          <Traits championList={championList} />
+        </div>
+        <div className={`${className}__placementPlace`}>
+          <div className={`${className}__pentagonGrayListUp`}>
+            {pentagon(`gray`, `1`)}
+          </div>
+          <div className={`${className}__pentagonWhiteList`}>
+            {pentagon(`white`, `2`)}
+          </div>
+          <div className={`${className}__pentagonGrayListDown`}>
+            {pentagon(`gray`, `3`)}
+          </div>
+          <div className={`${className}__pentagonWhiteList`}>
+            {pentagon(`white`, `4`)}
+          </div>
+          <div className={`${className}__boad`}>Comparison Boad</div>
+        </div>
+      </div>
+    </div>
   );
 };
 

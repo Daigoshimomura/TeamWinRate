@@ -17,10 +17,10 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__mainSection`}>
           <div className={`${className}__building`}>
             <div className={`${className}__topTeam`}>
-              <Building />
+              <Building type={'top'} />
             </div>
             <div className={`${className}__underTeam`}>
-              <Building />
+              <Building type={'bottom'} />
             </div>
           </div>
           <div className={`${className}__teamList`}>
