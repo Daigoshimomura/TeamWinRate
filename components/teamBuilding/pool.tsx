@@ -1,7 +1,6 @@
 import champions from 'public/json/champions.json';
 import React from 'react';
 import { useDrop, useDrag } from 'react-dnd';
-
 import styled from 'styled-components';
 
 type Props = {
@@ -36,7 +35,7 @@ const Base: React.FC<Props> = ({ className }) => {
 };
 
 //チャンピオン画像枠の色用
-const chooseColor = (color?: string) => {
+export const chooseColor = (color?: string) => {
   if (color === `5`) {
     return `#DBDF1D`;
   } else if (color === `4`) {

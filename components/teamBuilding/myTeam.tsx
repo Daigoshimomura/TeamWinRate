@@ -1,5 +1,7 @@
 import { TeamList } from 'components/teamBuilding/building';
-import React from 'react';
+import { chooseColor } from 'components/teamBuilding/pool';
+import champions from 'public/json/champions.json';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -8,29 +10,29 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, myTeamsList }) => {
-
   const teamList = () => {
-    const champions = [];
-    for (let i = 0; i < 10; i++) {
-      champions.push(
-        <img
-          key={i}
-          className={`${className}__championImg`}
-          src={`/champions/TFT4_Akali.png`}
-        />
-      );
-    }
-    const team = [];
-    for (let i = 0; i < 5; i++) {
+    //champion出力処理
+    const team: JSX.Element[] = [];
+    myTeamsList.forEach((element, index) => {
+      const outputChampionList: JSX.Element[] = [];
+      element.championList.forEach((item) => {
+        const color = champions.find((elm) => {
+          return elm.championId === item;
+        });
+        outputChampionList.push(
+          <ChampionImage
+            src={`/champions/${item}.png`}
+            color={`${color?.cost}`}
+          />
+        );
+      });
       team.push(
-        <div key={i} className={`${className}__team`}>
-          <div className={`${className}__teamName`}>
-            とっても長いチーム名をつけるとこういう感じになります。
-          </div>
-          <div className={`${className}__champions`}>{champions}</div>
+        <div key={index} className={`${className}__team`}>
+          <div className={`${className}__teamName`}>{element.teamName}</div>
+          <div className={`${className}__champions`}>{outputChampionList}</div>
         </div>
       );
-    }
+    });
     return team;
   };
   return (
@@ -47,6 +49,14 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
     </div>
   );
 };
+
+const ChampionImage = styled.img`
+  height: 42px;
+  width: 40px;
+  border-radius: 6px;
+  margin-right: 4px;
+  border: 2px solid ${(props) => chooseColor(props.color)};
+`;
 
 const MyTeam = styled(Base)`
   background-color: #656565;
@@ -77,13 +87,6 @@ const MyTeam = styled(Base)`
   }
   &__champions {
     margin: 14px 0 0 19px;
-  }
-  &__championImg {
-    height: 42px;
-    width: 40px;
-    border: 2px solid #cd59b3;
-    border-radius: 6px;
-    margin-right: 4px;
   }
   &__pageButtonList {
     color: #b2b2b2;

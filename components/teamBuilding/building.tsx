@@ -23,7 +23,7 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
   const [championList, setChampionList] = useState<string[]>([]);
 
   //Team取得用
-  const [teamName, setTeamName] = useState('');
+  const [teamName, setTeamName] = useState<string>('');
 
   //ドロップ処理
   const moveChampion = (monitor: string | symbol, Position: string) => {
@@ -72,7 +72,7 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
   };
 
   const pentagon = (color: string, id: string) => {
-    const pentagon = [];
+    const pentagon: JSX.Element[] = [];
     for (let i = 0; i < 7; i++) {
       const [, ref] = useDrop({
         accept: types,
