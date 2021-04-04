@@ -86,6 +86,9 @@ const MyTeam = styled(Base)`
     padding: 4px 19px 0 19px;
   }
   &__champions {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     margin: 14px 0 0 19px;
   }
   &__pageButtonList {
