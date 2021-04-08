@@ -15,8 +15,9 @@ const Base: React.FC<Props> = ({ className }) => {
   //myTeams出力用
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
   const updateMyTeamList = (Myteam: TeamList) => {
-    const newMyteam: TeamList = Myteam;
-    const newMyTeamList: TeamList[] = [...myTeamsList, newMyteam];
+    console.log('myTeamsList', myTeamsList);
+    console.log('Myteam', Myteam);
+    const newMyTeamList: TeamList[] = [...myTeamsList, Myteam];
     setMyTeamList(newMyTeamList);
   };
 
