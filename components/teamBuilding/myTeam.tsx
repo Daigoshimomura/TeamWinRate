@@ -3,15 +3,19 @@ import { chooseColor } from 'components/teamBuilding/pool';
 import champions from 'public/json/champions.json';
 import React from 'react';
 import styled from 'styled-components';
+import { useDrag } from 'react-dnd';
 
 type Props = {
   className?: string;
   myTeamsList: TeamList[];
+  dragSelectTeam: (dragTeam:TeamList, index:number) => void;
 };
 
 const Base: React.FC<Props> = ({ className, myTeamsList }) => {
+//
+
   // cost返却処理該当しない場合は0を返却
-  const fetchCost = (championId: string): number => {
+  const fetchCost = (championId: string): number => {  
     const selectChampionId = champions.find((elm) => {
       return elm.championId === championId;
     });
@@ -36,6 +40,18 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
     return newMyTeamList;
   };
 
+   //myteamドラッグのref
+   const dragMyTeam = () => {
+    const [, ref] = useDrag({
+      item: { type: 'team' },
+      end: (draggedItem, monitor) => {
+        if (monitor.didDrop()) {
+        }
+      },
+    });
+    return ref;
+  };
+
   const teamList = () => {
     //champion出力処理
     const team: JSX.Element[] = [];
@@ -49,8 +65,9 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
           <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
         );
       });
+      const refDrag = dragMyTeam();
       team.push(
-        <div key={index} className={`${className}__team`}>
+        <div key={index} ref={refDrag} className={`${className}__team`}>
           <div className={`${className}__teamName`}>{element.teamName}</div>
           <div className={`${className}__champions`}>{outputChampionList}</div>
         </div>

@@ -12,12 +12,22 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //myTeams出力用
+  //myTeamsに出力用
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
   const updateMyTeamList = useCallback( (myTeam: TeamList) => {
     setMyTeamList(prevState => {
       return [...prevState, myTeam]});
   },[myTeamsList]);
+
+  //選択team認識用
+  const [selectTeam, setSelectTeam] = useState<TeamList>();
+  const [selectIndex, setSelectIndex] = useState<number>();
+  const dragSelectTeam = useCallback((dragTeam:TeamList, index:number) => {
+    setSelectTeam(dragTeam);
+    setSelectIndex(index);
+  },[selectTeam,selectIndex]);
+
+ 
 
   return (
     <div className={`${className}__mainElement`}>
@@ -32,7 +42,7 @@ const Base: React.FC<Props> = ({ className }) => {
             </div>
           </div>
           <div className={`${className}__teamList`}>
-            <MyTeam myTeamsList={myTeamsList} />
+            <MyTeam myTeamsList={myTeamsList} dragSelectTeam={dragSelectTeam} />
           </div>
         </div>
         <div className={`${className}__poolSection`}>

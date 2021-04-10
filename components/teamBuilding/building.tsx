@@ -58,7 +58,7 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
     return elm.name;
   });
 
-  //ドラッグされたchampionのimgタグ
+  //championドラッグのref
   const dragChampion = (Position: string) => {
     const [, ref] = useDrag({
       item: { type: 'champion' },
@@ -136,8 +136,15 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
     setTeamName("");
   }
 
+  const [, ref] = useDrop({
+    accept: "team",
+    drop: (draggedItem, monitor) => {
+      console.log("itemonitorm",monitor.getItemType)
+    },
+  });
+
   return (
-    <div className={`${className}`}>
+    <div className={`${className}`} ref={ref}>
       <div className={`${className}__header`}>
         <input
           type="text"
