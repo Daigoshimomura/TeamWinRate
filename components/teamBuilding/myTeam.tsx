@@ -1,7 +1,7 @@
 import { TeamList } from 'components/teamBuilding/building';
 import { chooseColor } from 'components/teamBuilding/pool';
 import champions from 'public/json/champions.json';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -10,20 +10,43 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, myTeamsList }) => {
+  // cost返却処理該当しない場合は0を返却
+  const fetchCost = (championId: string): number => {
+    const selectChampionId = champions.find((elm) => {
+      return elm.championId === championId;
+    });
+    if (selectChampionId) {
+      return selectChampionId.cost;
+    }
+    return 0;
+  };
+
+  //アルファベット順かつコスト順に並べ替えした出力用リスト
+  const outputMyTeamList = (championList: Map<string, string>) => {
+    console.log('championList', championList);
+    const newMyTeamList: string[] = [];
+    championList.forEach((innerElm) => {
+      newMyTeamList.push(innerElm);
+    });
+    newMyTeamList.sort();
+    newMyTeamList.sort((a, b) => {
+      return fetchCost(b) - fetchCost(a);
+    });
+    console.log('outnewMyTeamList', newMyTeamList);
+    return newMyTeamList;
+  };
+
   const teamList = () => {
     //champion出力処理
     const team: JSX.Element[] = [];
     myTeamsList.forEach((element, index) => {
       const outputChampionList: JSX.Element[] = [];
-      element.championList.forEach((item) => {
-        const color = champions.find((elm) => {
-          return elm.championId === item;
-        });
+      const newMyTeamList = outputMyTeamList(element.championList);
+      console.log('newMyTeamList', newMyTeamList);
+      newMyTeamList.forEach((item) => {
+        const color = fetchCost(item);
         outputChampionList.push(
-          <ChampionImage
-            src={`/champions/${item}.png`}
-            color={`${color?.cost}`}
-          />
+          <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
         );
       });
       team.push(
