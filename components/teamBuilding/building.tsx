@@ -116,18 +116,30 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
     return pentagon;
   };
 
-  //myteamに保存する処理
-  const onSaveClick = () => {
+  //saveボタン処理
+  const saveClick = () => {
     if (teamName) {
-      const MyTeam: TeamList = {
+      const myTeam: TeamList = {
         teamName: teamName,
         championList: boadPosition,
       };
-      updateMyTeamList(MyTeam);
+      updateMyTeamList(myTeam);
     } else {
       alert('TeamNameを入力してください。');
     }
   };
+
+  //removeボタン処理
+  const removeClick = () => {
+
+  }
+
+  //newボタン処理
+  const newClick = () => {
+    setBoadPosition(new Map());
+    setChampionList([]);
+    setTeamName("");
+  }
 
   return (
     <div className={`${className}`}>
@@ -142,11 +154,11 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
           }}
         />
         <div className={`${className}__buttonList`}>
-          <button className={`${className}__save`} onClick={onSaveClick}>
+          <button className={`${className}__save`} onClick={saveClick}>
             Save
           </button>
-          <button className={`${className}__remove`}>Remove</button>
-          <button className={`${className}__new`}>New</button>
+          <button className={`${className}__remove`} onClick={removeClick}>Remove</button>
+          <button className={`${className}__new`} onClick={newClick}>New</button>
         </div>
       </div>
       <div className={`${className}__build`}>
@@ -267,7 +279,7 @@ const Building = styled(Base)`
     position: relative;
     width: 53px;
     overflow: hidden;
-    margin-right: 2px;
+    margin-right: 3px;
   }
   &__hexagon::before {
     display: block;
