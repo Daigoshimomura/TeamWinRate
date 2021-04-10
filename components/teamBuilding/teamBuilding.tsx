@@ -15,7 +15,6 @@ const Base: React.FC<Props> = ({ className }) => {
   //myTeams出力用
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
   const updateMyTeamList = useCallback( (myTeam: TeamList) => {
-    console.log("前myTeamsList",myTeamsList)
     setMyTeamList(prevState => {
       return [...prevState, myTeam]});
   },[myTeamsList]);

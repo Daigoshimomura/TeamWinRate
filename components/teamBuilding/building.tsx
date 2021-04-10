@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
-  updateMyTeamList: (MyTeam: TeamList) => void;
+  updateMyTeamList: (myTeam: TeamList) => void;
 };
 
 export type TeamList = {
@@ -129,11 +129,6 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
     }
   };
 
-  //removeボタン処理
-  const removeClick = () => {
-
-  }
-
   //newボタン処理
   const newClick = () => {
     setBoadPosition(new Map());
@@ -157,7 +152,6 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
           <button className={`${className}__save`} onClick={saveClick}>
             Save
           </button>
-          <button className={`${className}__remove`} onClick={removeClick}>Remove</button>
           <button className={`${className}__new`} onClick={newClick}>New</button>
         </div>
       </div>
@@ -213,13 +207,6 @@ const Building = styled(Base)`
     height: 28px;
     border-radius: 6px;
     background-color: #5987cd;
-    margin-right: 4px;
-  }
-  &__remove {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #e45e5e;
     margin-right: 4px;
   }
   &__new {
