@@ -2,7 +2,7 @@ import Building from 'components/teamBuilding/building';
 import { TeamList } from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import React, { useState } from 'react';
+import React, { useState,useCallback } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
@@ -14,11 +14,11 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   //myTeams出力用
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
-  const updateMyTeamList = (Myteam: TeamList) => {
-    const newMyteam: TeamList = Myteam;
-    const newMyTeamList: TeamList[] = [...myTeamsList, newMyteam];
-    setMyTeamList(newMyTeamList);
-  };
+  const updateMyTeamList = useCallback( (myTeam: TeamList) => {
+    console.log("前myTeamsList",myTeamsList)
+    setMyTeamList(prevState => {
+      return [...prevState, myTeam]});
+  },[myTeamsList]);
 
   return (
     <div className={`${className}__mainElement`}>
