@@ -2,20 +2,20 @@ import { TeamList } from 'components/teamBuilding/building';
 import { chooseColor } from 'components/teamBuilding/pool';
 import champions from 'public/json/champions.json';
 import React from 'react';
-import styled from 'styled-components';
 import { useDrag } from 'react-dnd';
+import styled from 'styled-components';
 
 type Props = {
   className?: string;
   myTeamsList: TeamList[];
-  dragSelectTeam: (dragTeam:TeamList, index:number) => void;
+  dragSelectTeam: (dragTeam: TeamList, index: number) => void;
 };
 
 const Base: React.FC<Props> = ({ className, myTeamsList }) => {
-//
+  //
 
   // cost返却処理該当しない場合は0を返却
-  const fetchCost = (championId: string): number => {  
+  const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
       return elm.championId === championId;
     });
@@ -40,13 +40,12 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
     return newMyTeamList;
   };
 
-   //myteamドラッグのref
-   const dragMyTeam = () => {
+  //myteamドラッグのref
+  const dragMyTeam = () => {
     const [, ref] = useDrag({
       item: { type: 'team' },
       end: (draggedItem, monitor) => {
-        if (monitor.didDrop()) {
-        }
+        console.log(monitor);
       },
     });
     return ref;

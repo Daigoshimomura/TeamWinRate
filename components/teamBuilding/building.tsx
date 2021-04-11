@@ -133,13 +133,13 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
   const newClick = () => {
     setBoadPosition(new Map());
     setChampionList([]);
-    setTeamName("");
-  }
+    setTeamName('');
+  };
 
   const [, ref] = useDrop({
-    accept: "team",
+    accept: 'team',
     drop: (draggedItem, monitor) => {
-      console.log("itemonitorm",monitor.getItemType)
+      console.log('itemonitorm', monitor.getItemType);
     },
   });
 
@@ -159,7 +159,9 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
           <button className={`${className}__save`} onClick={saveClick}>
             Save
           </button>
-          <button className={`${className}__new`} onClick={newClick}>New</button>
+          <button className={`${className}__new`} onClick={newClick}>
+            New
+          </button>
         </div>
       </div>
       <div className={`${className}__build`}>

@@ -2,7 +2,7 @@ import Building from 'components/teamBuilding/building';
 import { TeamList } from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import React, { useState,useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
@@ -14,20 +14,25 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   //myTeamsに出力用
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
-  const updateMyTeamList = useCallback( (myTeam: TeamList) => {
-    setMyTeamList(prevState => {
-      return [...prevState, myTeam]});
-  },[myTeamsList]);
+  const updateMyTeamList = useCallback(
+    (myTeam: TeamList) => {
+      setMyTeamList((prevState) => {
+        return [...prevState, myTeam];
+      });
+    },
+    [myTeamsList]
+  );
 
   //選択team認識用
   const [selectTeam, setSelectTeam] = useState<TeamList>();
   const [selectIndex, setSelectIndex] = useState<number>();
-  const dragSelectTeam = useCallback((dragTeam:TeamList, index:number) => {
-    setSelectTeam(dragTeam);
-    setSelectIndex(index);
-  },[selectTeam,selectIndex]);
-
- 
+  const dragSelectTeam = useCallback(
+    (dragTeam: TeamList, index: number) => {
+      setSelectTeam(dragTeam);
+      setSelectIndex(index);
+    },
+    [selectTeam, selectIndex]
+  );
 
   return (
     <div className={`${className}__mainElement`}>

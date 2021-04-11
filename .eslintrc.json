@@ -45,5 +45,10 @@
     "sort-imports": 0,
     "import/order": [2, { "alphabetize": { "order": "asc" } }],
     "import/no-unresolved": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
