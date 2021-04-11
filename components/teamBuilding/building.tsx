@@ -7,6 +7,8 @@ import styled from 'styled-components';
 type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamList) => void;
+  selectTeam: TeamList;
+  selectIndex: number;
 };
 
 export type TeamList = {
@@ -14,7 +16,12 @@ export type TeamList = {
   championList: Map<string, string>;
 };
 
-const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
+const Base: React.FC<Props> = ({
+  className,
+  updateMyTeamList,
+  selectTeam,
+  selectIndex,
+}) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
@@ -22,7 +29,7 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
   //特性の出力用
   const [championList, setChampionList] = useState<string[]>([]);
 
-  //Team取得用
+  //TeamName取得用
   const [teamName, setTeamName] = useState<string>('');
 
   //ドロップ処理
@@ -136,12 +143,23 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList }) => {
     setTeamName('');
   };
 
+  //bordドロップのref
   const [, ref] = useDrop({
     accept: 'team',
-    drop: (draggedItem, monitor) => {
-      console.log('itemonitorm', monitor.getItemType);
+    drop: () => {
+      bordDrop();
     },
   });
+
+  const bordDrop = () => {
+    setBoadPosition(selectTeam.championList);
+    setTeamName(selectTeam.teamName);
+    const newChampionList: string[] = [];
+    selectTeam.championList.forEach((elm) => {
+      newChampionList.push(elm);
+    });
+    setChampionList(newChampionList);
+  };
 
   return (
     <div className={`${className}`} ref={ref}>

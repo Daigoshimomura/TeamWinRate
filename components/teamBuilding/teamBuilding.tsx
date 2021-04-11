@@ -23,9 +23,14 @@ const Base: React.FC<Props> = ({ className }) => {
     [myTeamsList]
   );
 
+  const newTeamList: TeamList = {
+    teamName: '',
+    championList: new Map(),
+  };
+
   //選択team認識用
-  const [selectTeam, setSelectTeam] = useState<TeamList>();
-  const [selectIndex, setSelectIndex] = useState<number>();
+  const [selectTeam, setSelectTeam] = useState<TeamList>(newTeamList);
+  const [selectIndex, setSelectIndex] = useState<number>(0);
   const dragSelectTeam = useCallback(
     (dragTeam: TeamList, index: number) => {
       setSelectTeam(dragTeam);
@@ -40,10 +45,18 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__mainSection`}>
           <div className={`${className}__building`}>
             <div className={`${className}__topTeam`}>
-              <Building updateMyTeamList={updateMyTeamList} />
+              <Building
+                updateMyTeamList={updateMyTeamList}
+                selectTeam={selectTeam}
+                selectIndex={selectIndex}
+              />
             </div>
             <div className={`${className}__underTeam`}>
-              <Building updateMyTeamList={updateMyTeamList} />
+              <Building
+                updateMyTeamList={updateMyTeamList}
+                selectTeam={selectTeam}
+                selectIndex={selectIndex}
+              />
             </div>
           </div>
           <div className={`${className}__teamList`}>

@@ -11,9 +11,7 @@ type Props = {
   dragSelectTeam: (dragTeam: TeamList, index: number) => void;
 };
 
-const Base: React.FC<Props> = ({ className, myTeamsList }) => {
-  //
-
+const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
   // cost返却処理該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
@@ -27,7 +25,6 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
 
   //アルファベット順かつコスト順に並べ替えした出力用リスト
   const outputMyTeamList = (championList: Map<string, string>) => {
-    console.log('championList', championList);
     const newMyTeamList: string[] = [];
     championList.forEach((innerElm) => {
       newMyTeamList.push(innerElm);
@@ -36,17 +33,13 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
     newMyTeamList.sort((a, b) => {
       return fetchCost(b) - fetchCost(a);
     });
-    console.log('outnewMyTeamList', newMyTeamList);
     return newMyTeamList;
   };
 
   //myteamドラッグのref
-  const dragMyTeam = () => {
+  const dragMyTeam = (index: number) => {
     const [, ref] = useDrag({
-      item: { type: 'team' },
-      end: (draggedItem, monitor) => {
-        console.log(monitor);
-      },
+      item: { type: 'team', index },
     });
     return ref;
   };
@@ -56,15 +49,15 @@ const Base: React.FC<Props> = ({ className, myTeamsList }) => {
     const team: JSX.Element[] = [];
     myTeamsList.forEach((element, index) => {
       const outputChampionList: JSX.Element[] = [];
+      dragSelectTeam(element, index);
       const newMyTeamList = outputMyTeamList(element.championList);
-      console.log('newMyTeamList', newMyTeamList);
       newMyTeamList.forEach((item) => {
         const color = fetchCost(item);
         outputChampionList.push(
           <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
         );
       });
-      const refDrag = dragMyTeam();
+      const refDrag = dragMyTeam(index);
       team.push(
         <div key={index} ref={refDrag} className={`${className}__team`}>
           <div className={`${className}__teamName`}>{element.teamName}</div>
