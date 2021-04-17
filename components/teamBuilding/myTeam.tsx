@@ -3,6 +3,7 @@ import { chooseColor } from 'components/teamBuilding/pool';
 import champions from 'public/json/champions.json';
 import React from 'react';
 import { useDrag } from 'react-dnd';
+import Pagination from 'components/teamBuilding/pagination'
 import styled from 'styled-components';
 
 type Props = {
@@ -44,35 +45,47 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
     return ref;
   };
 
+  const handleSearchMyteam = (page:number) => {
+    
+    return
+  }
+
   const teamList = () => {
     //champion出力処理
     const team: JSX.Element[] = [];
-    myTeamsList.forEach((element, index) => {
+    for (let index = 0; index < 5; index++) {
+      const refDrag = dragMyTeam(index);
       const outputChampionList: JSX.Element[] = [];
-      dragSelectTeam(element, index);
-      const newMyTeamList = outputMyTeamList(element.championList);
+      if(myTeamsList[index]){
+      dragSelectTeam(myTeamsList[index], index);
+      const newMyTeamList = outputMyTeamList(myTeamsList[index].championList);
+      
+      console.log("index",index)
       newMyTeamList.forEach((item) => {
         const color = fetchCost(item);
         outputChampionList.push(
           <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
         );
       });
-      const refDrag = dragMyTeam(index);
       team.push(
         <div key={index} ref={refDrag} className={`${className}__team`}>
-          <div className={`${className}__teamName`}>{element.teamName}</div>
+          <div className={`${className}__teamName`}>{myTeamsList[index].teamName}</div>
           <div className={`${className}__champions`}>{outputChampionList}</div>
         </div>
       );
-    });
+      }
+    
+    }
     return team;
   };
+
   return (
     <div>
       <div className={`${className}`}>
         <div className={`${className}__header`}>My Teams</div>
         <div className={`${className}__teamList`}>{teamList()}</div>
       </div>
+      <Pagination myTeamSize={myTeamsList.length} handleSearchMyteam={handleSearchMyteam} />
       <div className={`${className}__pageButtonList`}>
         <button className={`${className}__notSelectedButton`}>1</button>
         <button className={`${className}__openButton`}>2</button>
