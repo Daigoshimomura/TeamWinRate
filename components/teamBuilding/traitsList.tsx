@@ -36,6 +36,33 @@ const Base: React.FC<Props> = ({ className, championList }) => {
       }
     });
   });
+
+  //画面に表示されている特性の数値によって出力を変更
+  const selectNumber = (
+    outputNumber: number,
+    index: number,
+    itemListlength: number,
+    item: number
+  ) => {
+    console.log('outputNumber', outputNumber);
+    console.log('imte', item);
+    if (outputNumber === item) {
+      if (index !== itemListlength - 1) {
+        return (
+          <>
+            <span className={`${className}__selectNumber`}>{item}</span>/
+          </>
+        );
+      }
+      return <span className={`${className}__selectNumber`}>{item}</span>;
+    } else {
+      if (index !== itemListlength - 1) {
+        return `${item}/`;
+      }
+      return `${item}`;
+    }
+  };
+
   //画面出力処理
   const traits = () => {
     const screenOutput: JSX.Element[] = [];
@@ -44,16 +71,17 @@ const Base: React.FC<Props> = ({ className, championList }) => {
       [...outputTraitsList.entries()].sort((a, b) => b[1] - a[1])
     );
 
+    //champion分だけの特性表示
     outputTraits.forEach((key, value) => {
       const sets = () => {
+        //特性の表示する数値
         for (const item of traitsList) {
           if (item.name === value) {
-            const result: string[] = item.sets.map((elm, index) => {
-              if (index !== item.sets.length - 1) {
-                return `${elm.min}/`;
+            const result: (string | JSX.Element)[] = item.sets.map(
+              (elm, index) => {
+                return selectNumber(key, index, item.sets.length, elm.min);
               }
-              return `${elm.min}`;
-            });
+            );
             return result;
           }
         }
@@ -116,6 +144,10 @@ const TraitsList = styled(Base)`
     font-size: 12px;
     margin-left: 1px;
     text-align: center;
+  }
+  &__selectNumber {
+    font-weight: bold;
+    color: #e6e8ed;
   }
 `;
 
