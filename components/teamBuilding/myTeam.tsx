@@ -1,9 +1,9 @@
 import { TeamList } from 'components/teamBuilding/building';
+import Pagination from 'components/teamBuilding/pagination';
 import { chooseColor } from 'components/teamBuilding/pool';
 import champions from 'public/json/champions.json';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
-import Pagination from 'components/teamBuilding/pagination'
 import styled from 'styled-components';
 
 type Props = {
@@ -13,6 +13,8 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
+  // 表示しているページ番号
+  const [handlePaginate, setHandlePaginate] = useState<number>(0);
   // cost返却処理該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
@@ -45,10 +47,16 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
     return ref;
   };
 
-  const handleSearchMyteam = (page:number) => {
-    
-    return
-  }
+  //paginationでページを変更したときに画面表示の処理
+  const handleSearchMyteam = (page: number) => {
+    let newPage;
+    if (0 <= page) {
+      newPage = (page - 1) * 5;
+    } else {
+      newPage = 0;
+    }
+    setHandlePaginate(newPage);
+  };
 
   const teamList = () => {
     //champion出力処理
@@ -56,25 +64,30 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
     for (let index = 0; index < 5; index++) {
       const refDrag = dragMyTeam(index);
       const outputChampionList: JSX.Element[] = [];
-      if(myTeamsList[index]){
-      dragSelectTeam(myTeamsList[index], index);
-      const newMyTeamList = outputMyTeamList(myTeamsList[index].championList);
-      
-      console.log("index",index)
-      newMyTeamList.forEach((item) => {
-        const color = fetchCost(item);
-        outputChampionList.push(
-          <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
+      const newIndex: number = index + handlePaginate;
+      if (myTeamsList[newIndex]) {
+        dragSelectTeam(myTeamsList[newIndex], newIndex);
+        const newMyTeamList = outputMyTeamList(
+          myTeamsList[newIndex].championList
         );
-      });
-      team.push(
-        <div key={index} ref={refDrag} className={`${className}__team`}>
-          <div className={`${className}__teamName`}>{myTeamsList[index].teamName}</div>
-          <div className={`${className}__champions`}>{outputChampionList}</div>
-        </div>
-      );
+        console.log('index', index);
+        newMyTeamList.forEach((item) => {
+          const color = fetchCost(item);
+          outputChampionList.push(
+            <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
+          );
+        });
+        team.push(
+          <div key={newIndex} ref={refDrag} className={`${className}__team`}>
+            <div className={`${className}__teamName`}>
+              {myTeamsList[newIndex].teamName}
+            </div>
+            <div className={`${className}__champions`}>
+              {outputChampionList}
+            </div>
+          </div>
+        );
       }
-    
     }
     return team;
   };
@@ -85,7 +98,10 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
         <div className={`${className}__header`}>My Teams</div>
         <div className={`${className}__teamList`}>{teamList()}</div>
       </div>
-      <Pagination myTeamSize={myTeamsList.length} handleSearchMyteam={handleSearchMyteam} />
+      <Pagination
+        myTeamSize={myTeamsList.length}
+        handleSearchMyteam={handleSearchMyteam}
+      />
       <div className={`${className}__pageButtonList`}>
         <button className={`${className}__notSelectedButton`}>1</button>
         <button className={`${className}__openButton`}>2</button>
