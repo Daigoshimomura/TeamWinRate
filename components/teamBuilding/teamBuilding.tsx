@@ -20,7 +20,7 @@ const Base: React.FC<Props> = ({ className }) => {
         return [...prevState, myTeam];
       });
     },
-    [myTeamsList]
+    [setMyTeamList]
   );
 
   const newTeamList: TeamList = {
@@ -30,14 +30,27 @@ const Base: React.FC<Props> = ({ className }) => {
 
   //選択team認識用
   const [selectTeam, setSelectTeam] = useState<TeamList>(newTeamList);
-  const [selectIndex, setSelectIndex] = useState<number>(0);
-  const dragSelectTeam = useCallback(
+  const [selectIndex, setSelectIndex] = useState<number | undefined>(undefined);
+  const [hoge, setHoge] = useState<String> (""); 
+  // const dragSelectTeam = useCallback(
+  //   (dragTeam: TeamList, index: number) => {
+  //     console.log("dragTeam",dragTeam)
+  //     console.log("index",index)
+  //     setSelectTeam(dragTeam);
+  //     setSelectIndex(index);
+  //   },
+  //   [selectTeam, selectIndex,hoge]
+  // );
+  const selectTeamWhenDropped = 
     (dragTeam: TeamList, index: number) => {
+      console.log("selectTeamWhenDropped")
+      console.log("dragTeam",dragTeam)
+      console.log("index",index)
       setSelectTeam(dragTeam);
       setSelectIndex(index);
-    },
-    [selectTeam, selectIndex]
-  );
+    }
+
+  
 
   //削除したteam認識用
   const [dragTopTeam, setDragTopTeam] = useState<number | undefined>(undefined);
@@ -48,18 +61,17 @@ const Base: React.FC<Props> = ({ className }) => {
     (index: number | undefined) => {
       setDragTopTeam(index);
     },
-    [dragTopTeam]
+    [setDragTopTeam]
   );
   const fetchDragUnder = useCallback(
     (index: number | undefined) => {
       setDragUnderTeam(index);
     },
-    [dragUnderTeam]
+    [setDragUnderTeam]
   );
 
   return (
     <div className={`${className}__mainElement`}>
-      <DndProvider backend={HTML5Backend}>
         <div className={`${className}__mainSection`}>
           <div className={`${className}__building`}>
             <div className={`${className}__topTeam`}>
@@ -82,7 +94,7 @@ const Base: React.FC<Props> = ({ className }) => {
           <div className={`${className}__teamList`}>
             <MyTeam
               myTeamsList={myTeamsList}
-              dragSelectTeam={dragSelectTeam}
+              dragSelectTeam={selectTeamWhenDropped}
               dragTopTeam={dragTopTeam}
               dragUnderTeam={dragUnderTeam}
             />
@@ -91,7 +103,6 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__poolSection`}>
           <Pool />
         </div>
-      </DndProvider>
     </div>
   );
 };

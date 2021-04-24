@@ -51,11 +51,11 @@ const Base: React.FC<Props> = ({
   //myteamドラッグのref
   const dragMyTeam = (index: number) => {
     const [, ref] = useDrag({
-      item: { type: 'team', index },
-      end: (draggedItem, monitor) => {
-        if (monitor.didDrop()) {
-          dragSelectTeam(myTeamsList[index], index);
-        }
+      item: { type: 'team', MyTeam: myTeamsList[index], MyTeamIndex: index },
+      collect: () => {
+        
+         // dragSelectTeam(myTeamsList[index], index);
+        
       },
     });
     return ref;

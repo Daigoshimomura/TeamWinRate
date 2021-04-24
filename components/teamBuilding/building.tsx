@@ -8,7 +8,7 @@ type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamList) => void;
   selectTeam: TeamList;
-  selectIndex: number;
+  selectIndex: number | undefined;
   fetchDrag: (index: number | undefined) => void;
 };
 
@@ -149,20 +149,22 @@ const Base: React.FC<Props> = ({
   //bordドロップのref
   const [, ref] = useDrop({
     accept: 'team',
-    drop: () => {
-      bordDrop();
+    drop: (item,monitor) => {
+      const DropTeam = monitor.getItem();
+      console.log("DropTeam",DropTeam.MyTeam)
+      bordDrop(DropTeam.MyTeam,DropTeam.MyTeamIndex);
     },
   });
 
-  const bordDrop = () => {
-    setBoadPosition(selectTeam.championList);
-    setTeamName(selectTeam.teamName);
+  const bordDrop = (Myteam:TeamList,Index:number | undefined) => {
+    setBoadPosition(Myteam.championList);
+    setTeamName(Myteam.teamName);
     const newChampionList: string[] = [];
-    selectTeam.championList.forEach((elm) => {
+    Myteam.championList.forEach((elm) => {
       newChampionList.push(elm);
     });
     setChampionList(newChampionList);
-    fetchDrag(selectIndex);
+    fetchDrag(Index);
   };
 
   return (
