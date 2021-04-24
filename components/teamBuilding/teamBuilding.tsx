@@ -39,6 +39,24 @@ const Base: React.FC<Props> = ({ className }) => {
     [selectTeam, selectIndex]
   );
 
+  //削除したteam認識用
+  const [dragTopTeam, setDragTopTeam] = useState<number | undefined>(undefined);
+  const [dragUnderTeam, setDragUnderTeam] = useState<number | undefined>(
+    undefined
+  );
+  const fetchDragTop = useCallback(
+    (index: number | undefined) => {
+      setDragTopTeam(index);
+    },
+    [dragTopTeam]
+  );
+  const fetchDragUnder = useCallback(
+    (index: number | undefined) => {
+      setDragUnderTeam(index);
+    },
+    [dragUnderTeam]
+  );
+
   return (
     <div className={`${className}__mainElement`}>
       <DndProvider backend={HTML5Backend}>
@@ -49,6 +67,7 @@ const Base: React.FC<Props> = ({ className }) => {
                 updateMyTeamList={updateMyTeamList}
                 selectTeam={selectTeam}
                 selectIndex={selectIndex}
+                fetchDrag={fetchDragTop}
               />
             </div>
             <div className={`${className}__underTeam`}>
@@ -56,11 +75,17 @@ const Base: React.FC<Props> = ({ className }) => {
                 updateMyTeamList={updateMyTeamList}
                 selectTeam={selectTeam}
                 selectIndex={selectIndex}
+                fetchDrag={fetchDragUnder}
               />
             </div>
           </div>
           <div className={`${className}__teamList`}>
-            <MyTeam myTeamsList={myTeamsList} dragSelectTeam={dragSelectTeam} />
+            <MyTeam
+              myTeamsList={myTeamsList}
+              dragSelectTeam={dragSelectTeam}
+              dragTopTeam={dragTopTeam}
+              dragUnderTeam={dragUnderTeam}
+            />
           </div>
         </div>
         <div className={`${className}__poolSection`}>

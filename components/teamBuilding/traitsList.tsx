@@ -44,8 +44,6 @@ const Base: React.FC<Props> = ({ className, championList }) => {
     itemListlength: number,
     item: number
   ) => {
-    console.log('outputNumber', outputNumber);
-    console.log('imte', item);
     if (outputNumber === item) {
       if (index !== itemListlength - 1) {
         return (

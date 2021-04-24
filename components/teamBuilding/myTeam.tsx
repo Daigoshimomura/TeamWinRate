@@ -10,11 +10,20 @@ type Props = {
   className?: string;
   myTeamsList: TeamList[];
   dragSelectTeam: (dragTeam: TeamList, index: number) => void;
+  dragTopTeam: number | undefined;
+  dragUnderTeam: number | undefined;
 };
 
-const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
+const Base: React.FC<Props> = ({
+  className,
+  myTeamsList,
+  dragSelectTeam,
+  dragTopTeam,
+  dragUnderTeam,
+}) => {
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
+
   // cost返却処理該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
@@ -43,6 +52,11 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
   const dragMyTeam = (index: number) => {
     const [, ref] = useDrag({
       item: { type: 'team', index },
+      end: (draggedItem, monitor) => {
+        if (monitor.didDrop()) {
+          dragSelectTeam(myTeamsList[index], index);
+        }
+      },
     });
     return ref;
   };
@@ -62,15 +76,13 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
     //champion出力処理
     const team: JSX.Element[] = [];
     for (let index = 0; index < 5; index++) {
-      const refDrag = dragMyTeam(index);
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
+      const refDrag = dragMyTeam(newIndex);
       if (myTeamsList[newIndex]) {
-        dragSelectTeam(myTeamsList[newIndex], newIndex);
         const newMyTeamList = outputMyTeamList(
           myTeamsList[newIndex].championList
         );
-        console.log('index', index);
         newMyTeamList.forEach((item) => {
           const color = fetchCost(item);
           outputChampionList.push(
@@ -78,7 +90,15 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
           );
         });
         team.push(
-          <div key={newIndex} ref={refDrag} className={`${className}__team`}>
+          <div
+            key={newIndex}
+            ref={refDrag}
+            className={
+              dragTopTeam === newIndex || dragUnderTeam === newIndex
+                ? `${className}__selectTeam`
+                : `${className}__team`
+            }
+          >
             <div className={`${className}__teamName`}>
               {myTeamsList[newIndex].teamName}
             </div>
@@ -102,11 +122,6 @@ const Base: React.FC<Props> = ({ className, myTeamsList, dragSelectTeam }) => {
         myTeamSize={myTeamsList.length}
         handleSearchMyteam={handleSearchMyteam}
       />
-      <div className={`${className}__pageButtonList`}>
-        <button className={`${className}__notSelectedButton`}>1</button>
-        <button className={`${className}__openButton`}>2</button>
-        <button className={`${className}__activeButton`}>3</button>
-      </div>
     </div>
   );
 };
@@ -137,6 +152,14 @@ const MyTeam = styled(Base)`
     border-radius: 6px;
     margin-bottom: 4px;
   }
+  &__selectTeam {
+    width: 474px;
+    height: 95px;
+    background-color: #5987cd;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+
   &__teamName {
     color: #e6e8ed;
     font-size: 18px;

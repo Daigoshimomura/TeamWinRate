@@ -9,6 +9,7 @@ type Props = {
   updateMyTeamList: (myTeam: TeamList) => void;
   selectTeam: TeamList;
   selectIndex: number;
+  fetchDrag: (index: number | undefined) => void;
 };
 
 export type TeamList = {
@@ -21,6 +22,7 @@ const Base: React.FC<Props> = ({
   updateMyTeamList,
   selectTeam,
   selectIndex,
+  fetchDrag,
 }) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
@@ -141,6 +143,7 @@ const Base: React.FC<Props> = ({
     setBoadPosition(new Map());
     setChampionList([]);
     setTeamName('');
+    fetchDrag(undefined);
   };
 
   //bordドロップのref
@@ -159,6 +162,7 @@ const Base: React.FC<Props> = ({
       newChampionList.push(elm);
     });
     setChampionList(newChampionList);
+    fetchDrag(selectIndex);
   };
 
   return (
