@@ -3,8 +3,6 @@ import { TeamList } from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
 import React, { useState, useCallback } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import styled from 'styled-components';
 
 type Props = {
@@ -12,7 +10,7 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //myTeamsに出力用
+  //saveクリック時にmyTeam追加
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
   const updateMyTeamList = useCallback(
     (myTeam: TeamList) => {
@@ -23,86 +21,52 @@ const Base: React.FC<Props> = ({ className }) => {
     [setMyTeamList]
   );
 
-  const newTeamList: TeamList = {
-    teamName: '',
-    championList: new Map(),
-  };
-
-  //選択team認識用
-  const [selectTeam, setSelectTeam] = useState<TeamList>(newTeamList);
-  const [selectIndex, setSelectIndex] = useState<number | undefined>(undefined);
-  const [hoge, setHoge] = useState<String> (""); 
-  // const dragSelectTeam = useCallback(
-  //   (dragTeam: TeamList, index: number) => {
-  //     console.log("dragTeam",dragTeam)
-  //     console.log("index",index)
-  //     setSelectTeam(dragTeam);
-  //     setSelectIndex(index);
-  //   },
-  //   [selectTeam, selectIndex,hoge]
-  // );
-  const selectTeamWhenDropped = 
-    (dragTeam: TeamList, index: number) => {
-      console.log("selectTeamWhenDropped")
-      console.log("dragTeam",dragTeam)
-      console.log("index",index)
-      setSelectTeam(dragTeam);
-      setSelectIndex(index);
-    }
-
-  
-
   //削除したteam認識用
-  const [dragTopTeam, setDragTopTeam] = useState<number | undefined>(undefined);
-  const [dragUnderTeam, setDragUnderTeam] = useState<number | undefined>(
+  const [drapTopTeam, setDrapTopTeam] = useState<number | undefined>(undefined);
+  const [drapUnderTeam, setDrapUnderTeam] = useState<number | undefined>(
     undefined
   );
-  const fetchDragTop = useCallback(
+  const fetchDrapTop = useCallback(
     (index: number | undefined) => {
-      setDragTopTeam(index);
+      setDrapTopTeam(index);
     },
-    [setDragTopTeam]
+    [setDrapTopTeam]
   );
-  const fetchDragUnder = useCallback(
+  const fetchDrapUnder = useCallback(
     (index: number | undefined) => {
-      setDragUnderTeam(index);
+      setDrapUnderTeam(index);
     },
-    [setDragUnderTeam]
+    [setDrapUnderTeam]
   );
 
   return (
     <div className={`${className}__mainElement`}>
-        <div className={`${className}__mainSection`}>
-          <div className={`${className}__building`}>
-            <div className={`${className}__topTeam`}>
-              <Building
-                updateMyTeamList={updateMyTeamList}
-                selectTeam={selectTeam}
-                selectIndex={selectIndex}
-                fetchDrag={fetchDragTop}
-              />
-            </div>
-            <div className={`${className}__underTeam`}>
-              <Building
-                updateMyTeamList={updateMyTeamList}
-                selectTeam={selectTeam}
-                selectIndex={selectIndex}
-                fetchDrag={fetchDragUnder}
-              />
-            </div>
+      <div className={`${className}__mainSection`}>
+        <div className={`${className}__building`}>
+          <div className={`${className}__topTeam`}>
+            <Building
+              updateMyTeamList={updateMyTeamList}
+              fetchDrap={fetchDrapTop}
+            />
           </div>
-          <div className={`${className}__teamList`}>
-            <MyTeam
-              myTeamsList={myTeamsList}
-              dragSelectTeam={selectTeamWhenDropped}
-              dragTopTeam={dragTopTeam}
-              dragUnderTeam={dragUnderTeam}
+          <div className={`${className}__underTeam`}>
+            <Building
+              updateMyTeamList={updateMyTeamList}
+              fetchDrap={fetchDrapUnder}
             />
           </div>
         </div>
-        <div className={`${className}__poolSection`}>
-          <Pool />
+        <div className={`${className}__teamList`}>
+          <MyTeam
+            myTeamsList={myTeamsList}
+            drapTopTeam={drapTopTeam}
+            drapUnderTeam={drapUnderTeam}
+          />
         </div>
+      </div>
+      <div className={`${className}__poolSection`}>
+        <Pool />
+      </div>
     </div>
   );
 };

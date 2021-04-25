@@ -17,6 +17,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <DndProvider backend={HTML5Backend}>
       <GlobalStyle />
       <Component {...pageProps} />
-      </DndProvider>
+    </DndProvider>
   );
 }

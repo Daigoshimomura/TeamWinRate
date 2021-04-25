@@ -7,34 +7,52 @@ import styled from 'styled-components';
 type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamList) => void;
-  selectTeam: TeamList;
-  selectIndex: number | undefined;
-  fetchDrag: (index: number | undefined) => void;
+  fetchDrap: (index: number | undefined) => void;
 };
 
+//TODO 切り出したい
 export type TeamList = {
   teamName: string;
   championList: Map<string, string>;
 };
 
-const Base: React.FC<Props> = ({
-  className,
-  updateMyTeamList,
-  selectTeam,
-  selectIndex,
-  fetchDrag,
-}) => {
+const Base: React.FC<Props> = ({ className, updateMyTeamList, fetchDrap }) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
   );
-  //特性の出力用
+
+  //特性の出力
   const [championList, setChampionList] = useState<string[]>([]);
 
-  //TeamName取得用
+  //TeamName取得
   const [teamName, setTeamName] = useState<string>('');
 
-  //ドロップ処理
+  //bulidingにあるchampionがpoolにドラッグされたときの処理
+  const movePool = (Position: string) => {
+    const index = championList.findIndex(
+      (item) => item === boadPosition.get(Position)
+    );
+    championList.splice(index, 1);
+    setChampionList(championList);
+    boadPosition.delete(Position);
+    setBoadPosition(new Map(boadPosition.entries()));
+  };
+
+  //championドラッグのref
+  const dragChampion = (Position: string) => {
+    const [, ref] = useDrag({
+      item: { type: 'champion' },
+      end: (draggedItem, monitor) => {
+        if (monitor.didDrop()) {
+          movePool(Position);
+        }
+      },
+    });
+    return ref;
+  };
+
+  //poolからのドロップ処理
   const moveChampion = (monitor: string | symbol, Position: string) => {
     const IdNumber: number = champions.findIndex(
       (champion) => champion.name === monitor
@@ -51,34 +69,10 @@ const Base: React.FC<Props> = ({
     setChampionList(newChampionList);
   };
 
-  //bulidingにあるchampionがpoolにドラッグされたときの処理
-  const movePool = (Position: string) => {
-    const index = championList.findIndex(
-      (item) => item === boadPosition.get(Position)
-    );
-    championList.splice(index, 1);
-    setChampionList(championList);
-    boadPosition.delete(Position);
-    setBoadPosition(new Map(boadPosition.entries()));
-  };
-
   //ドラッグ用のtypes
   const types: string[] = champions.map((elm) => {
     return elm.name;
   });
-
-  //championドラッグのref
-  const dragChampion = (Position: string) => {
-    const [, ref] = useDrag({
-      item: { type: 'champion' },
-      end: (draggedItem, monitor) => {
-        if (monitor.didDrop()) {
-          movePool(Position);
-        }
-      },
-    });
-    return ref;
-  };
 
   const pentagon = (color: string, id: string) => {
     const pentagon: JSX.Element[] = [];
@@ -143,28 +137,29 @@ const Base: React.FC<Props> = ({
     setBoadPosition(new Map());
     setChampionList([]);
     setTeamName('');
-    fetchDrag(undefined);
+    fetchDrap(undefined);
   };
 
-  //bordドロップのref
+  //MyTeamsからbordへのドロップのref
   const [, ref] = useDrop({
     accept: 'team',
-    drop: (item,monitor) => {
+    drop: (item, monitor) => {
       const DropTeam = monitor.getItem();
-      console.log("DropTeam",DropTeam.MyTeam)
-      bordDrop(DropTeam.MyTeam,DropTeam.MyTeamIndex);
+      bordDrop(DropTeam.MyTeam, DropTeam.MyTeamIndex);
     },
   });
 
-  const bordDrop = (Myteam:TeamList,Index:number | undefined) => {
+  //MyTeamsからbordへのドロップ処理
+  const bordDrop = (Myteam: TeamList, Index: number | undefined) => {
     setBoadPosition(Myteam.championList);
     setTeamName(Myteam.teamName);
+    //ドロップされたchampionセット
     const newChampionList: string[] = [];
     Myteam.championList.forEach((elm) => {
       newChampionList.push(elm);
     });
     setChampionList(newChampionList);
-    fetchDrag(Index);
+    fetchDrap(Index);
   };
 
   return (

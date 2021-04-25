@@ -9,22 +9,20 @@ import styled from 'styled-components';
 type Props = {
   className?: string;
   myTeamsList: TeamList[];
-  dragSelectTeam: (dragTeam: TeamList, index: number) => void;
-  dragTopTeam: number | undefined;
-  dragUnderTeam: number | undefined;
+  drapTopTeam: number | undefined;
+  drapUnderTeam: number | undefined;
 };
 
 const Base: React.FC<Props> = ({
   className,
   myTeamsList,
-  dragSelectTeam,
-  dragTopTeam,
-  dragUnderTeam,
+  drapTopTeam,
+  drapUnderTeam,
 }) => {
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
 
-  // cost返却処理該当しない場合は0を返却
+  // cost返却処理 該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
       return elm.championId === championId;
@@ -52,11 +50,6 @@ const Base: React.FC<Props> = ({
   const dragMyTeam = (index: number) => {
     const [, ref] = useDrag({
       item: { type: 'team', MyTeam: myTeamsList[index], MyTeamIndex: index },
-      collect: () => {
-        
-         // dragSelectTeam(myTeamsList[index], index);
-        
-      },
     });
     return ref;
   };
@@ -94,7 +87,7 @@ const Base: React.FC<Props> = ({
             key={newIndex}
             ref={refDrag}
             className={
-              dragTopTeam === newIndex || dragUnderTeam === newIndex
+              drapTopTeam === newIndex || drapUnderTeam === newIndex
                 ? `${className}__selectTeam`
                 : `${className}__team`
             }
