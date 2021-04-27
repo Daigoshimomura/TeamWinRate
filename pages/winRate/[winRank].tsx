@@ -16,7 +16,7 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ className, page, rank }) => {
+const Post: React.FC<Props> = ({ rank }) => {
   return (
     <Layout page={'WinRate'} rank={rank}>
       <WinRate rank={rank}></WinRate>
