@@ -45,12 +45,14 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}>
             <Building
+              key="top"
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
             />
           </div>
           <div className={`${className}__underTeam`}>
             <Building
+              key="under"
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
             />

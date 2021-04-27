@@ -22,6 +22,9 @@ const Base: React.FC<Props> = ({
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
 
+  //サイドメニューflag
+  const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
+
   // cost返却処理 該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
@@ -94,7 +97,21 @@ const Base: React.FC<Props> = ({
           >
             <div className={`${className}__teamName`}>
               {myTeamsList[newIndex].teamName}
+              <div
+                onClick={() => {
+                  setIsSideOpen(!isSideOpen);
+                }}
+              >
+                ︙
+              </div>
             </div>
+            {isSideOpen ? (
+              <div className={`${className}__sidemenu`}>
+                <div className={`${className}__sideButton`}>Up</div>
+                <div className={`${className}__sideButton`}>Under</div>
+                <div>Remove</div>
+              </div>
+            ) : null}
             <div className={`${className}__champions`}>
               {outputChampionList}
             </div>
@@ -161,6 +178,8 @@ const MyTeam = styled(Base)`
     white-space: nowrap;
     overflow: hidden;
     padding: 4px 19px 0 19px;
+    display: flex;
+    justify-content: space-between;
   }
   &__champions {
     text-overflow: ellipsis;
@@ -193,6 +212,30 @@ const MyTeam = styled(Base)`
     background-color: #5987cd;
     color: #ffffff;
     margin-right: 6px;
+  }
+  &__sidemenu {
+    width: 72px;
+    height: 93px;
+    font-size: 14px;
+    z-index: 2;
+    padding-left: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 390px;
+    color: #e6e8ed;
+    background-color: #7b7b7b;
+    border: 1px solid #585755;
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.95;
+  }
+  &__sideButton {
+    padding-bottom: 2px;
+    border-bottom: 1px solid;
+    border-color: #656565;
   }
 `;
 

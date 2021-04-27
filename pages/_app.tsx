@@ -1,9 +1,9 @@
-import { AppProps, Container } from 'next/app';
+import { AppProps } from 'next/app';
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
-import 'ress';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { createGlobalStyle } from 'styled-components';
+import 'ress';
 
 const GlobalStyle = createGlobalStyle`
   *:not(svg) > * {
