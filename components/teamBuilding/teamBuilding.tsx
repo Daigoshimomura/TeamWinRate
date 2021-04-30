@@ -9,6 +9,13 @@ type Props = {
   className?: string;
 };
 
+
+export type FetchSideButton = {
+  teamList : TeamList;
+  teamListIndex : number;
+  buttonLable : String;
+};
+
 const Base: React.FC<Props> = ({ className }) => {
   //saveクリック時にmyTeam追加
   const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
@@ -39,22 +46,30 @@ const Base: React.FC<Props> = ({ className }) => {
     [setDrapUnderTeam]
   );
 
+//myTeamsideButton処理用
+  const [myTeamSideClick, setMyTeamSideClick] = useState<FetchSideButton | undefined>();
+  const fetchButton = (type:FetchSideButton) => {
+    setMyTeamSideClick(type);
+  }
+
   return (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__mainSection`}>
         <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}>
             <Building
-              key="top"
+              key={"UP"}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
+              myTeamSideClick={myTeamSideClick}
             />
           </div>
           <div className={`${className}__underTeam`}>
             <Building
-              key="under"
+              key={"UNDER"}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
+              myTeamSideClick={myTeamSideClick}
             />
           </div>
         </div>
@@ -63,6 +78,7 @@ const Base: React.FC<Props> = ({ className }) => {
             myTeamsList={myTeamsList}
             drapTopTeam={drapTopTeam}
             drapUnderTeam={drapUnderTeam}
+            fetchButton={fetchButton}
           />
         </div>
       </div>

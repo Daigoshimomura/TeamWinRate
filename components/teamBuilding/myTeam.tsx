@@ -5,12 +5,15 @@ import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
+import {FetchSideButton} from 'components/teamBuilding/teamBuilding';
+
 
 type Props = {
   className?: string;
   myTeamsList: TeamList[];
   drapTopTeam: number | undefined;
   drapUnderTeam: number | undefined;
+  fetchButton: (type:FetchSideButton) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -18,12 +21,10 @@ const Base: React.FC<Props> = ({
   myTeamsList,
   drapTopTeam,
   drapUnderTeam,
+  fetchButton,
 }) => {
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
-
-  //サイドメニューflag
-  const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
 
   // cost返却処理 該当しない場合は0を返却
   const fetchCost = (championId: string): number => {
@@ -68,12 +69,30 @@ const Base: React.FC<Props> = ({
     setHandlePaginate(newPage);
   };
 
+  //sidebuttonクリック処理
+  const sideButtonOnclick = (type:string, Index:number) => {
+    //Removeボタン押下時
+    console.log("type",type)
+    if("REMOVE" === type){
+      myTeamsList.splice(Index, 1);
+      teamList();
+    }else if("UP" === type || "UNDER" === type){
+    fetchButton({
+      teamList : myTeamsList[Index],
+      teamListIndex : Index,
+      buttonLable : type,     
+    });
+  }
+  }
+
   const teamList = () => {
     //champion出力処理
     const team: JSX.Element[] = [];
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
+      //サイドメニューflag
+      const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
       const refDrag = dragMyTeam(newIndex);
       if (myTeamsList[newIndex]) {
         const newMyTeamList = outputMyTeamList(
@@ -107,9 +126,9 @@ const Base: React.FC<Props> = ({
             </div>
             {isSideOpen ? (
               <div className={`${className}__sidemenu`}>
-                <div className={`${className}__sideButton`}>Up</div>
-                <div className={`${className}__sideButton`}>Under</div>
-                <div>Remove</div>
+                <div className={`${className}__sideButton`} onClick={() => {sideButtonOnclick("UP", newIndex)}}>Up</div>
+                <div className={`${className}__sideButton`} onClick={() => {sideButtonOnclick("UNDER", newIndex)}}>Under</div>
+                <div onClick={() => {sideButtonOnclick("REMOVE", newIndex)}}>Remove</div>
               </div>
             ) : null}
             <div className={`${className}__champions`}>

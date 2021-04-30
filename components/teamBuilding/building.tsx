@@ -1,13 +1,16 @@
 import Traits from 'components/teamBuilding/traitsList';
 import champions from 'public/json/champions.json';
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect} from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import styled from 'styled-components';
+import {FetchSideButton} from 'components/teamBuilding/teamBuilding';
 
 type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamList) => void;
   fetchDrap: (index: number | undefined) => void;
+  myTeamSideClick: FetchSideButton | undefined;
+  key: string;
 };
 
 //TODO 切り出したい
@@ -16,7 +19,7 @@ export type TeamList = {
   championList: Map<string, string>;
 };
 
-const Base: React.FC<Props> = ({ className, updateMyTeamList, fetchDrap }) => {
+const Base: React.FC<Props> = ({ className, updateMyTeamList, fetchDrap,myTeamSideClick,key }) => {
   //ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
@@ -161,6 +164,14 @@ const Base: React.FC<Props> = ({ className, updateMyTeamList, fetchDrap }) => {
     setChampionList(newChampionList);
     fetchDrap(Index);
   };
+
+  //MyTeamSideButton検知用
+  const [fetchSideButton, setFetchSideButton] = useState<FetchSideButton | undefined>(myTeamSideClick);
+  const fetchSideMenu = useEffect(() => {
+    if(key === fetchSideButton?.buttonLable && fetchSideButton.teamList != undefined){
+      bordDrop(fetchSideButton.teamList,fetchSideButton.teamListIndex)
+    }
+  },[fetchSideButton]);
 
   return (
     <div className={`${className}`} ref={ref}>
