@@ -1,19 +1,20 @@
-import { TeamList } from 'components/teamBuilding/building';
 import Pagination from 'components/teamBuilding/pagination';
 import { chooseColor } from 'components/teamBuilding/pool';
+import {
+  TeamType,
+  FetchSideButton,
+} from 'components/teamBuilding/teamBuilding';
 import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
-import {FetchSideButton} from 'components/teamBuilding/teamBuilding';
-
 
 type Props = {
   className?: string;
-  myTeamsList: TeamList[];
+  myTeamsList: TeamType[];
   drapTopTeam: number | undefined;
   drapUnderTeam: number | undefined;
-  fetchButton: (type:FetchSideButton) => void;
+  fetchButton: (type: FetchSideButton) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -70,20 +71,18 @@ const Base: React.FC<Props> = ({
   };
 
   //sidebuttonクリック処理
-  const sideButtonOnclick = (type:string, Index:number) => {
+  const sideButtonOnclick = (type: string, Index: number) => {
     //Removeボタン押下時
-    console.log("type",type)
-    if("REMOVE" === type){
+    if ('REMOVE' === type) {
       myTeamsList.splice(Index, 1);
-      teamList();
-    }else if("UP" === type || "UNDER" === type){
-    fetchButton({
-      teamList : myTeamsList[Index],
-      teamListIndex : Index,
-      buttonLable : type,     
-    });
-  }
-  }
+    } else if ('UP' === type || 'UNDER' === type) {
+      fetchButton({
+        teamList: myTeamsList[Index],
+        teamListIndex: Index,
+        buttonLable: type,
+      });
+    }
+  };
 
   const teamList = () => {
     //champion出力処理
@@ -126,9 +125,32 @@ const Base: React.FC<Props> = ({
             </div>
             {isSideOpen ? (
               <div className={`${className}__sidemenu`}>
-                <div className={`${className}__sideButton`} onClick={() => {sideButtonOnclick("UP", newIndex)}}>Up</div>
-                <div className={`${className}__sideButton`} onClick={() => {sideButtonOnclick("UNDER", newIndex)}}>Under</div>
-                <div onClick={() => {sideButtonOnclick("REMOVE", newIndex)}}>Remove</div>
+                <div
+                  className={`${className}__sideButton`}
+                  onClick={() => {
+                    sideButtonOnclick('UP', newIndex),
+                      setIsSideOpen(!isSideOpen);
+                  }}
+                >
+                  Up
+                </div>
+                <div
+                  className={`${className}__sideButton`}
+                  onClick={() => {
+                    sideButtonOnclick('UNDER', newIndex),
+                      setIsSideOpen(!isSideOpen);
+                  }}
+                >
+                  Under
+                </div>
+                <div
+                  onClick={() => {
+                    sideButtonOnclick('REMOVE', newIndex),
+                      setIsSideOpen(!isSideOpen);
+                  }}
+                >
+                  Remove
+                </div>
               </div>
             ) : null}
             <div className={`${className}__champions`}>

@@ -1,5 +1,4 @@
 import Building from 'components/teamBuilding/building';
-import { TeamList } from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
 import React, { useState, useCallback } from 'react';
@@ -9,18 +8,23 @@ type Props = {
   className?: string;
 };
 
+export type TeamType = {
+  teamName: string;
+  championList: Map<string, string>;
+};
 
+//サイドボタン押下時のType
 export type FetchSideButton = {
-  teamList : TeamList;
-  teamListIndex : number;
-  buttonLable : String;
+  teamList: TeamType;
+  teamListIndex: number;
+  buttonLable: string;
 };
 
 const Base: React.FC<Props> = ({ className }) => {
   //saveクリック時にmyTeam追加
-  const [myTeamsList, setMyTeamList] = useState<TeamList[]>([]);
+  const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
   const updateMyTeamList = useCallback(
-    (myTeam: TeamList) => {
+    (myTeam: TeamType) => {
       setMyTeamList((prevState) => {
         return [...prevState, myTeam];
       });
@@ -46,11 +50,14 @@ const Base: React.FC<Props> = ({ className }) => {
     [setDrapUnderTeam]
   );
 
-//myTeamsideButton処理用
-  const [myTeamSideClick, setMyTeamSideClick] = useState<FetchSideButton | undefined>();
-  const fetchButton = (type:FetchSideButton) => {
+  //myTeamsideButton処理用
+  const [myTeamSideClick, setMyTeamSideClick] = useState<
+    FetchSideButton | undefined
+  >();
+  //myTeamにて変更する関数
+  const fetchButton = (type: FetchSideButton) => {
     setMyTeamSideClick(type);
-  }
+  };
 
   return (
     <div className={`${className}__mainElement`}>
@@ -58,7 +65,7 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}>
             <Building
-              key={"UP"}
+              type={'UP'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
               myTeamSideClick={myTeamSideClick}
@@ -66,7 +73,7 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
           <div className={`${className}__underTeam`}>
             <Building
-              key={"UNDER"}
+              type={'UNDER'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
               myTeamSideClick={myTeamSideClick}
