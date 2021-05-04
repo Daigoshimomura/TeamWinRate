@@ -1,8 +1,8 @@
+import React, { useState, useCallback } from 'react';
+import styled from 'styled-components';
 import Building from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
 
 type Props = {
   className?: string;

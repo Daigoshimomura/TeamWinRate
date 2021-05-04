@@ -28,7 +28,7 @@ const Base: React.FC<Props> = ({
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
 
   // cost返却処理 該当しない場合は0を返却
-  const fetchCost = (championId: string): number => {
+  const championCost = (championId: string): number => {
     const selectChampionId = champions.find((elm) => {
       return elm.championId === championId;
     });
@@ -45,8 +45,9 @@ const Base: React.FC<Props> = ({
       newMyTeamList.push(innerElm);
     });
     newMyTeamList.sort();
+    //championコスト順に並び替え
     newMyTeamList.sort((a, b) => {
-      return fetchCost(b) - fetchCost(a);
+      return championCost(b) - championCost(a);
     });
     return newMyTeamList;
   };
@@ -61,6 +62,7 @@ const Base: React.FC<Props> = ({
 
   //paginationでページを変更したときに画面表示の処理
   const handleSearchMyteam = (page: number) => {
+    //ページ番号とList番号の合計
     let newPage;
     if (0 <= page) {
       newPage = (page - 1) * 5;
@@ -98,7 +100,7 @@ const Base: React.FC<Props> = ({
           myTeamsList[newIndex].championList
         );
         newMyTeamList.forEach((item) => {
-          const color = fetchCost(item);
+          const color = championCost(item);
           outputChampionList.push(
             <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
           );

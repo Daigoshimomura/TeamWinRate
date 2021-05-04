@@ -1,3 +1,4 @@
+import Pentagon from 'components/teamBuilding/pentagon';
 import {
   TeamType,
   FetchSideButton,
@@ -35,37 +36,24 @@ const Base: React.FC<Props> = ({
   const [teamName, setTeamName] = useState<string>('');
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理
-  const movePool = (Position: string) => {
+  const movePool = (position: string) => {
     const index = championList.findIndex(
-      (item) => item === boadPosition.get(Position)
+      (item) => item === boadPosition.get(position)
     );
     championList.splice(index, 1);
     setChampionList(championList);
-    boadPosition.delete(Position);
+    boadPosition.delete(position);
     setBoadPosition(new Map(boadPosition.entries()));
   };
 
-  //championドラッグのref
-  const dragChampion = (Position: string) => {
-    const [, ref] = useDrag({
-      item: { type: 'champion' },
-      end: (draggedItem, monitor) => {
-        if (monitor.didDrop()) {
-          movePool(Position);
-        }
-      },
-    });
-    return ref;
-  };
-
   //poolからのドロップ処理
-  const moveChampion = (monitor: string | symbol, Position: string) => {
+  const moveChampion = (monitor: string | symbol, position: string) => {
     const IdNumber: number = champions.findIndex(
       (champion) => champion.name === monitor
     );
     setBoadPosition(
       new Map(
-        boadPosition.set(Position, champions[IdNumber].championId).entries()
+        boadPosition.set(position, champions[IdNumber].championId).entries()
       )
     );
     const newChampionList: string[] = [
@@ -73,56 +61,6 @@ const Base: React.FC<Props> = ({
       champions[IdNumber].championId,
     ];
     setChampionList(newChampionList);
-  };
-
-  //ドラッグ用のtypes
-  const types: string[] = champions.map((elm) => {
-    return elm.name;
-  });
-
-  const pentagon = (color: string, id: string) => {
-    const pentagon: JSX.Element[] = [];
-    for (let i = 0; i < 7; i++) {
-      const [, ref] = useDrop({
-        accept: types,
-        drop: (item) => {
-          moveChampion(item.type, `${id}-${i}`);
-        },
-      });
-      //ドラッグされた位置
-      const dragPosition = `${id}-${i}`;
-      const refDrag = dragChampion(dragPosition);
-      const dragChampionImg = () => {
-        if (boadPosition.get(dragPosition)) {
-          return (
-            <div className={`${className}__hexagon`}>
-              <div className={`${className}__hexagon__inner-1`}>
-                <div className={`${className}__hexagon__inner-2`}>
-                  <div className={`${className}__hexagon__inner-3`}>
-                    <img
-                      className={`${className}__hexagon__inner-image`}
-                      ref={refDrag}
-                      key={i}
-                      src={`/champions/${boadPosition.get(dragPosition)}.png`}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        }
-        return (
-          <img
-            ref={ref}
-            key={i}
-            className={`${className}__pentagonImg`}
-            src={`/build/Pentagon-${color}.png`}
-          />
-        );
-      };
-      pentagon.push(dragChampionImg());
-    }
-    return pentagon;
   };
 
   //saveボタン処理
@@ -205,16 +143,40 @@ const Base: React.FC<Props> = ({
         </div>
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
-            {pentagon(`gray`, `1`)}
+            <Pentagon
+              color={'gray'}
+              id={`1`}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`, `2`)}
+            <Pentagon
+              color={'white'}
+              id={`2`}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonGrayListDown`}>
-            {pentagon(`gray`, `3`)}
+            <Pentagon
+              color={'gray'}
+              id={`3`}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`, `4`)}
+            <Pentagon
+              color={'white'}
+              id={`4`}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__boad`}>Comparison Boad</div>
         </div>
