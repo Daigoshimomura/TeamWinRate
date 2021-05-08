@@ -38,13 +38,13 @@ const Base: React.FC<Props> = ({ className }) => {
     undefined
   );
   const fetchDrapTop = useCallback(
-    (index: number | undefined) => {
+    (index?: number) => {
       setDrapTopTeam(index);
     },
     [setDrapTopTeam]
   );
   const fetchDrapUnder = useCallback(
-    (index: number | undefined) => {
+    (index?: number) => {
       setDrapUnderTeam(index);
     },
     [setDrapUnderTeam]

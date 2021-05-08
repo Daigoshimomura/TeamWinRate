@@ -6,14 +6,14 @@ import {
 import Traits from 'components/teamBuilding/traitsList';
 import champions from 'public/json/champions.json';
 import React, { useState, useEffect } from 'react';
-import { useDrop, useDrag } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
 
 type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamType) => void;
-  fetchDrap: (index: number | undefined) => void;
-  myTeamSideClick: FetchSideButton | undefined;
+  fetchDrap: (index?: number) => void;
+  myTeamSideClick?: FetchSideButton;
   type: string;
 };
 
@@ -94,7 +94,7 @@ const Base: React.FC<Props> = ({
   });
 
   //MyTeamsからbordへのドロップ処理
-  const bordDrop = (Myteam: TeamType, Index: number | undefined) => {
+  const bordDrop = (Myteam: TeamType, Index?: number) => {
     setBoadPosition(Myteam.championList);
     setTeamName(Myteam.teamName);
     //ドロップされたchampionセット

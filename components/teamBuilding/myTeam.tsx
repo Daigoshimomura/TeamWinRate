@@ -12,8 +12,8 @@ import styled from 'styled-components';
 type Props = {
   className?: string;
   myTeamsList: TeamType[];
-  drapTopTeam: number | undefined;
-  drapUnderTeam: number | undefined;
+  drapTopTeam?: number;
+  drapUnderTeam?: number;
   fetchButton: (type: FetchSideButton) => void;
 };
 
