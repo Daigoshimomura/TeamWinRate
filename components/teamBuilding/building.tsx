@@ -56,11 +56,9 @@ const Base: React.FC<Props> = ({
         boadPosition.set(position, champions[IdNumber].championId).entries()
       )
     );
-    const newChampionList: string[] = [
-      ...championList,
-      champions[IdNumber].championId,
-    ];
-    setChampionList(newChampionList);
+    setChampionList((prevState) => {
+      return [...prevState, champions[IdNumber].championId];
+    });
   };
 
   //saveボタン処理
