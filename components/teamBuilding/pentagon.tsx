@@ -53,7 +53,8 @@ const Base: React.FC<Props> = ({
   };
 
   const dragChampionImg = (dragPosition: string) => {
-    const ref = refDrag(dragPosition);
+    const ref_Dr = refDrag(dragPosition);
+    const ref_Dp = refdrop(dragPosition);
     if (boadPosition.get(dragPosition)) {
       return (
         <div className={`${className}__hexagon`}>
@@ -62,7 +63,7 @@ const Base: React.FC<Props> = ({
               <div className={`${className}__hexagon__inner-3`}>
                 <img
                   className={`${className}__hexagon__inner-image`}
-                  ref={ref}
+                  ref={ref_Dr}
                   key={dragPosition}
                   src={`/champions/${boadPosition.get(dragPosition)}.png`}
                 />
@@ -74,7 +75,7 @@ const Base: React.FC<Props> = ({
     }
     return (
       <img
-        ref={refdrop(dragPosition)}
+        ref={ref_Dp}
         key={dragPosition}
         className={`${className}__pentagonImg`}
         src={`/build/Pentagon-${color}.png`}
@@ -88,7 +89,7 @@ const Base: React.FC<Props> = ({
     const dragPosition = `${id}-${i}`;
     newpentagon.push(dragChampionImg(dragPosition));
   }
-  return newpentagon;
+  return <>{newpentagon}</>;
 };
 
 const pentagon = styled(Base)`
