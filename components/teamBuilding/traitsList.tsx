@@ -9,11 +9,12 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, championList }) => {
-  //画面に出力している特性
+  //画面出力特性リスト
   const outputTraitsList = new Map<string, number>();
-  //重複している要素を削除
+  //重複している要素を削除したリスト
   const newChampionList: string[] = [...new Set(championList)];
-  //championの特性をoutputTraitsListに入れる
+
+  //championListの特性をoutputTraitsListに入れる
   champions.forEach((elm) => {
     newChampionList.forEach((element) => {
       if (elm.championId === element) {
@@ -25,7 +26,9 @@ const Base: React.FC<Props> = ({ className, championList }) => {
             }
           });
           if (trait?.name) {
+            //前回特性値
             const innerItem = outputTraitsList.get(trait.name);
+            //既存特性であれば+1新規であれば1をセット
             if (innerItem) {
               outputTraitsList.set(trait.name, innerItem + 1).entries();
             } else {
@@ -37,13 +40,14 @@ const Base: React.FC<Props> = ({ className, championList }) => {
     });
   });
 
-  //画面に表示されている特性の数値によって出力を変更
+  //画面表示されている特性の数値によって出力を変更
   const selectNumber = (
     outputNumber: number,
     index: number,
     itemListlength: number,
     item: number
   ) => {
+    //特性出力数と特性発動数が同じであれば太字で表示する
     if (outputNumber === item) {
       if (index !== itemListlength - 1) {
         return (
@@ -63,14 +67,15 @@ const Base: React.FC<Props> = ({ className, championList }) => {
 
   //画面出力処理
   const traits = () => {
+    //画面出力
     const screenOutput: JSX.Element[] = [];
     //出力する前に値順に並べ替え
-    const outputTraits = new Map(
+    const newoutputTraitsList = new Map(
       [...outputTraitsList.entries()].sort((a, b) => b[1] - a[1])
     );
 
     //champion分だけの特性表示
-    outputTraits.forEach((key, value) => {
+    newoutputTraitsList.forEach((key, value) => {
       const sets = () => {
         //特性の表示する数値
         for (const item of traitsList) {
