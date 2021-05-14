@@ -1,9 +1,7 @@
+import Sidebutton from 'components/teamBuilding/myTeam_sidebutton';
 import Pagination from 'components/teamBuilding/pagination';
 import { chooseColor } from 'components/teamBuilding/pool';
-import {
-  TeamType,
-  FetchSideButton,
-} from 'components/teamBuilding/teamBuilding';
+import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
@@ -14,7 +12,7 @@ type Props = {
   myTeamsList: TeamType[];
   drapTopTeam?: number;
   drapUnderTeam?: number;
-  fetchButton: (type: FetchSideButton) => void;
+  fetchButton: (type: SideButtonType) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -126,34 +124,12 @@ const Base: React.FC<Props> = ({
               </div>
             </div>
             {isSideOpen ? (
-              <div className={`${className}__sidemenu`}>
-                <div
-                  className={`${className}__sideButton`}
-                  onClick={() => {
-                    sideButtonOnclick('UP', newIndex),
-                      setIsSideOpen(!isSideOpen);
-                  }}
-                >
-                  Up
-                </div>
-                <div
-                  className={`${className}__sideButton`}
-                  onClick={() => {
-                    sideButtonOnclick('UNDER', newIndex),
-                      setIsSideOpen(!isSideOpen);
-                  }}
-                >
-                  Under
-                </div>
-                <div
-                  onClick={() => {
-                    sideButtonOnclick('REMOVE', newIndex),
-                      setIsSideOpen(!isSideOpen);
-                  }}
-                >
-                  Remove
-                </div>
-              </div>
+              <Sidebutton
+                isSideOpen={isSideOpen}
+                index={newIndex}
+                sideButtonOnclick={sideButtonOnclick}
+                setIsSideOpen={setIsSideOpen}
+              />
             ) : null}
             <div className={`${className}__champions`}>
               {outputChampionList}

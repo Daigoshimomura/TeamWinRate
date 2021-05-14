@@ -1,8 +1,5 @@
 import Pentagon from 'components/teamBuilding/pentagon';
-import {
-  TeamType,
-  FetchSideButton,
-} from 'components/teamBuilding/teamBuilding';
+import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import Traits from 'components/teamBuilding/traitsList';
 import champions from 'public/json/champions.json';
 import React, { useState, useEffect } from 'react';
@@ -13,7 +10,7 @@ type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamType) => void;
   fetchDrap: (index?: number) => void;
-  myTeamSideClick?: FetchSideButton;
+  myTeamSideClick?: SideButtonType;
   type: string;
 };
 
@@ -32,7 +29,7 @@ const Base: React.FC<Props> = ({
   //特性の出力
   const [championList, setChampionList] = useState<string[]>([]);
 
-  //TeamName取得
+  //画面上のTeamName取得
   const [teamName, setTeamName] = useState<string>('');
 
   //bulidingにあるchampionがpoolにドラッグされたときの処理

@@ -13,16 +13,17 @@ export type TeamType = {
   championList: Map<string, string>;
 };
 
-//サイドボタン押下時のType
-export type FetchSideButton = {
+//MyTeamサイドボタン押下時のType
+export type SideButtonType = {
   teamList: TeamType;
   teamListIndex: number;
   buttonLable: string;
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //saveクリック時にmyTeam追加
+  //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
+  //Building_SaveClick
   const updateMyTeamList = useCallback(
     (myTeam: TeamType) => {
       setMyTeamList((prevState) => {
@@ -32,17 +33,19 @@ const Base: React.FC<Props> = ({ className }) => {
     [setMyTeamList]
   );
 
-  //削除したteam認識用
+  //MyTeam_削除チーム認識用
   const [drapTopTeam, setDrapTopTeam] = useState<number | undefined>(undefined);
   const [drapUnderTeam, setDrapUnderTeam] = useState<number | undefined>(
     undefined
   );
+  //Building_上部Bordドロップ認識
   const fetchDrapTop = useCallback(
     (index?: number) => {
       setDrapTopTeam(index);
     },
     [setDrapTopTeam]
   );
+  //Building_下部Bordドロップ認識
   const fetchDrapUnder = useCallback(
     (index?: number) => {
       setDrapUnderTeam(index);
@@ -50,12 +53,12 @@ const Base: React.FC<Props> = ({ className }) => {
     [setDrapUnderTeam]
   );
 
-  //myTeamsideButton処理用
+  //Building_myTeamsideButton処理用
   const [myTeamSideClick, setMyTeamSideClick] = useState<
-    FetchSideButton | undefined
+    SideButtonType | undefined
   >();
-  //myTeamにて変更する関数
-  const fetchButton = (type: FetchSideButton) => {
+  //MyTeam_SideButtonClickType
+  const fetchButton = (type: SideButtonType) => {
     setMyTeamSideClick(type);
   };
 
