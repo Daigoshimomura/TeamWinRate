@@ -1,3 +1,4 @@
+import Button from 'components/teamBuilding/building_button';
 import Pentagon from 'components/teamBuilding/pentagon';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import Traits from 'components/teamBuilding/traitsList';
@@ -124,12 +125,8 @@ const Base: React.FC<Props> = ({
           }}
         />
         <div className={`${className}__buttonList`}>
-          <button className={`${className}__save`} onClick={saveClick}>
-            Save
-          </button>
-          <button className={`${className}__new`} onClick={newClick}>
-            New
-          </button>
+          <Button type="Save" click={saveClick} />
+          <Button type="New" click={newClick} />
         </div>
       </div>
       <div className={`${className}__build`}>
@@ -202,20 +199,6 @@ const Building = styled(Base)`
   &__buttonList {
     font-size: 14px;
     color: #e6e8ed;
-  }
-  &__save {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #5987cd;
-    margin-right: 4px;
-  }
-  &__new {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #5987cd;
   }
   &__build {
     height: 215px;
