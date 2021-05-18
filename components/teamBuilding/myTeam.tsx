@@ -1,10 +1,9 @@
-import Sidebutton from 'components/teamBuilding/myTeam_sidebutton';
+import SingleTeam from 'components/teamBuilding/myTeam_singleTeam';
 import Pagination from 'components/teamBuilding/pagination';
 import { chooseColor } from 'components/teamBuilding/pool';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
-import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 
 type Props = {
@@ -13,6 +12,7 @@ type Props = {
   drapTopTeam?: number;
   drapUnderTeam?: number;
   fetchButton: (type: SideButtonType) => void;
+  deleteMyTeamList: (myTeam: TeamType[]) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -21,6 +21,7 @@ const Base: React.FC<Props> = ({
   drapTopTeam,
   drapUnderTeam,
   fetchButton,
+  deleteMyTeamList,
 }) => {
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
@@ -50,14 +51,6 @@ const Base: React.FC<Props> = ({
     return newMyTeamList;
   };
 
-  //myteamドラッグのref
-  const dragMyTeam = (index: number) => {
-    const [, ref] = useDrag({
-      item: { type: 'team', MyTeam: myTeamsList[index], MyTeamIndex: index },
-    });
-    return ref;
-  };
-
   //paginationでページを変更したときに画面表示の処理
   const handleSearchMyteam = (page: number) => {
     //ページ番号とList番号の合計
@@ -74,7 +67,9 @@ const Base: React.FC<Props> = ({
   const sideButtonOnclick = (type: string, Index: number) => {
     //Removeボタン押下時
     if ('REMOVE' === type) {
-      myTeamsList.splice(Index, 1);
+      const newMyTeamList: TeamType[] = myTeamsList;
+      newMyTeamList.splice(Index, 1);
+      deleteMyTeamList(newMyTeamList);
     } else if ('UP' === type || 'UNDER' === type) {
       fetchButton({
         teamList: myTeamsList[Index],
@@ -86,13 +81,10 @@ const Base: React.FC<Props> = ({
 
   const teamList = () => {
     //champion出力処理
-    const team: JSX.Element[] = [];
+    const result: JSX.Element[] = [];
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
-      //サイドメニューflag
-      const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
-      const refDrag = dragMyTeam(newIndex);
       if (myTeamsList[newIndex]) {
         const newMyTeamList = outputMyTeamList(
           myTeamsList[newIndex].championList
@@ -103,42 +95,20 @@ const Base: React.FC<Props> = ({
             <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
           );
         });
-        team.push(
-          <div
-            key={newIndex}
-            ref={refDrag}
-            className={
-              drapTopTeam === newIndex || drapUnderTeam === newIndex
-                ? `${className}__selectTeam`
-                : `${className}__team`
-            }
-          >
-            <div className={`${className}__teamName`}>
-              {myTeamsList[newIndex].teamName}
-              <div
-                onClick={() => {
-                  setIsSideOpen(!isSideOpen);
-                }}
-              >
-                ︙
-              </div>
-            </div>
-            {isSideOpen ? (
-              <Sidebutton
-                isSideOpen={isSideOpen}
-                index={newIndex}
-                sideButtonOnclick={sideButtonOnclick}
-                setIsSideOpen={setIsSideOpen}
-              />
-            ) : null}
-            <div className={`${className}__champions`}>
-              {outputChampionList}
-            </div>
-          </div>
+        console.log(1, index);
+        result.push(
+          <SingleTeam
+            myTeamsList={myTeamsList}
+            drapTopTeam={drapTopTeam}
+            drapUnderTeam={drapUnderTeam}
+            myTeamIndex={newIndex}
+            sideButtonOnclick={sideButtonOnclick}
+            outputChampionList={outputChampionList}
+          />
         );
       }
     }
-    return team;
+    return result;
   };
 
   return (
@@ -173,38 +143,6 @@ const MyTeam = styled(Base)`
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 14px;
-  }
-  &__team {
-    width: 474px;
-    height: 95px;
-    background-color: #7b7b7b;
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }
-  &__selectTeam {
-    width: 474px;
-    height: 95px;
-    background-color: #5987cd;
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }
-
-  &__teamName {
-    color: #e6e8ed;
-    font-size: 18px;
-    border-bottom: 1px solid #e6e8ed;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 4px 19px 0 19px;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__champions {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 14px 0 0 19px;
   }
   &__pageButtonList {
     color: #b2b2b2;

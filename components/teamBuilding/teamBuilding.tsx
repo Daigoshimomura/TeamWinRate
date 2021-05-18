@@ -23,14 +23,24 @@ export type SideButtonType = {
 const Base: React.FC<Props> = ({ className }) => {
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
-  //Building_SaveClick
+  //Building_SaveClick,MyTeam_deleteClick
   const updateMyTeamList = useCallback(
     (myTeam: TeamType) => {
       setMyTeamList((prevState) => {
         return [...prevState, myTeam];
       });
     },
-    [setMyTeamList]
+    [myTeamsList]
+  );
+
+  //MyTeam_deleteClick
+  const deleteMyTeamList = useCallback(
+    (TeamList: TeamType[]) => {
+      console.log('delte', TeamList);
+      setMyTeamList(TeamList);
+      console.log('myTeamsList', myTeamsList);
+    },
+    [myTeamsList]
   );
 
   //MyTeam_削除チーム認識用
@@ -89,6 +99,7 @@ const Base: React.FC<Props> = ({ className }) => {
             drapTopTeam={drapTopTeam}
             drapUnderTeam={drapUnderTeam}
             fetchButton={fetchButton}
+            deleteMyTeamList={deleteMyTeamList}
           />
         </div>
       </div>

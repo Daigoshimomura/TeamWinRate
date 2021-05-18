@@ -45,7 +45,7 @@ const Base: React.FC<Props> = ({
   );
 };
 
-const MyTeam = styled(Base)`
+const SideButton = styled(Base)`
   background-color: #656565;
   border-radius: 6px;
   height: 600px;
@@ -140,4 +140,4 @@ const MyTeam = styled(Base)`
   }
 `;
 
-export default MyTeam;
+export default SideButton;
