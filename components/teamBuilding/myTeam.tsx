@@ -11,7 +11,7 @@ type Props = {
   myTeamsList: TeamType[];
   drapTopTeam?: number;
   drapUnderTeam?: number;
-  fetchButton: (type: SideButtonType) => void;
+  distinguish_button: (type: SideButtonType) => void;
   deleteMyTeamList: (myTeam: TeamType[]) => void;
 };
 
@@ -20,7 +20,7 @@ const Base: React.FC<Props> = ({
   myTeamsList,
   drapTopTeam,
   drapUnderTeam,
-  fetchButton,
+  distinguish_button,
   deleteMyTeamList,
 }) => {
   // 表示しているページ番号
@@ -71,7 +71,7 @@ const Base: React.FC<Props> = ({
       newMyTeamList.splice(Index, 1);
       deleteMyTeamList(newMyTeamList);
     } else if ('UP' === type || 'UNDER' === type) {
-      fetchButton({
+      distinguish_button({
         teamList: myTeamsList[Index],
         teamListIndex: Index,
         buttonLable: type,

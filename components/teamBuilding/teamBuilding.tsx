@@ -68,7 +68,7 @@ const Base: React.FC<Props> = ({ className }) => {
     SideButtonType | undefined
   >();
   //MyTeam_SideButtonClickType
-  const fetchButton = (type: SideButtonType) => {
+  const distinguish_button = (type: SideButtonType) => {
     setMyTeamSideClick(type);
   };
 
@@ -98,7 +98,7 @@ const Base: React.FC<Props> = ({ className }) => {
             myTeamsList={myTeamsList}
             drapTopTeam={drapTopTeam}
             drapUnderTeam={drapUnderTeam}
-            fetchButton={fetchButton}
+            distinguish_button={distinguish_button}
             deleteMyTeamList={deleteMyTeamList}
           />
         </div>
