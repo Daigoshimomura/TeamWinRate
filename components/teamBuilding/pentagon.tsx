@@ -1,7 +1,7 @@
-import champions from 'public/json/champions.json';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import styled from 'styled-components';
+import { fetchChampionNameList } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -35,13 +35,7 @@ const Base: React.FC<Props> = ({
 
   //空のドロップref
   const refdrop = (position: string) => {
-    const types: string[] = useMemo(
-      () =>
-        champions.map((elm) => {
-          return elm.name;
-        }),
-      [champions]
-    );
+    const types: string[] = fetchChampionNameList();
 
     const [, ref] = useDrop({
       accept: types,

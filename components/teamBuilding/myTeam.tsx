@@ -2,9 +2,9 @@ import SingleTeam from 'components/teamBuilding/myTeam_singleTeam';
 import Pagination from 'components/teamBuilding/pagination';
 import { chooseColor } from 'components/teamBuilding/pool';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
-import champions from 'public/json/champions.json';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { fetchChampion_id } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -26,17 +26,6 @@ const Base: React.FC<Props> = ({
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
 
-  // cost返却処理 該当しない場合は0を返却
-  const championCost = (championId: string): number => {
-    const selectChampionId = champions.find((elm) => {
-      return elm.championId === championId;
-    });
-    if (selectChampionId) {
-      return selectChampionId.cost;
-    }
-    return 0;
-  };
-
   //アルファベット順かつコスト順に並べ替えした出力用リスト
   const outputMyTeamList = (championList: Map<string, string>) => {
     const newMyTeamList: string[] = [];
@@ -46,7 +35,7 @@ const Base: React.FC<Props> = ({
     newMyTeamList.sort();
     //championコスト順に並び替え
     newMyTeamList.sort((a, b) => {
-      return championCost(b) - championCost(a);
+      return fetchChampion_id(b).cost - fetchChampion_id(a).cost;
     });
     return newMyTeamList;
   };
@@ -90,7 +79,7 @@ const Base: React.FC<Props> = ({
           myTeamsList[newIndex].championList
         );
         newMyTeamList.forEach((item) => {
-          const color = championCost(item);
+          const color: number = fetchChampion_id(item).cost;
           outputChampionList.push(
             <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
           );

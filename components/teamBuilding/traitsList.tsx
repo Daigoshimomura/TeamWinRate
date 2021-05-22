@@ -1,7 +1,7 @@
-import champions from 'public/json/champions.json';
 import traitsList from 'public/json/traits.json';
 import React from 'react';
 import styled from 'styled-components';
+import { fetchChampion_id } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -15,27 +15,25 @@ const Base: React.FC<Props> = ({ className, championList }) => {
   const newChampionList: string[] = [...new Set(championList)];
 
   //championListの特性をoutputTraitsListに入れる
-  champions.forEach((elm) => {
-    newChampionList.forEach((element) => {
-      if (elm.championId === element) {
-        elm.traits.forEach((item) => {
-          //チャンピオン特性名から画像名に変換
-          const trait = traitsList.find((innerTrait) => {
-            if (item === innerTrait.key) {
-              return innerTrait.name;
-            }
-          });
-          if (trait?.name) {
-            //前回特性値
-            const innerItem = outputTraitsList.get(trait.name);
-            //既存特性であれば+1新規であれば1をセット
-            if (innerItem) {
-              outputTraitsList.set(trait.name, innerItem + 1).entries();
-            } else {
-              outputTraitsList.set(trait.name, 1).entries();
-            }
-          }
-        });
+
+  newChampionList.forEach((element) => {
+    const selectChampion = fetchChampion_id(element);
+    selectChampion.traits.forEach((item) => {
+      //チャンピオン特性名から画像名に変換
+      const trait = traitsList.find((innerTrait) => {
+        if (item === innerTrait.key) {
+          return innerTrait.name;
+        }
+      });
+      if (trait?.name) {
+        //前回特性値
+        const innerItem = outputTraitsList.get(trait.name);
+        //既存特性であれば+1新規であれば1をセット
+        if (innerItem) {
+          outputTraitsList.set(trait.name, innerItem + 1).entries();
+        } else {
+          outputTraitsList.set(trait.name, 1).entries();
+        }
       }
     });
   });

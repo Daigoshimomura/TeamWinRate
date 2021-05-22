@@ -2,10 +2,10 @@ import Button from 'components/teamBuilding/building_button';
 import Pentagon from 'components/teamBuilding/pentagon';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import Traits from 'components/teamBuilding/traitsList';
-import champions from 'public/json/champions.json';
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
+import { fetchChampion_name } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -46,16 +46,12 @@ const Base: React.FC<Props> = ({
 
   //poolからのドロップ処理
   const moveChampion = (monitor: string | symbol, position: string) => {
-    const IdNumber: number = champions.findIndex(
-      (champion) => champion.name === monitor
-    );
+    const selectChampion = fetchChampion_name(monitor as string);
     setBoadPosition(
-      new Map(
-        boadPosition.set(position, champions[IdNumber].championId).entries()
-      )
+      new Map(boadPosition.set(position, selectChampion.championId).entries())
     );
     setChampionList((prevState) => {
-      return [...prevState, champions[IdNumber].championId];
+      return [...prevState, selectChampion.championId];
     });
   };
 
