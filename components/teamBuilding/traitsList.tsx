@@ -1,7 +1,7 @@
 import traitsList from 'public/json/traits.json';
 import React from 'react';
 import styled from 'styled-components';
-import { fetchChampion_id } from 'util_chamipon';
+import { fetchChampionFindId } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -17,7 +17,7 @@ const Base: React.FC<Props> = ({ className, championList }) => {
   //championListの特性をoutputTraitsListに入れる
 
   newChampionList.forEach((element) => {
-    const selectChampion = fetchChampion_id(element);
+    const selectChampion = fetchChampionFindId(element);
     selectChampion.traits.forEach((item) => {
       //チャンピオン特性名から画像名に変換
       const trait = traitsList.find((innerTrait) => {

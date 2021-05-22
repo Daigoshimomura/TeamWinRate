@@ -4,14 +4,14 @@ import { chooseColor } from 'components/teamBuilding/pool';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { fetchChampion_id } from 'util_chamipon';
+import { fetchChampionFindId } from 'util_chamipon';
 
 type Props = {
   className?: string;
   myTeamsList: TeamType[];
   drapTopTeam?: number;
   drapUnderTeam?: number;
-  distinguish_button: (type: SideButtonType) => void;
+  distinguishbutton: (type: SideButtonType) => void;
   deleteMyTeamList: (myTeam: TeamType[]) => void;
 };
 
@@ -20,7 +20,7 @@ const Base: React.FC<Props> = ({
   myTeamsList,
   drapTopTeam,
   drapUnderTeam,
-  distinguish_button,
+  distinguishbutton,
   deleteMyTeamList,
 }) => {
   // 表示しているページ番号
@@ -35,7 +35,7 @@ const Base: React.FC<Props> = ({
     newMyTeamList.sort();
     //championコスト順に並び替え
     newMyTeamList.sort((a, b) => {
-      return fetchChampion_id(b).cost - fetchChampion_id(a).cost;
+      return fetchChampionFindId(b).cost - fetchChampionFindId(a).cost;
     });
     return newMyTeamList;
   };
@@ -60,7 +60,7 @@ const Base: React.FC<Props> = ({
       newMyTeamList.splice(Index, 1);
       deleteMyTeamList(newMyTeamList);
     } else if ('UP' === type || 'UNDER' === type) {
-      distinguish_button({
+      distinguishbutton({
         teamList: myTeamsList[Index],
         teamListIndex: Index,
         buttonLable: type,
@@ -79,7 +79,7 @@ const Base: React.FC<Props> = ({
           myTeamsList[newIndex].championList
         );
         newMyTeamList.forEach((item) => {
-          const color: number = fetchChampion_id(item).cost;
+          const color: number = fetchChampionFindId(item).cost;
           outputChampionList.push(
             <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
           );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import styled from 'styled-components';
 import { fetchChampionNameList } from 'util_chamipon';
@@ -35,8 +35,9 @@ const Base: React.FC<Props> = ({
 
   //空のドロップref
   const refdrop = (position: string) => {
-    const types: string[] = fetchChampionNameList();
-
+    const types: string[] = useMemo(() => fetchChampionNameList(), [
+      fetchChampionNameList,
+    ]);
     const [, ref] = useDrop({
       accept: types,
       drop: (item) => {

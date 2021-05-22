@@ -96,7 +96,7 @@ const Base: React.FC<Props> = ({ className }) => {
             myTeamsList={myTeamsList}
             drapTopTeam={drapTopTeam}
             drapUnderTeam={drapUnderTeam}
-            distinguish_button={distinguish_button}
+            distinguishbutton={distinguish_button}
             deleteMyTeamList={deleteMyTeamList}
           />
         </div>
