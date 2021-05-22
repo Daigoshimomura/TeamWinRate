@@ -1,4 +1,4 @@
-import Sidebutton from 'components/teamBuilding/myTeam_sidebutton';
+import Sidebutton from 'components/teamBuilding/myTeam_sideButton';
 import { TeamType } from 'components/teamBuilding/teamBuilding';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';

@@ -121,8 +121,8 @@ const Base: React.FC<Props> = ({
           }}
         />
         <div className={`${className}__buttonList`}>
-          <Button type="Save" click={saveClick} />
-          <Button type="New" click={newClick} />
+          <Button type="Save" onClick={saveClick} />
+          <Button type="New" onClick={newClick} />
         </div>
       </div>
       <div className={`${className}__build`}>
@@ -133,7 +133,7 @@ const Base: React.FC<Props> = ({
           <div className={`${className}__pentagonGrayListUp`}>
             <Pentagon
               color={'gray'}
-              id={`1`}
+              id={'1'}
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -142,7 +142,7 @@ const Base: React.FC<Props> = ({
           <div className={`${className}__pentagonWhiteList`}>
             <Pentagon
               color={'white'}
-              id={`2`}
+              id={'2'}
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -151,7 +151,7 @@ const Base: React.FC<Props> = ({
           <div className={`${className}__pentagonGrayListDown`}>
             <Pentagon
               color={'gray'}
-              id={`3`}
+              id={'3'}
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -160,7 +160,7 @@ const Base: React.FC<Props> = ({
           <div className={`${className}__pentagonWhiteList`}>
             <Pentagon
               color={'white'}
-              id={`4`}
+              id={'4'}
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -193,8 +193,11 @@ const Building = styled(Base)`
     margin-top: 13px;
   }
   &__buttonList {
+    width: 124px;
     font-size: 14px;
     color: #e6e8ed;
+    display: flex;
+    justify-content: space-between;
   }
   &__build {
     height: 215px;
