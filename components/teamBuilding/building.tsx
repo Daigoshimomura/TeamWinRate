@@ -5,7 +5,7 @@ import Traits from 'components/teamBuilding/traitsList';
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
-import { fetchChampionFindName } from 'util_chamipon';
+import { ChampionInfo, fetchChampionFindName } from 'util_chamipon';
 
 type Props = {
   className?: string;
@@ -46,7 +46,9 @@ const Base: React.FC<Props> = ({
 
   //poolからのドロップ処理
   const moveChampion = (monitor: string | symbol, position: string) => {
-    const selectChampion = fetchChampionFindName(monitor as string);
+    const selectChampion: ChampionInfo = fetchChampionFindName(
+      monitor as string
+    );
     setBoadPosition(
       new Map(boadPosition.set(position, selectChampion.championId).entries())
     );
