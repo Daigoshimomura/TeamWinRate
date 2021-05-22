@@ -23,7 +23,7 @@ export type SideButtonType = {
 const Base: React.FC<Props> = ({ className }) => {
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
-  //Building_SaveClick,MyTeam_deleteClick
+  //Building_SaveClick
   const updateMyTeamList = useCallback(
     (myTeam: TeamType) => {
       setMyTeamList((prevState) => {
@@ -36,9 +36,7 @@ const Base: React.FC<Props> = ({ className }) => {
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
     (TeamList: TeamType[]) => {
-      console.log('delte', TeamList);
       setMyTeamList(TeamList);
-      console.log('myTeamsList', myTeamsList);
     },
     [myTeamsList]
   );

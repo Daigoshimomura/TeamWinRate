@@ -56,7 +56,7 @@ const Base: React.FC<Props> = ({
   const sideButtonOnclick = (type: string, Index: number) => {
     //Removeボタン押下時
     if ('REMOVE' === type) {
-      const newMyTeamList: TeamType[] = myTeamsList;
+      const newMyTeamList: TeamType[] = [...myTeamsList];
       newMyTeamList.splice(Index, 1);
       deleteMyTeamList(newMyTeamList);
     } else if ('UP' === type || 'UNDER' === type) {
