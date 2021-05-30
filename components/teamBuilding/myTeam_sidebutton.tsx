@@ -19,6 +19,10 @@ const Base: React.FC<Props> = ({
   return (
     <div className={`${className}__sidemenu`}>
       <div
+        className={`${className}__back`}
+        onClick={() => setIsSideOpen(false)}
+      />
+      <div
         className={`${className}__sideButton`}
         onClick={() => {
           sideButtonOnclick('UP', Index), setIsSideOpen(!isSideOpen);
@@ -46,73 +50,14 @@ const Base: React.FC<Props> = ({
 };
 
 const SideButton = styled(Base)`
-  background-color: #656565;
-  border-radius: 6px;
-  height: 600px;
-  padding: 4px 9px 0 10px;
-  &__header {
-    color: #b3b3b3;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 14px;
-  }
-  &__team {
-    width: 474px;
-    height: 95px;
-    background-color: #7b7b7b;
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }
-  &__selectTeam {
-    width: 474px;
-    height: 95px;
-    background-color: #5987cd;
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }
-
-  &__teamName {
-    color: #e6e8ed;
-    font-size: 18px;
-    border-bottom: 1px solid #e6e8ed;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 4px 19px 0 19px;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__champions {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 14px 0 0 19px;
-  }
-  &__pageButtonList {
-    color: #b2b2b2;
-    font-size: 18px;
-    margin: 6px 0 0 5px;
-  }
-  &__notSelectedButton {
-    width: 60px;
-    height: 30px;
-    margin-right: 6px;
-  }
-  &__openButton {
-    width: 60px;
-    height: 30px;
-    border-radius: 0px 0px 6px 6px;
-    background-color: #656565;
-    color: #e6e8ed;
-    margin-right: 6px;
-  }
-  &__activeButton {
-    width: 60px;
-    height: 30px;
-    border-radius: 0px 0px 6px 6px;
-    background-color: #5987cd;
-    color: #ffffff;
-    margin-right: 6px;
+  &__back {
+    z-index: -1;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vmax;
+    height: 100vmax;
+    transform: none;
   }
   &__sidemenu {
     width: 72px;

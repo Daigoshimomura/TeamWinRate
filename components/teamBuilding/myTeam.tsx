@@ -84,7 +84,6 @@ const Base: React.FC<Props> = ({
             <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
           );
         });
-        console.log(1, index);
         result.push(
           <SingleTeam
             myTeamsList={myTeamsList}

@@ -47,6 +47,7 @@ const Base: React.FC<Props> = ({
     >
       <div className={`${className}__teamName`}>
         {myTeamsList[myTeamIndex].teamName}
+
         <div
           onClick={() => {
             setIsSideOpen(!isSideOpen);
@@ -63,6 +64,7 @@ const Base: React.FC<Props> = ({
           setIsSideOpen={setIsSideOpen}
         />
       ) : null}
+
       <div className={`${className}__champions`}>{outputChampionList}</div>
     </div>
   );
@@ -99,6 +101,30 @@ const SingleTeam = styled(Base)`
     overflow: hidden;
     white-space: nowrap;
     margin: 14px 0 0 19px;
+  }
+  &__sidemenu {
+    width: 72px;
+    height: 93px;
+    font-size: 14px;
+    z-index: 2;
+    padding-left: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 390px;
+    color: #e6e8ed;
+    background-color: #7b7b7b;
+    border: 1px solid #585755;
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.95;
+  }
+  &__sideButton {
+    padding-bottom: 2px;
+    border-bottom: 1px solid;
+    border-color: #656565;
   }
 `;
 
