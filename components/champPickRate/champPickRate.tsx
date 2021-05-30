@@ -9,7 +9,7 @@ type Props = {
   rank: string;
 };
 
-const Base: React.FC<Props> = ({ className, page, children, rank }) => {
+const Base: React.FC<Props> = ({ className, children }) => {
   return (
     <div className={`${className}`}>
       <Header />

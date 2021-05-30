@@ -1,62 +1,172 @@
+import Button from 'components/teamBuilding/building_button';
+import Pentagon from 'components/teamBuilding/pentagon';
+import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import Traits from 'components/teamBuilding/traitsList';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
+import { ChampionInfo, fetchChampionFindName } from 'util_chamipon';
 
 type Props = {
   className?: string;
+  updateMyTeamList: (myTeam: TeamType) => void;
+  fetchDrap: (index?: number) => void;
+  myTeamSideClick?: SideButtonType;
+  type: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  const pentagon = (color: string) => {
-    const pentagon = [];
-    for (let i = 0; i < 7; i++) {
-      pentagon.push(
-        <img
-          key={i}
-          className={`${className}__pentagonImg`}
-          src={`/build/Pentagon-${color}.png`}
-        />
-      );
-    }
-    return pentagon;
+const Base: React.FC<Props> = ({
+  className,
+  updateMyTeamList,
+  fetchDrap,
+  myTeamSideClick,
+  type,
+}) => {
+  //ボード上List位置
+  const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
+    new Map()
+  );
+
+  //特性の出力
+  const [championList, setChampionList] = useState<string[]>([]);
+
+  //画面上のTeamName取得
+  const [teamName, setTeamName] = useState<string>('');
+
+  //bulidingにあるchampionがpoolにドラッグされたときの処理
+  const movePool = (position: string) => {
+    const index = championList.findIndex(
+      (item) => item === boadPosition.get(position)
+    );
+    championList.splice(index, 1);
+    setChampionList(championList);
+    boadPosition.delete(position);
+    setBoadPosition(new Map(boadPosition.entries()));
   };
+
+  //poolからのドロップ処理
+  const moveChampion = (monitor: string | symbol, position: string) => {
+    const selectChampion: ChampionInfo = fetchChampionFindName(
+      monitor as string
+    );
+    setBoadPosition(
+      new Map(boadPosition.set(position, selectChampion.championId).entries())
+    );
+    setChampionList((prevState) => {
+      return [...prevState, selectChampion.championId];
+    });
+  };
+
+  //saveボタン処理
+  const saveClick = () => {
+    if (teamName) {
+      const myTeam: TeamType = {
+        teamName: teamName,
+        championList: boadPosition,
+      };
+      updateMyTeamList(myTeam);
+    } else {
+      alert('TeamNameを入力してください。');
+    }
+  };
+
+  //newボタン処理
+  const newClick = () => {
+    setBoadPosition(new Map());
+    setChampionList([]);
+    setTeamName('');
+    fetchDrap(undefined);
+  };
+
+  //MyTeamsからbordへのドロップのref
+  const [, ref] = useDrop({
+    accept: 'team',
+    drop: (item, monitor) => {
+      const DropTeam = monitor.getItem();
+      bordDrop(DropTeam.MyTeam, DropTeam.MyTeamIndex);
+    },
+  });
+
+  //MyTeamsからbordへのドロップ処理
+  const bordDrop = (Myteam: TeamType, Index?: number) => {
+    setBoadPosition(Myteam.championList);
+    setTeamName(Myteam.teamName);
+    //ドロップされたchampionセット
+    const newChampionList: string[] = [];
+    Myteam.championList.forEach((elm) => {
+      newChampionList.push(elm);
+    });
+    setChampionList(newChampionList);
+    fetchDrap(Index);
+  };
+
+  //MyTeamSideButton検知用
+  useEffect(() => {
+    if (
+      type === myTeamSideClick?.buttonLable &&
+      myTeamSideClick?.teamList != undefined
+    ) {
+      bordDrop(myTeamSideClick.teamList, myTeamSideClick.teamListIndex);
+    }
+  }, [myTeamSideClick]);
+
   return (
-    <div className={`${className}`}>
+    <div className={`${className}`} ref={ref}>
       <div className={`${className}__header`}>
-        <div className={`${className}__teamName`}>
-          とっても長いチーム名をつけるとこういう感じになります。
-        </div>
+        <input
+          type="text"
+          className={`${className}__teamName`}
+          placeholder="TeamName"
+          value={teamName}
+          onChange={(e) => {
+            setTeamName(e.target.value);
+          }}
+        />
         <div className={`${className}__buttonList`}>
-          <button className={`${className}__save`}>Save</button>
-          <button className={`${className}__remove`}>Remove</button>
-          <button className={`${className}__new`}>New</button>
+          <Button type="Save" onClick={saveClick} />
+          <Button type="New" onClick={newClick} />
         </div>
       </div>
       <div className={`${className}__build`}>
         <div className={`${className}__traitsList`}>
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
-          <Traits />
+          <Traits championList={championList} />
         </div>
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
-            {pentagon(`gray`)}
+            <Pentagon
+              color={'gray'}
+              id={'1'}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`)}
+            <Pentagon
+              color={'white'}
+              id={'2'}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonGrayListDown`}>
-            {pentagon(`gray`)}
+            <Pentagon
+              color={'gray'}
+              id={'3'}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            {pentagon(`white`)}
+            <Pentagon
+              color={'white'}
+              id={'4'}
+              boadPosition={boadPosition}
+              moveChampion={moveChampion}
+              movePool={movePool}
+            />
           </div>
           <div className={`${className}__boad`}>Comparison Boad</div>
         </div>
@@ -85,29 +195,11 @@ const Building = styled(Base)`
     margin-top: 13px;
   }
   &__buttonList {
+    width: 124px;
     font-size: 14px;
     color: #e6e8ed;
-  }
-  &__save {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #5987cd;
-    margin-right: 4px;
-  }
-  &__remove {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #e45e5e;
-    margin-right: 4px;
-  }
-  &__new {
-    width: 60px;
-    height: 28px;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #5987cd;
+    display: flex;
+    justify-content: space-between;
   }
   &__build {
     height: 215px;
@@ -118,6 +210,8 @@ const Building = styled(Base)`
     display: flex;
     flex-wrap: wrap;
     width: 216px;
+    height: 215px;
+    overflow: hidden;
   }
   &__placementPlace {
     display: flex;
@@ -152,6 +246,41 @@ const Building = styled(Base)`
     font-size: 18px;
     font-weight: bold;
     margin: 0 0 0 auto;
+  }
+  &__hexagon {
+    position: relative;
+    width: 53px;
+    overflow: hidden;
+    margin-right: 3px;
+  }
+  &__hexagon::before {
+    display: block;
+    padding-top: 115.4700538%;
+    content: '';
+  }
+  &__hexagon__inner-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: rotate(60deg);
+  }
+  &__hexagon__inner-2 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: rotate(60deg);
+  }
+  &__hexagon__inner-3 {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-120deg);
+  }
+  &__hexagon__inner-image {
+    width: 100%;
+    height: 100%;
   }
 `;
 

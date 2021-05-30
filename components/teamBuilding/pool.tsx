@@ -1,4 +1,6 @@
+import champions from 'public/json/champions.json';
 import React from 'react';
+import { useDrop, useDrag } from 'react-dnd';
 import styled from 'styled-components';
 
 type Props = {
@@ -6,27 +8,54 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  const championList = () => {
-    const champions = [];
-    for (let i = 0; i < 58; i++) {
-      champions.push(
-        <img
-          key={i}
-          className={`${className}__championImg`}
-          src={`/champions/TFT4_Ahri.png`}
-        />
-      );
-    }
-    return champions;
-  };
+  const championList = champions.map((elm, index) => {
+    const [, ref] = useDrag({
+      item: { type: `${elm.name}` },
+    });
+    return (
+      <ChampionImage
+        key={index}
+        ref={ref}
+        src={`/champions/${elm.championId}.png`}
+        color={`${elm.cost}`}
+      />
+    );
+  });
+
+  const [, ref] = useDrop({
+    accept: 'champion',
+  });
 
   return (
-    <div className={`${className}`}>
+    <div ref={ref} className={`${className}`}>
       <div className={`${className}__header`}>Champion Pool</div>
-      <div className={`${className}__championList`}>{championList()}</div>
+      <div className={`${className}__championList`}>{championList}</div>
     </div>
   );
 };
+
+//チャンピオン画像枠の色用
+export const chooseColor = (color?: string) => {
+  if (color === `5`) {
+    return `#DBDF1D`;
+  } else if (color === `4`) {
+    return `#cd59b3`;
+  } else if (color === `3`) {
+    return `#2446f0`;
+  } else if (color === `2`) {
+    return `#2AEB3D`;
+  } else {
+    return `#9C9494`;
+  }
+};
+
+const ChampionImage = styled.img`
+  width: 60px;
+  height: 62px;
+  border-radius: 6px;
+  margin-right: 3px;
+  border: 2px solid ${(props) => chooseColor(props.color)};
+`;
 
 const Pool = styled(Base)`
   padding: 8px 12px 6px 12px;
@@ -41,9 +70,9 @@ const Pool = styled(Base)`
   &__championImg {
     width: 60px;
     height: 62px;
-    border: 2px solid #cd59b3;
     border-radius: 6px;
     margin-right: 3px;
+    border: 2px solid;
   }
 `;
 

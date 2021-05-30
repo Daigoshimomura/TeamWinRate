@@ -1,5 +1,7 @@
-import { AppProps, Container } from 'next/app';
+import { AppProps } from 'next/app';
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { createGlobalStyle } from 'styled-components';
 import 'ress';
 
@@ -12,9 +14,9 @@ const GlobalStyle = createGlobalStyle`
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Container>
+    <DndProvider backend={HTML5Backend}>
       <GlobalStyle />
       <Component {...pageProps} />
-    </Container>
+    </DndProvider>
   );
 }

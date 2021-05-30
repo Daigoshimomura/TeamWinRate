@@ -1,27 +1,104 @@
 import Building from 'components/teamBuilding/building';
+import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import TeamList from 'components/teamBuilding/teamList';
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 type Props = {
   className?: string;
 };
 
+export type TeamType = {
+  teamName: string;
+  championList: Map<string, string>;
+};
+
+//MyTeamサイドボタン押下時のType
+export type SideButtonType = {
+  teamList: TeamType;
+  teamListIndex: number;
+  buttonLable: string;
+};
+
 const Base: React.FC<Props> = ({ className }) => {
+  //MyTeam_チーム出力用
+  const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
+  //Building_SaveClick
+  const updateMyTeamList = useCallback(
+    (myTeam: TeamType) => {
+      setMyTeamList((prevState) => {
+        return [...prevState, myTeam];
+      });
+    },
+    [myTeamsList]
+  );
+
+  //MyTeam_deleteClick
+  const deleteMyTeamList = useCallback(
+    (TeamList: TeamType[]) => {
+      setMyTeamList(TeamList);
+    },
+    [myTeamsList]
+  );
+
+  //MyTeam_削除チーム認識用
+  const [drapTopTeam, setDrapTopTeam] = useState<number | undefined>(undefined);
+  const [drapUnderTeam, setDrapUnderTeam] = useState<number | undefined>(
+    undefined
+  );
+  //Building_上部Bordドロップ認識
+  const fetchDrapTop = useCallback(
+    (index?: number) => {
+      setDrapTopTeam(index);
+    },
+    [setDrapTopTeam]
+  );
+  //Building_下部Bordドロップ認識
+  const fetchDrapUnder = useCallback(
+    (index?: number) => {
+      setDrapUnderTeam(index);
+    },
+    [setDrapUnderTeam]
+  );
+
+  //Building_myTeamsideButton処理用
+  const [myTeamSideClick, setMyTeamSideClick] = useState<
+    SideButtonType | undefined
+  >();
+  //MyTeam_SideButtonClickType
+  const distinguish_button = (type: SideButtonType) => {
+    setMyTeamSideClick(type);
+  };
+
   return (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__mainSection`}>
         <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}>
-            <Building />
+            <Building
+              type={'UP'}
+              updateMyTeamList={updateMyTeamList}
+              fetchDrap={fetchDrapTop}
+              myTeamSideClick={myTeamSideClick}
+            />
           </div>
           <div className={`${className}__underTeam`}>
-            <Building />
+            <Building
+              type={'UNDER'}
+              updateMyTeamList={updateMyTeamList}
+              fetchDrap={fetchDrapUnder}
+              myTeamSideClick={myTeamSideClick}
+            />
           </div>
         </div>
         <div className={`${className}__teamList`}>
-          <TeamList />
+          <MyTeam
+            myTeamsList={myTeamsList}
+            drapTopTeam={drapTopTeam}
+            drapUnderTeam={drapUnderTeam}
+            distinguishbutton={distinguish_button}
+            deleteMyTeamList={deleteMyTeamList}
+          />
         </div>
       </div>
       <div className={`${className}__poolSection`}>
