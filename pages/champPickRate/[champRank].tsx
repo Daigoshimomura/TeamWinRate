@@ -1,4 +1,5 @@
-import Layout from 'components/champPickRate/champPickRate';
+import { ChampPickRate } from 'components/champPickRate/champPickRate';
+import Layout from 'components/layout';
 import { GetStaticPaths } from 'next';
 import React from 'react';
 
@@ -15,10 +16,10 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ className, page, rank }) => {
+const Post: React.FC<Props> = ({ rank }) => {
   return (
-    <Layout page={page} rank={rank}>
-      <div className={className}>rank</div>
+    <Layout page={'Champ Pick Rate'} rank={rank}>
+      <ChampPickRate />
     </Layout>
   );
 };
