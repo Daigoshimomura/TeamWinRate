@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
+  rank: number;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ className, rank }) => {
   return (
     <div className={`${className}`}>
-      <div className={`${className}__rank`}>1</div>
+      <div className={`${className}__rank`}>{rank}</div>
       <div className={`${className}__champions`}>
         <img
           className={`${className}__championImg`}
@@ -22,18 +23,9 @@ const Base: React.FC<Props> = ({ className }) => {
         <img className={`${className}__traitsImg`} src={`/traits/adept.png`} />
       </div>
       <div className={`${className}__item`}>
-        <img
-          className={`${className}__itemImg`}
-          src={`/champions/TFT4_Akali.png`}
-        />
-        <img
-          className={`${className}__itemImg`}
-          src={`/champions/TFT4_Akali.png`}
-        />
-        <img
-          className={`${className}__itemImg`}
-          src={`/champions/TFT4_Akali.png`}
-        />
+        <img className={`${className}__itemImg`} src={`/items/99.png`} />
+        <img className={`${className}__itemImg`} src={`/items/99.png`} />
+        <img className={`${className}__itemImg`} src={`/items/99.png`} />
       </div>
       <div className={`${className}__pick`}>30%</div>
     </div>
@@ -41,7 +33,7 @@ const Base: React.FC<Props> = ({ className }) => {
 };
 
 export const Item = styled(Base)`
-  height: 40px;
+  height: 38px;
   color: #e6e8ed;
   display: flex;
   flex-direction: row;

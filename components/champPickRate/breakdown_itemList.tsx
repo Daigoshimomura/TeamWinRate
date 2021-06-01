@@ -6,19 +6,17 @@ type Props = {
   className?: string;
 };
 
+//デザイン表示用
+const items = () => {
+  const result: JSX.Element[] = [];
+  for (let i = 1; i <= 12; i++) {
+    result.push(<Item rank={i} />);
+  }
+  return result;
+};
+
 const Base: React.FC<Props> = ({ className }) => {
-  return (
-    <div className={`${className}`}>
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-    </div>
-  );
+  return <div className={`${className}`}>{items()}</div>;
 };
 
 export const ItemList = styled(Base)`
