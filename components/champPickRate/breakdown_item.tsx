@@ -36,7 +36,6 @@ export const Item = styled(Base)`
   height: 38px;
   color: #e6e8ed;
   display: flex;
-  flex-direction: row;
   align-items: center;
   border-top: 1px solid #8c8c8c;
   &__rank {

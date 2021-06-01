@@ -36,7 +36,6 @@ export const ChampPickRate = styled(Base)`
     font-size: 24px;
     font-weight: bold;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     margin-left: 10px;
     margin-bottom: 5px;
@@ -52,7 +51,6 @@ export const ChampPickRate = styled(Base)`
     width: 1155px;
     height: 595px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     background: #656565;
     border-radius: 6px;
