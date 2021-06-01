@@ -53,7 +53,7 @@ export const ChampPickRate = styled(Base)`
     height: 595px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     background: #656565;
     border-radius: 6px;
     padding: 60px 26px 50px 78px;
