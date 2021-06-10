@@ -1,4 +1,5 @@
 import { Breakdown } from 'components/champPickRate/breakdown';
+import { Circle } from 'components/champPickRate/circle';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -17,7 +18,9 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__cost`}>Cost 5</div>
       </div>
       <div className={`${className}__mainSection`}>
-        <div className={`${className}__circleSection`}></div>
+        <div className={`${className}__circleSection`}>
+          <Circle />
+        </div>
         <Breakdown />
       </div>
     </div>
@@ -54,11 +57,9 @@ export const ChampPickRate = styled(Base)`
     justify-content: space-between;
     background: #656565;
     border-radius: 6px;
-    padding: 60px 26px 50px 78px;
+    padding: 60px 26px 50px 8px;
   }
   &__circleSection {
-    width: 300px;
-    height: 300px;
-    background-color: #b3b3b3;
+    width: 550px;
   }
 `;
