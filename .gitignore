@@ -310,3 +310,6 @@ out
 .vercel
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,git,macos,windows,jetbrains,visualstudiocode,now
+
+# firebase sercret
+firebase_sercret.json
