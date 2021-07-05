@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -7,10 +7,18 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
+  const [isCreateAccount, setIsCreateAccount] = useState<boolean>(false);
+
+  //状態リセット
+  const batsuClick = () => {
+    onLoginClick();
+    setIsCreateAccount(false);
+  };
+
   return (
     <div className={`${className}`}>
       <div className={`${className}__mainSection`}>
-        <button className={`${className}__batsu`} onClick={onLoginClick}>
+        <button className={`${className}__batsu`} onClick={batsuClick}>
           ×
         </button>
         <div className={`${className}__inputSection`}>
@@ -30,7 +38,17 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
               title="username"
             />
           </div>
-          <button className={`${className}__loginButton`}>Login</button>
+          <button className={`${className}__loginButton`}>
+            {isCreateAccount ? `Create Account` : `Login`}
+          </button>
+        </div>
+        <div
+          className={`${className}__createButton`}
+          onClick={() => {
+            setIsCreateAccount(!isCreateAccount);
+          }}
+        >
+          {isCreateAccount ? null : `Create Account`}
         </div>
       </div>
     </div>
@@ -95,6 +113,14 @@ const Header = styled(Base)`
     width: 267px;
     height: 50px;
     border-radius: 3px;
+  }
+  &__createButton {
+    font-size: 16px;
+    text-align: center;
+    color: #999;
+  }
+  &__createButton:hover {
+    color: #000000;
   }
 `;
 

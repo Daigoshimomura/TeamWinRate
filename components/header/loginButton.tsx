@@ -9,7 +9,6 @@ type Props = {
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   return (
     <div className={`${className}`}>
-      <button className={`${className}__singin`}>Sign In</button>
       <button
         className={`${className}__login`}
         onClick={() => {
@@ -30,15 +29,6 @@ export const LoginButton = styled(Base)`
   top: 50%;
   transform: translateY(-50%);
   text-align: right;
-  &__singin {
-    height: 34px;
-    width: 145px;
-    border-radius: 10px;
-    font-weight: bolder;
-    margin-right: 10px;
-    background-color: #ffffff;
-    color: #5987cd;
-  }
   &__login {
     height: 34px;
     width: 145px;
