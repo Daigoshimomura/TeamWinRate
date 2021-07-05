@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 type Props = {
   className?: string;
+  onLoginClick: () => void;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   return (
     <div className={`${className}`}>
       <button className={`${className}__singin`}>Sign In</button>
-      <button className={`${className}__login`}>Login</button>
+      <button
+        className={`${className}__login`}
+        onClick={() => {
+          onLoginClick();
+        }}
+      >
+        Login
+      </button>
     </div>
   );
 };
 
-const Login = styled(Base)`
+export const LoginButton = styled(Base)`
   width: 100%;
   font-size: 20px;
   color: #e6e8ed;
@@ -41,5 +49,3 @@ const Login = styled(Base)`
     color: #ffffff;
   }
 `;
-
-export default Login;
