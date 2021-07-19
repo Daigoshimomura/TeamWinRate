@@ -1,4 +1,4 @@
-import Login from 'components/login/login';
+import { Login } from 'components/login/login';
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { LoginButton } from './loginButton';

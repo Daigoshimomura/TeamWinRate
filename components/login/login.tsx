@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { AuthContext } from 'components/login/authProvider';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { auth } from 'util_user';
 
 type Props = {
   className?: string;
@@ -9,10 +11,31 @@ type Props = {
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [isCreateAccount, setIsCreateAccount] = useState<boolean>(false);
 
+  //apiとのつなぎ,Homeと他ページのパス深さの違いでうまく呼び出すことができてない。
+  // const { data, error } = useSWR<Data>('api/login');
+  // console.log(data?.UserID, 'data');
+  // console.log(error, 'error');
+
+  console.log(useContext(AuthContext), 'AuthContextlogin');
+
   //状態リセット
   const batsuClick = () => {
     onLoginClick();
     setIsCreateAccount(false);
+  };
+
+  //ログイン処理
+  const loginClick = async () => {
+    try {
+      await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          console.log(user.uid, 'user.uid');
+        }
+      });
+    } catch (error) {
+      console.log(error, 'loginerror');
+    }
   };
 
   return (
@@ -38,9 +61,20 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
               title="username"
             />
           </div>
-          <button className={`${className}__loginButton`}>
-            {isCreateAccount ? `Create Account` : `Login`}
-          </button>
+          {isCreateAccount ? (
+            <button className={`${className}__loginButton`}>
+              Create Account
+            </button>
+          ) : (
+            <button
+              className={`${className}__loginButton`}
+              onClick={() => {
+                loginClick();
+              }}
+            >
+              Login
+            </button>
+          )}
         </div>
         <div
           className={`${className}__createButton`}
@@ -55,7 +89,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   );
 };
 
-const Header = styled(Base)`
+export const Login = styled(Base)`
   position: fixed;
   z-index: 9999;
   width: 100%;
@@ -123,5 +157,3 @@ const Header = styled(Base)`
     color: #000000;
   }
 `;
-
-export default Header;
