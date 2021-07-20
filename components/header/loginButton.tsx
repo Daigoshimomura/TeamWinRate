@@ -1,4 +1,5 @@
 import { AuthContext } from 'components/login/authProvider';
+import { LogOut } from 'components/login/logOut';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
@@ -35,25 +36,30 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
           Login
         </button>
       ) : (
-        <div className={`${className}__emailSection`}>
-          <div className={`${className}__email`}>{user?.email}</div>
-          {isMailOpen ? (
-            <img
-              className={`${className}__arrow`}
-              src={`/button/arrow-up16.png`}
-              onClick={() => {
-                setIsMailOpen(!isMailOpen);
-              }}
-            />
-          ) : (
-            <img
-              className={`${className}__arrow`}
-              src={`/button/arrow-down16.png`}
-              onClick={() => {
-                setIsMailOpen(!isMailOpen);
-              }}
-            />
-          )}
+        <div className={`${className}__userSection`}>
+          <div className={`${className}__emailSection`}>
+            <div className={`${className}__email`}>{user?.email}</div>
+            {isMailOpen ? (
+              <div>
+                <img
+                  className={`${className}__arrow`}
+                  src={`/button/arrow-up16.png`}
+                  onClick={() => {
+                    setIsMailOpen(!isMailOpen);
+                  }}
+                />
+              </div>
+            ) : (
+              <img
+                className={`${className}__arrow`}
+                src={`/button/arrow-down16.png`}
+                onClick={() => {
+                  setIsMailOpen(!isMailOpen);
+                }}
+              />
+            )}
+          </div>
+          {isMailOpen ? <LogOut /> : null}
         </div>
       )}
     </div>
@@ -76,6 +82,8 @@ export const LoginButton = styled(Base)`
     margin-right: 30px;
     background-color: #5987cd;
     color: #ffffff;
+  }
+  &__userSection {
   }
   &__emailSection {
     display: flex;
