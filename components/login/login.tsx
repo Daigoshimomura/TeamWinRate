@@ -1,5 +1,5 @@
 import { AuthContext } from 'components/login/authProvider';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { auth } from 'util_user';
 
@@ -11,13 +11,6 @@ type Props = {
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [isCreateAccount, setIsCreateAccount] = useState<boolean>(false);
 
-  //apiとのつなぎ,Homeと他ページのパス深さの違いでうまく呼び出すことができてない。
-  // const { data, error } = useSWR<Data>('api/login');
-  // console.log(data?.UserID, 'data');
-  // console.log(error, 'error');
-
-  console.log(useContext(AuthContext), 'AuthContextlogin');
-
   //状態リセット
   const batsuClick = () => {
     onLoginClick();
@@ -27,12 +20,9 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   //ログイン処理
   const loginClick = async () => {
     try {
+      console.log('loginClick');
       await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          console.log(user.uid, 'user.uid');
-        }
-      });
+      console.log(AuthContext, 'AuthContext');
     } catch (error) {
       console.log(error, 'loginerror');
     }

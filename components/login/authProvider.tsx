@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { useState, useEffect } from 'react';
 import { auth } from 'util_user';
 
@@ -5,20 +6,19 @@ type Props = {
   className?: string;
 };
 
-export const AuthContext = React.createContext<string | null | undefined>(
-  undefined
-);
+export const AuthContext = React.createContext<
+  firebase.String | null | undefined
+>(undefined);
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<string | null | undefined>(
-    undefined
-  );
+  const [currentUser, setCurrentUser] = useState<
+    firebase.String | null | undefined
+  >(undefined);
 
   useEffect(() => {
-    console.log(auth.currentUser, 'current');
+    console.log('current', auth.currentUser);
     auth.onAuthStateChanged((user) => {
-      console.log(user, 'userEffectOnAuth');
-      setCurrentUser(user?.uid);
+      setCurrentUser(user);
     });
   }, []);
 
