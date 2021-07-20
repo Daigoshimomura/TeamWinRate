@@ -15,14 +15,13 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   //     }
   //   });
   // };
-
   //ログイン処理
-  await auth
-    .signInWithEmailAndPassword('aaa@gmali.com', '123456')
-    .then(() => {
-      console.log('ログイン');
-    })
-    .catch((error) => {
-      console.log(error, 'loginerror');
-    });
+  // await auth
+  //   .signInWithEmailAndPassword('aaa@gmali.com', '123456')
+  //   .then(() => {
+  //     console.log('ログイン');
+  //   })
+  //   .catch((error) => {
+  //     console.log(error, 'loginerror');
+  //   });
 };

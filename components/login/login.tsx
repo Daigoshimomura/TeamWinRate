@@ -10,6 +10,8 @@ type Props = {
 
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [isCreateAccount, setIsCreateAccount] = useState<boolean>(false);
+  const [mail, setMail] = useState<string>();
+  const [passwd, setPasswd] = useState<string>();
 
   //状態リセット
   const batsuClick = () => {
@@ -21,8 +23,13 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const loginClick = async () => {
     try {
       console.log('loginClick');
-      await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
-      console.log(AuthContext, 'AuthContext');
+      // await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
+      if (mail && passwd) {
+        await auth.signInWithEmailAndPassword(mail, passwd);
+        console.log(AuthContext, 'AuthContext');
+      } else {
+        alert('mailまたはpasswardを入力してください。');
+      }
     } catch (error) {
       console.log(error, 'loginerror');
     }
@@ -41,6 +48,9 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
               className={`${className}__input`}
               type="text"
               title="username"
+              onChange={(e) => {
+                setMail(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -49,6 +59,9 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
               className={`${className}__input`}
               type="password"
               title="username"
+              onChange={(e) => {
+                setPasswd(e.target.value);
+              }}
             />
           </div>
           {isCreateAccount ? (

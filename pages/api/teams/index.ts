@@ -59,18 +59,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   //ログイン処理
-  await firebase
-    .auth()
-    .signInWithEmailAndPassword('aaa@gmali.com', '123456')
-    .then((res) => {
-      console.log('ログインできた');
-      ifLogin();
+  // await firebase
+  //   .auth()
+  //   .signInWithEmailAndPassword('aaa@gmali.com', '123456')
+  //   .then((res) => {
+  //     console.log('ログインできた');
+  //     ifLogin();
 
-      // kousin();
-    })
-    .catch((error) => {
-      console.log(error, 'ログイン失敗');
-    });
+  //     // kousin();
+  //   })
+  //   .catch((error) => {
+  //     console.log(error, 'ログイン失敗');
+  //   });
 };
 
 // アカウントを作成したときに、teamsにdocumentを追加する

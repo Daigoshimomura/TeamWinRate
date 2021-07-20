@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -6,8 +7,24 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  const logOutClick = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        alert('サインアウトしました。');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
-    <div className={`${className}`}>
+    <div
+      className={`${className}`}
+      onClick={() => {
+        logOutClick();
+      }}
+    >
       <div className={`${className}__word`}>Logout</div>
     </div>
   );
