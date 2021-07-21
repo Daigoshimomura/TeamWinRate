@@ -42,6 +42,7 @@ export const LogOut = styled(Base)`
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
   border-radius: 3px;
   &__word {
+    position: absolute;
     text-align: left;
     line-height: 50px;
     margin-left: 15px;

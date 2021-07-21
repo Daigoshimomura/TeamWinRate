@@ -1,4 +1,3 @@
-import { AuthContext } from 'components/login/authProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { auth } from 'util_user';
@@ -14,7 +13,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [passwd, setPasswd] = useState<string>();
 
   //状態リセット
-  const batsuClick = () => {
+  const closeClick = () => {
     onLoginClick();
     setIsCreateAccount(false);
   };
@@ -22,15 +21,20 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   //ログイン処理
   const loginClick = async () => {
     try {
-      console.log('loginClick');
       // await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
       if (mail && passwd) {
         await auth.signInWithEmailAndPassword(mail, passwd);
-        console.log(AuthContext, 'AuthContext');
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            closeClick();
+          }
+        });
       } else {
         alert('mailまたはpasswardを入力してください。');
       }
     } catch (error) {
+      console.log('error');
+      alert('mailまたはpasswardが間違っています。');
       console.log(error, 'loginerror');
     }
   };
@@ -38,7 +42,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   return (
     <div className={`${className}`}>
       <div className={`${className}__mainSection`}>
-        <button className={`${className}__batsu`} onClick={batsuClick}>
+        <button className={`${className}__batsu`} onClick={closeClick}>
           ×
         </button>
         <div className={`${className}__inputSection`}>
