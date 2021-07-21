@@ -39,6 +39,24 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
     }
   };
 
+  //新規登録
+  const createAccountClick = async () => {
+    try {
+      if (mail && passwd) {
+        await auth.createUserWithEmailAndPassword(mail, passwd);
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            closeClick();
+          }
+        });
+      } else {
+        alert('mailまたはpasswardを入力してください。');
+      }
+    } catch (error) {
+      console.log(error, 'loginerror');
+    }
+  };
+
   return (
     <div className={`${className}`}>
       <div className={`${className}__mainSection`}>
@@ -69,7 +87,12 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             />
           </div>
           {isCreateAccount ? (
-            <button className={`${className}__loginButton`}>
+            <button
+              className={`${className}__loginButton`}
+              onClick={() => {
+                createAccountClick();
+              }}
+            >
               Create Account
             </button>
           ) : (
