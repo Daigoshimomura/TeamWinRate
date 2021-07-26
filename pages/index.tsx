@@ -9,7 +9,7 @@ type Props = {
 const Base: React.FC<Props> = ({ className }) => {
   return (
     <Layout page="Home">
-      <div className={className}>test</div>
+      <div className={className}></div>
     </Layout>
   );
 };

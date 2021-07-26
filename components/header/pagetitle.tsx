@@ -28,7 +28,6 @@ const PageTitle = styled(Base)`
   &__main {
     font-size: 24px;
     color: #b2b2b2;
-    position: relative;
     height: 62px;
     border-bottom: 1px solid;
     border-color: #8c8c8c;
@@ -38,7 +37,6 @@ const PageTitle = styled(Base)`
   &__mainRank {
     font-size: 24px;
     color: #b2b2b2;
-    position: relative;
     height: 105px;
     width: 100%;
     border-bottom: 1px solid;

@@ -1,6 +1,7 @@
-import React from 'react';
+import { Login } from 'components/login/login';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import Login from './login';
+import { LoginButton } from './loginButton';
 import Title from './title';
 
 type Props = {
@@ -8,10 +9,16 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const onLoginClick = useCallback(() => {
+    setIsLogin(!isLogin);
+  }, [isLogin]);
+
   return (
     <header className={`${className}`}>
       <Title />
-      <Login />
+      <LoginButton onLoginClick={onLoginClick} />
+      {isLogin ? <Login onLoginClick={onLoginClick} /> : null}
     </header>
   );
 };
