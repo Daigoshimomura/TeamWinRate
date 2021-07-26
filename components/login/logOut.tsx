@@ -32,6 +32,7 @@ const Base: React.FC<Props> = ({ className }) => {
 
 export const LogOut = styled(Base)`
   position: absolute;
+  z-index: 9999;
   height: 50px;
   width: 250px;
   right: 20px;
