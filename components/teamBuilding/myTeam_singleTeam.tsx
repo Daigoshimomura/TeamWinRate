@@ -1,4 +1,4 @@
-import Sidebutton from 'components/teamBuilding/myTeam_sideButton';
+import SideButton from 'components/teamBuilding/myTeam_sideButton';
 import { TeamType } from 'components/teamBuilding/teamBuilding';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
@@ -57,7 +57,7 @@ const Base: React.FC<Props> = ({
         </div>
       </div>
       {isSideOpen ? (
-        <Sidebutton
+        <SideButton
           isSideOpen={isSideOpen}
           index={myTeamIndex}
           sideButtonOnclick={sideButtonOnclick}

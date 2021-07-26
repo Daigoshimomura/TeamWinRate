@@ -15,7 +15,7 @@ const Base: React.FC<Props> = ({ className }) => {
         alert('サインアウトしました。');
       })
       .catch(function (error) {
-        console.log(error);
+        alert(error);
       });
   };
   return (

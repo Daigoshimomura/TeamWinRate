@@ -7,16 +7,15 @@ type Props = {
 };
 
 export const AuthContext = React.createContext<
-  firebase.String | null | undefined
+  firebase.User | null | undefined
 >(undefined);
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<
-    firebase.String | null | undefined
+    firebase.User | null | undefined
   >(undefined);
 
   useEffect(() => {
-    console.log('current', auth.currentUser);
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });

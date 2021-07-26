@@ -12,17 +12,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   //mailClick判定
   const [isMailOpen, setIsMailOpen] = useState<boolean>(false);
 
-  console.log(useContext(AuthContext));
   const user = useContext(AuthContext);
-  console.log(user?.email, 'email');
-  const hoge = () => {
-    if (user?.email) {
-      console.log('値入ってるよ');
-    } else {
-      console.log('空');
-    }
-  };
-  hoge();
 
   return (
     <div className={`${className}`}>

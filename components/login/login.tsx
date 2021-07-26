@@ -33,9 +33,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
         alert('mailまたはpasswardを入力してください。');
       }
     } catch (error) {
-      console.log('error');
       alert('mailまたはpasswardが間違っています。');
-      console.log(error, 'loginerror');
     }
   };
 
@@ -53,7 +51,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
         alert('mailまたはpasswardを入力してください。');
       }
     } catch (error) {
-      console.log(error, 'loginerror');
+      alert('エラーが発生しました。もう１度ご確認の上入力してください。');
     }
   };
 
@@ -65,10 +63,10 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
         </button>
         <div className={`${className}__inputSection`}>
           <div>
-            <span>User</span>
+            <span>Emali</span>
             <input
               className={`${className}__input`}
-              type="text"
+              type="emali"
               title="username"
               onChange={(e) => {
                 setMail(e.target.value);
