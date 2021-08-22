@@ -1,78 +1,43 @@
-import { getMaxListeners } from 'process';
-import { is } from '@babel/types';
-import firebase from 'firebase';
-import * as admin from 'firebase-admin';
-// import firebase from 'firebase/app';
-
 import type { NextApiRequest, NextApiResponse } from 'next';
-import firebaseApi from '../../../firebase_api.json';
-import firebaseSercret from '../../../firebase_sercret.json';
+import { db } from 'util_user';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  admin.initializeApp({
-    // @ts-ignore
-    credential: admin.credential.cert(firebaseSercret),
-  });
-  // console.log(
-  //   await admin
-  //     .firestore()
-  //     .collection('teams')
-  //     .doc('ZP7Xr31sAsa9IJPfArUf')
-  //     .get()
-  // );
-  // res.status(200).json({ name: 'John Doe' });
-
   //更新とか
-  const teamsRef = admin.firestore().collection('teams');
+  // const teamsRef = admin.firestore().collection('teams');
 
-  const kousin = (userID: string) => {
-    teamsRef.doc(userID).set({
-      Name: 'teamList',
-    });
-    console.log('更新できた');
-  };
-
-  //ログイン処理していないかどうか
-  firebase.initializeApp(firebaseApi);
-
-  //登録処理
-  // await firebase
-  //   .auth()
-  //   .createUserWithEmailAndPassword('aaa@gmali.com', '123456')
-  //   .then((res) => {
-  //     console.log('登録できた');
-  //   })
-  //   .catch((error) => {
-  //     console.log(error, '失敗');
+  // const kousin = (userID: string) => {
+  //   teamsRef.doc(userID).set({
+  //     Name: 'teamList',
   //   });
+  //   console.log('更新できた');
+  // };
 
-  const ifLogin = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log('ログイン中');
-        console.log(user.uid);
-        kousin(user.uid);
-      } else {
-        console.log(user, 'ログインしていない。');
-      }
-    });
+  // console.log('apiない');
+  // const result = async () => {
+  //   console.log(req.query.id, 'queryid');
+  //   const hoge = req.query.id;
+  //   const teamsRef = db.collection('teams');
+  //   try {
+  //     const result = teamsRef.where('Name', '==', 'name');
+  //     const hoge = await (await teamsRef.doc('hoge').get()).data();
+  //     const kousin = await teamsRef.doc('hoge').get();
+  //     console.log('hoge', hoge);
+  //     // console.log('auth.currentUser', auth.currentUser);
+  //   } catch (e) {
+  //     console.log('e', e);
+  //   }
+  //   return teamsRef;
+  // };
+
+  const result = async () => {
+    const queryID = req.query.id as string;
+    const teamsRef = db.collection('teams');
+    try {
+      const myTeam = await (await teamsRef.doc(queryID).get()).data();
+      return myTeam;
+    } catch (e) {
+      console.log('e', e);
+    }
   };
-
-  //ログイン処理
-  // await firebase
-  //   .auth()
-  //   .signInWithEmailAndPassword('aaa@gmali.com', '123456')
-  //   .then((res) => {
-  //     console.log('ログインできた');
-  //     ifLogin();
-
-  //     // kousin();
-  //   })
-  //   .catch((error) => {
-  //     console.log(error, 'ログイン失敗');
-  //   });
+  res.status(200).json({ name: result() });
 };
-
-// アカウントを作成したときに、teamsにdocumentを追加する
-// 自分で作ったチームを保存するときに、temas/{documentId}/teamList にdocumentを追加する
-// 同じように削除、更新

@@ -1,16 +1,20 @@
 import Building from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
+import firebase from 'firebase';
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import useSWR from 'swr';
+import { auth } from 'util_user';
 
 type Props = {
+  user: firebase.User | null | undefined;
   className?: string;
 };
 
 export type TeamType = {
-  teamName: string;
-  championList: Map<string, string>;
+  teamName?: string;
+  championList?: Map<string, string>;
 };
 
 //MyTeamサイドボタン押下時のType
@@ -20,7 +24,25 @@ export type SideButtonType = {
   buttonLable: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ className, user }) => {
+  //api取得
+  // useEffect(() => {
+  //   (async () => {
+  //     const dbMyTeam: TeamType = {};
+  //     console.log(user, 'user');
+
+  //     //const res = await fetch(`api/teams/?${user?.uid}`);
+  //     const res = await fetch(`api/teams`);
+  //     console.log('data', data);
+  //   })();
+  // }, []);
+
+  const userID = user?.uid;
+  console.log(userID, 'user');
+  console.log('auth.currentUser:front: ', auth.currentUser);
+  const { data, error } = useSWR(`/api/teams/?id=${userID}`);
+  console.log('data', data);
+
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
   //Building_SaveClick

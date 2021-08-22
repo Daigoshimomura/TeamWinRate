@@ -1,7 +1,7 @@
 import Header from 'components/header/header';
 import PageTitle from 'components/header/pagetitle';
 import SideMenu from 'components/header/sidemenu';
-import { AuthProvider } from 'components/login/authProvider';
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,18 +13,16 @@ type Props = {
 
 const Base: React.FC<Props> = ({ page, children, className, rank }) => {
   return (
-    <AuthProvider>
-      <div className={`${className}`}>
-        <Header />
-        <div className={`${className}__wrapper`}>
-          <SideMenu />
-          <div className={`${className}__main`}>
-            <PageTitle page={page} rank={rank} />
-            <main>{children}</main>
-          </div>
+    <div className={`${className}`}>
+      <Header />
+      <div className={`${className}__wrapper`}>
+        <SideMenu />
+        <div className={`${className}__main`}>
+          <PageTitle page={page} rank={rank} />
+          <main>{children}</main>
         </div>
       </div>
-    </AuthProvider>
+    </div>
   );
 };
 

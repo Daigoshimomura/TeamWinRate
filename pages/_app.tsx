@@ -1,3 +1,4 @@
+import { AuthProvider } from 'components/login/authProvider';
 import { AppProps } from 'next/app';
 import React from 'react';
 import { DndProvider } from 'react-dnd';
@@ -15,8 +16,10 @@ const GlobalStyle = createGlobalStyle`
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DndProvider backend={HTML5Backend}>
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <AuthProvider>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </AuthProvider>
     </DndProvider>
   );
 }
