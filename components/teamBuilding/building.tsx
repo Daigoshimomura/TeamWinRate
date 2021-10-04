@@ -93,7 +93,7 @@ const Base: React.FC<Props> = ({
     setTeamName(Myteam.teamName);
     //ドロップされたchampionセット
     const newChampionList: string[] = [];
-    Myteam.championList.forEach((elm) => {
+    Myteam.championList?.forEach((elm) => {
       newChampionList.push(elm);
     });
     setChampionList(newChampionList);

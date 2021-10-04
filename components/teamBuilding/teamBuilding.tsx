@@ -5,7 +5,6 @@ import firebase from 'firebase';
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
-import { auth } from 'util_user';
 
 type Props = {
   user: firebase.User | null | undefined;
@@ -26,20 +25,7 @@ export type SideButtonType = {
 
 const Base: React.FC<Props> = ({ className, user }) => {
   //api取得
-  // useEffect(() => {
-  //   (async () => {
-  //     const dbMyTeam: TeamType = {};
-  //     console.log(user, 'user');
-
-  //     //const res = await fetch(`api/teams/?${user?.uid}`);
-  //     const res = await fetch(`api/teams`);
-  //     console.log('data', data);
-  //   })();
-  // }, []);
-
   const userID = user?.uid;
-  console.log(userID, 'user');
-  console.log('auth.currentUser:front: ', auth.currentUser);
   const { data, error } = useSWR(`/api/teams/?id=${userID}`);
   console.log('data', data);
 
@@ -47,13 +33,32 @@ const Base: React.FC<Props> = ({ className, user }) => {
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
   //Building_SaveClick
   const updateMyTeamList = useCallback(
-    (myTeam: TeamType) => {
-      setMyTeamList((prevState) => {
-        return [...prevState, myTeam];
-      });
+    async (myTeam: TeamType) => {
+      //useStateとDBに渡すための値。
+      const newMyTeamList: TeamType[] = [...myTeamsList, myTeam];
+      setMyTeamList(newMyTeamList);
+
+      console.log(newMyTeamList, 'newMyTeamList');
+      console.log(newMyTeamList.length, 'length');
+      console.log(JSON.stringify(newMyTeamList), 'JSONstring');
+      if (myTeam.championList) {
+        const data = {
+          index: JSON.stringify(newMyTeamList.length - 1),
+          teamName: JSON.stringify(myTeam.teamName),
+          championList: JSON.stringify(Object.fromEntries(myTeam.championList)),
+        };
+        const url = `/api/teams/?id=${userID}`;
+        await fetch(url, {
+          method: 'post',
+          body: JSON.stringify(data),
+        });
+      }
     },
     [myTeamsList]
   );
+
+  //JSON変換
+  const jsonConvert = (elm: TeamType[]) => {};
 
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
