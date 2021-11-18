@@ -1,5 +1,6 @@
 import { request } from 'http';
 import { TeamType } from 'components/teamBuilding/teamBuilding';
+import firebase from 'firebase';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from 'util_user';
 
@@ -43,20 +44,33 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   //チーム追加処理
   if (method === 'POST') {
-    // console.log("teamName",req.query.myTeam.teamName as string);
-    //bodyはany
-    const reqest: {
+    const hoge: {
       index: string;
-      teamName: string;
-      championList: string;
+      action: string;
     } = JSON.parse(req.body);
+    console.log('hoge', hoge.action);
+    const hogehoge: string = hoge.index;
 
-    console.log(reqest.index);
+    if (hoge.action == 'delete') {
+      // const hogehoge: string = hoge.index;
 
-    const index: string = reqest.index;
+      console.log('delete', hogehoge);
 
-    await teamsRef.collection('teamList').doc(index).set(reqest);
-    // teamsRef.update({ team: neqRequets }); // 配列を入れようとしてる
+      const hogehogehoge = teamsRef.collection('teamList').doc(`${hogehoge}`);
+      console.log('1', hogehogehoge);
+
+      await hogehogehoge.delete();
+    } else {
+      const reqest: {
+        index: string;
+        teamName: string;
+        championList: string;
+      } = JSON.parse(req.body);
+
+      const index: string = reqest.index;
+
+      await teamsRef.collection('teamList').doc(index).set(reqest);
+    } // teamsRef.update({ team: neqRequets }); // 配列を入れようとしてる
     // teamsRef.set(reqest); // objectを入れようとしてる
     // db.collection('teams')
     // temasっていうコレクション＝{ teamName: string; championList: string }の配列

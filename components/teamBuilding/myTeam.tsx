@@ -12,7 +12,7 @@ type Props = {
   drapTopTeam?: number;
   drapUnderTeam?: number;
   distinguishbutton: (type: SideButtonType) => void;
-  deleteMyTeamList: (myTeam: TeamType[]) => void;
+  deleteMyTeamList: (myTeam: TeamType[], Index: number) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -58,7 +58,8 @@ const Base: React.FC<Props> = ({
     if ('REMOVE' === type) {
       const newMyTeamList: TeamType[] = [...myTeamsList];
       newMyTeamList.splice(Index, 1);
-      deleteMyTeamList(newMyTeamList);
+      console.log(Index, 'Index');
+      deleteMyTeamList(newMyTeamList, Index);
     } else if ('UP' === type || 'UNDER' === type) {
       distinguishbutton({
         teamList: myTeamsList[Index],

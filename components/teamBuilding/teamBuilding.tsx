@@ -37,12 +37,9 @@ const Base: React.FC<Props> = ({ className, user }) => {
       //useStateとDBに渡すための値。
       const newMyTeamList: TeamType[] = [...myTeamsList, myTeam];
       setMyTeamList(newMyTeamList);
-
-      console.log(newMyTeamList, 'newMyTeamList');
-      console.log(newMyTeamList.length, 'length');
-      console.log(JSON.stringify(newMyTeamList), 'JSONstring');
+      console.log('myTeamsList', myTeamsList);
       if (myTeam.championList) {
-        const data = {
+        const postData = {
           index: JSON.stringify(newMyTeamList.length - 1),
           teamName: JSON.stringify(myTeam.teamName),
           championList: JSON.stringify(Object.fromEntries(myTeam.championList)),
@@ -50,7 +47,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
         const url = `/api/teams/?id=${userID}`;
         await fetch(url, {
           method: 'post',
-          body: JSON.stringify(data),
+          body: JSON.stringify(postData),
         });
       }
     },
@@ -62,8 +59,18 @@ const Base: React.FC<Props> = ({ className, user }) => {
 
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
-    (TeamList: TeamType[]) => {
+    async (TeamList: TeamType[], Index: number) => {
       setMyTeamList(TeamList);
+      //deleteのときに呼び出される処理
+      const postData = {
+        index: Index,
+        action: 'delete',
+      };
+      const url = `/api/teams/?id=${userID}`;
+      await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(postData),
+      });
     },
     [myTeamsList]
   );
