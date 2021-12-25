@@ -5,33 +5,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from 'util_user';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  //更新とか
-  // const teamsRef = admin.firestore().collection('teams');
-
-  // const kousin = (userID: string) => {
-  //   teamsRef.doc(userID).set({
-  //     Name: 'teamList',
-  //   });
-  //   console.log('更新できた');
-  // };
-
-  // console.log('apiない');
-  // const result = async () => {
-  //   console.log(req.query.id, 'queryid');
-  //   const hoge = req.query.id;
-  //   const teamsRef = db.collection('teams');
-  //   try {
-  //     const result = teamsRef.where('Name', '==', 'name');
-  //     const hoge = await (await teamsRef.doc('hoge').get()).data();
-  //     const kousin = await teamsRef.doc('hoge').get();
-  //     console.log('hoge', hoge);
-  //     // console.log('auth.currentUser', auth.currentUser);
-  //   } catch (e) {
-  //     console.log('e', e);
-  //   }
-  //   return teamsRef;
-  // };
-
   //useID
   const queryID: string = req.query.id as string;
 
@@ -40,26 +13,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const method = req.method;
 
-  console.log(method, 'method');
-
   //チーム追加処理
   if (method === 'POST') {
-    const hoge: {
+    const post: {
       index: string;
       action: string;
     } = JSON.parse(req.body);
-    console.log('hoge', hoge.action);
-    const hogehoge: string = hoge.index;
 
-    if (hoge.action == 'delete') {
-      // const hogehoge: string = hoge.index;
+    if (post.action == 'delete') {
+      //TODO:削除処理修正する必要あり
+      const index = teamsRef.collection('teamList').doc(`${post.index}`);
 
-      console.log('delete', hogehoge);
-
-      const hogehogehoge = teamsRef.collection('teamList').doc(`${hogehoge}`);
-      console.log('1', hogehogehoge);
-
-      await hogehogehoge.delete();
+      await index.delete();
     } else {
       const reqest: {
         index: string;
@@ -67,10 +32,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         championList: string;
       } = JSON.parse(req.body);
 
-      const index: string = reqest.index;
+      const hoge = teamsRef.collection('teamList');
 
-      await teamsRef.collection('teamList').doc(index).set(reqest);
-    } // teamsRef.update({ team: neqRequets }); // 配列を入れようとしてる
+      const snapshot = await hoge.get();
+      snapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data());
+      });
+
+      await teamsRef.collection('teamList').doc().set(reqest);
+    }
+    // teamsRef.update({ team: neqRequets }); // 配列を入れようとしてる
     // teamsRef.set(reqest); // objectを入れようとしてる
     // db.collection('teams')
     // temasっていうコレクション＝{ teamName: string; championList: string }の配列
@@ -90,13 +61,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // });
     res.end();
   } else if (method === 'GET') {
+    console.log('get');
+
     const result = async () => {
       try {
-        return await (await teamsRef.get()).data();
+        const data = teamsRef.collection('teamList');
+        const doc = await data.get();
+        doc.forEach((doc) => {
+          console.log(doc.id, '=>', doc.data());
+        });
+        return doc;
       } catch (e) {
         console.log('e', e);
       }
     };
-    res.status(200).json({ name: result() });
+    res.status(200).json({ dataList: result() });
   }
 };
