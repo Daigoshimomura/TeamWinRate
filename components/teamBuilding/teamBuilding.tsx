@@ -27,15 +27,18 @@ const Base: React.FC<Props> = ({ className, user }) => {
   //api取得
   const userID = user?.uid;
   const { data, error } = useSWR(`/api/teams/?id=${userID}`);
-  console.log('data', data);
 
   //画面遷移時の表示処理
   const display = async () => {
     const url = `/api/teams/?id=${userID}`;
-    await fetch(url, {
+    const getData = await fetch(url, {
       method: 'get',
     });
+    const data = await getData.json();
+    console.log('data=> ', JSON.stringify(data));
   };
+
+  display();
 
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
@@ -61,9 +64,6 @@ const Base: React.FC<Props> = ({ className, user }) => {
     },
     [myTeamsList]
   );
-
-  //JSON変換
-  const jsonConvert = (elm: TeamType[]) => {};
 
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(

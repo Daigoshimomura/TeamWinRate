@@ -32,12 +32,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         championList: string;
       } = JSON.parse(req.body);
 
-      const hoge = teamsRef.collection('teamList');
-
-      const snapshot = await hoge.get();
-      snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
-      });
+      //試しのget
+      // const hoge = teamsRef.collection('teamList');
+      // const snapshot = await hoge.get();
+      // snapshot.forEach((doc) => {
+      //   console.log(doc.id, '=>', doc.data());
+      // });
 
       await teamsRef.collection('teamList').doc().set(reqest);
     }
@@ -61,20 +61,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // });
     res.end();
   } else if (method === 'GET') {
-    console.log('get');
+    try {
+      const data = teamsRef.collection('teamList');
+      const doc = await data.get();
+      const teamList: {
+        dcName: string;
+        teamInfo: firebase.firestore.SnapshotOptions;
+      }[] = [];
 
-    const result = async () => {
-      try {
-        const data = teamsRef.collection('teamList');
-        const doc = await data.get();
-        doc.forEach((doc) => {
-          console.log(doc.id, '=>', doc.data());
+      doc.forEach((elm) => {
+        teamList.push({
+          dcName: elm.id,
+          teamInfo: elm.data(),
         });
-        return doc;
-      } catch (e) {
-        console.log('e', e);
-      }
-    };
-    res.status(200).json({ dataList: result() });
+      });
+
+      res.status(200).json(teamList);
+    } catch (e) {
+      console.log('e', e);
+    }
   }
 };
