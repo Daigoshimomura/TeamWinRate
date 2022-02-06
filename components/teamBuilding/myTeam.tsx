@@ -72,9 +72,11 @@ const Base: React.FC<Props> = ({
   const teamList = () => {
     //champion出力処理
     const result: JSX.Element[] = [];
+    console.log('List', myTeamsList);
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
+      console.log('List', myTeamsList);
       if (myTeamsList[newIndex]) {
         const newMyTeamList = outputMyTeamList(
           myTeamsList[newIndex].championList

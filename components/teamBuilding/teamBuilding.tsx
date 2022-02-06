@@ -26,6 +26,9 @@ export type SideButtonType = {
 const Base: React.FC<Props> = ({ className, user }) => {
   //api取得
   const userID = user?.uid;
+  //MyTeam_チーム出力用
+  const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
+
   const { data, error } = useSWR(`/api/teams/?id=${userID}`);
 
   //画面遷移時の表示処理
@@ -34,21 +37,26 @@ const Base: React.FC<Props> = ({ className, user }) => {
     const getData = await fetch(url, {
       method: 'get',
     });
-    const data = await getData.json();
-    console.log('data=> ', JSON.stringify(data));
+    const dbData = JSON.parse(JSON.stringify(await getData.json()));
+    const dbDataTeamList: TeamType[] = dbData.map((elm) => {
+      console.log('championList', elm.teamInfo.championList);
+      return {
+        teamList: elm.teamInfo.teamName,
+        championList: elm.teamInfo.championList,
+      };
+    });
+
+    setMyTeamList(dbDataTeamList);
   };
 
   display();
 
-  //MyTeam_チーム出力用
-  const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
   //Building_SaveClick
   const updateMyTeamList = useCallback(
     async (myTeam: TeamType) => {
       //useStateとDBに渡すための値。
       const newMyTeamList: TeamType[] = [...myTeamsList, myTeam];
       setMyTeamList(newMyTeamList);
-      console.log('myTeamsList', myTeamsList);
       if (myTeam.championList) {
         const postData = {
           index: JSON.stringify(newMyTeamList.length - 1),
