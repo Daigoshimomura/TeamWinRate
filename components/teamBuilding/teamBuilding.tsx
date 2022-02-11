@@ -12,6 +12,7 @@ type Props = {
 };
 
 export type TeamType = {
+  id?: string;
   teamName?: string;
   championList?: Map<string, string>;
 };
@@ -35,18 +36,13 @@ const Base: React.FC<Props> = ({ className, user }) => {
   useEffect(() => {
     const callBack = async () => {
       const result = await getDBdata();
-      console.log('re', result);
       const dbDataTeamList: TeamType[] = result.map((elm) => {
         const dBdata = parseDBData(elm);
-
         const userMap = new Map<string, string>();
-
         userMap.set(dBdata.position, dBdata.champion);
-
-        console.log('map', userMap);
-
         return {
-          teamName: dBdata.paName,
+          id: dBdata.id,
+          teamName: dBdata.Name,
           championList: userMap,
         };
       });
@@ -60,7 +56,8 @@ const Base: React.FC<Props> = ({ className, user }) => {
     const teamWd = championData.teamInfo.teamName.slice(1, -1);
     const partitionWd = championData.teamInfo.championList.split('"');
     return {
-      paName: teamWd,
+      id: championData.id,
+      Name: teamWd,
       position: partitionWd[1],
       champion: partitionWd[3],
     };
@@ -100,11 +97,11 @@ const Base: React.FC<Props> = ({ className, user }) => {
 
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
-    async (TeamList: TeamType[], Index: number) => {
+    async (TeamList: TeamType[], id?: string) => {
       setMyTeamList(TeamList);
       //deleteのときに呼び出される処理
       const postData = {
-        index: Index,
+        id: id,
         action: 'delete',
       };
       const url = `/api/teams/?id=${userID}`;

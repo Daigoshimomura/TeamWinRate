@@ -12,7 +12,7 @@ type Props = {
   drapTopTeam?: number;
   drapUnderTeam?: number;
   distinguishbutton: (type: SideButtonType) => void;
-  deleteMyTeamList: (myTeam: TeamType[], Index: number) => void;
+  deleteMyTeamList: (myTeam: TeamType[], id?: string) => void;
 };
 
 const Base: React.FC<Props> = ({
@@ -28,7 +28,6 @@ const Base: React.FC<Props> = ({
 
   //アルファベット順かつコスト順に並べ替えした出力用リスト
   const outputMyTeamList = (championList: Map<string, string>) => {
-    console.log('output');
     const newMyTeamList: string[] = [];
     championList.forEach((innerElm) => {
       newMyTeamList.push(innerElm);
@@ -58,9 +57,9 @@ const Base: React.FC<Props> = ({
     //Removeボタン押下時
     if ('REMOVE' === type) {
       const newMyTeamList: TeamType[] = [...myTeamsList];
+      const deleTeam = newMyTeamList[Index];
       newMyTeamList.splice(Index, 1);
-      console.log(Index, 'Index');
-      deleteMyTeamList(newMyTeamList, Index);
+      deleteMyTeamList(newMyTeamList, deleTeam.id);
     } else if ('UP' === type || 'UNDER' === type) {
       distinguishbutton({
         teamList: myTeamsList[Index],
@@ -76,7 +75,6 @@ const Base: React.FC<Props> = ({
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
-      console.log('List2=>', myTeamsList, 'List2=>', newIndex);
       if (myTeamsList[newIndex]) {
         const newMyTeamList = outputMyTeamList(
           myTeamsList[newIndex].championList

@@ -1,4 +1,3 @@
-import { request } from 'http';
 import { TeamType } from 'components/teamBuilding/teamBuilding';
 import firebase from 'firebase';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -16,15 +15,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   //チーム追加処理
   if (method === 'POST') {
     const post: {
-      index: string;
+      id: string;
       action: string;
     } = JSON.parse(req.body);
 
     if (post.action == 'delete') {
-      //TODO:削除処理修正する必要あり
-      const index = teamsRef.collection('teamList').doc(`${post.index}`);
-
-      await index.delete();
+      await teamsRef.collection('teamList').doc(`${post.id}`).delete();
     } else {
       const reqest: {
         index: string;
@@ -41,17 +37,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const data = teamsRef.collection('teamList');
       const doc = await data.get();
       const teamList: {
-        dcName: string;
+        id: string;
         teamInfo: firebase.firestore.SnapshotOptions;
       }[] = [];
 
       doc.forEach((elm) => {
         teamList.push({
-          dcName: elm.id,
+          id: elm.id,
           teamInfo: elm.data(),
         });
       });
-
       res.status(200).json(teamList);
     } catch (e) {
       console.log('e', e);
