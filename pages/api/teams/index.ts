@@ -32,33 +32,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         championList: string;
       } = JSON.parse(req.body);
 
-      //試しのget
-      // const hoge = teamsRef.collection('teamList');
-      // const snapshot = await hoge.get();
-      // snapshot.forEach((doc) => {
-      //   console.log(doc.id, '=>', doc.data());
-      // });
-
       await teamsRef.collection('teamList').doc().set(reqest);
     }
-    // teamsRef.update({ team: neqRequets }); // 配列を入れようとしてる
-    // teamsRef.set(reqest); // objectを入れようとしてる
-    // db.collection('teams')
-    // temasっていうコレクション＝{ teamName: string; championList: string }の配列
-    // temasっていうコレクション＝ string[]の配列
-    // temasっていうコレクション＝ { teamNameList: string[] } の配列
-    // const teams = [
-    //   { teamNameList: ['a'] },
-    //   { teamNameList: ['b'] },
-    //   { teamNameList: ['b'] },
-    // ];
 
-    // teamsRef = object:{ teamName: string; championList: string }
-
-    // //中身が変わらない状態だと、保存できない。
-    // teamsRef.update({
-    //   myTeamList: firebase.firestore.FieldValue.arrayUnion(reqest),
-    // });
     res.end();
   } else if (method === 'GET') {
     try {

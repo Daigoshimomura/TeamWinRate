@@ -2,7 +2,7 @@ import Building from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
 import firebase from 'firebase';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 
@@ -32,24 +32,49 @@ const Base: React.FC<Props> = ({ className, user }) => {
   const { data, error } = useSWR(`/api/teams/?id=${userID}`);
 
   //画面遷移時の表示処理
-  const display = async () => {
+  useEffect(() => {
+    const callBack = async () => {
+      const result = await getDBdata();
+      console.log('re', result);
+      const dbDataTeamList: TeamType[] = result.map((elm) => {
+        const dBdata = parseDBData(elm);
+
+        const userMap = new Map<string, string>();
+
+        userMap.set(dBdata.position, dBdata.champion);
+
+        console.log('map', userMap);
+
+        return {
+          teamName: dBdata.paName,
+          championList: userMap,
+        };
+      });
+      setMyTeamList(dbDataTeamList);
+    };
+    callBack();
+  }, []);
+
+  //データ整形
+  const parseDBData = (championData) => {
+    const teamWd = championData.teamInfo.teamName.slice(1, -1);
+    const partitionWd = championData.teamInfo.championList.split('"');
+    return {
+      paName: teamWd,
+      position: partitionWd[1],
+      champion: partitionWd[3],
+    };
+  };
+
+  //data取得
+  const getDBdata = async () => {
     const url = `/api/teams/?id=${userID}`;
     const getData = await fetch(url, {
       method: 'get',
     });
-    const dbData = JSON.parse(JSON.stringify(await getData.json()));
-    const dbDataTeamList: TeamType[] = dbData.map((elm) => {
-      console.log('championList', elm.teamInfo.championList);
-      return {
-        teamList: elm.teamInfo.teamName,
-        championList: elm.teamInfo.championList,
-      };
-    });
-
-    setMyTeamList(dbDataTeamList);
+    const result = JSON.parse(JSON.stringify(await getData.json()));
+    return result;
   };
-
-  display();
 
   //Building_SaveClick
   const updateMyTeamList = useCallback(

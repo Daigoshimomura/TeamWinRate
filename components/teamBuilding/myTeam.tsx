@@ -28,6 +28,7 @@ const Base: React.FC<Props> = ({
 
   //アルファベット順かつコスト順に並べ替えした出力用リスト
   const outputMyTeamList = (championList: Map<string, string>) => {
+    console.log('output');
     const newMyTeamList: string[] = [];
     championList.forEach((innerElm) => {
       newMyTeamList.push(innerElm);
@@ -72,11 +73,10 @@ const Base: React.FC<Props> = ({
   const teamList = () => {
     //champion出力処理
     const result: JSX.Element[] = [];
-    console.log('List', myTeamsList);
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];
       const newIndex: number = index + handlePaginate;
-      console.log('List', myTeamsList);
+      console.log('List2=>', myTeamsList, 'List2=>', newIndex);
       if (myTeamsList[newIndex]) {
         const newMyTeamList = outputMyTeamList(
           myTeamsList[newIndex].championList
