@@ -5,11 +5,12 @@
   },
   "editor.tabSize": 2,
   "cSpell.words": [
-    "Wellsport",
+    "distinguishbutton",
     "fontawesome",
     "fortawesome",
     "presenteeism",
-    "ress"
+    "ress",
+    "Wellsport"
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true

@@ -59,15 +59,15 @@ const Base: React.FC<Props> = ({
 
   //saveボタン処理
   const saveClick = () => {
-    if (teamName) {
-      const myTeam: TeamType = {
-        teamName: teamName,
-        championList: boadPosition,
-      };
-      updateMyTeamList(myTeam);
-    } else {
-      alert('TeamNameを入力してください。');
+    let setTeamName = teamName;
+    if (!setTeamName) {
+      setTeamName = 'NewTeam';
     }
+    const myTeam: TeamType = {
+      teamName: setTeamName,
+      championList: boadPosition,
+    };
+    updateMyTeamList(myTeam);
   };
 
   //newボタン処理
