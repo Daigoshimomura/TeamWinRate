@@ -1,16 +1,20 @@
 import Building from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
 import Pool from 'components/teamBuilding/pool';
-import React, { useState, useCallback } from 'react';
+import firebase from 'firebase';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
+import useSWR from 'swr';
 
 type Props = {
+  user: firebase.User | null | undefined;
   className?: string;
 };
 
 export type TeamType = {
-  teamName: string;
-  championList: Map<string, string>;
+  id?: string;
+  teamName?: string;
+  championList?: Map<string, string>;
 };
 
 //MyTeamサイドボタン押下時のType
@@ -20,23 +24,91 @@ export type SideButtonType = {
   buttonLable: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
+const Base: React.FC<Props> = ({ className, user }) => {
+  //api取得
+  const userID = user?.uid;
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
+
+  const { data, error } = useSWR(`/api/teams/?id=${userID}`);
+
+  //画面遷移時の表示処理
+  useEffect(() => {
+    const callBack = async () => {
+      const result = await getDBdata();
+      const dbDataTeamList: TeamType[] = result.map((elm) => {
+        const dBdata = parseDBData(elm);
+        const userMap = new Map<string, string>();
+        userMap.set(dBdata.position, dBdata.champion);
+        return {
+          id: dBdata.id,
+          teamName: dBdata.Name,
+          championList: userMap,
+        };
+      });
+      setMyTeamList(dbDataTeamList);
+    };
+    callBack();
+  }, []);
+
+  //データ整形
+  const parseDBData = (championData) => {
+    const teamWd = championData.teamInfo.teamName.slice(1, -1);
+    const partitionWd = championData.teamInfo.championList.split('"');
+    return {
+      id: championData.id,
+      Name: teamWd,
+      position: partitionWd[1],
+      champion: partitionWd[3],
+    };
+  };
+
+  //data取得
+  const getDBdata = async () => {
+    const url = `/api/teams/?id=${userID}`;
+    const getData = await fetch(url, {
+      method: 'get',
+    });
+    const result = JSON.parse(JSON.stringify(await getData.json()));
+    return result;
+  };
+
   //Building_SaveClick
   const updateMyTeamList = useCallback(
-    (myTeam: TeamType) => {
-      setMyTeamList((prevState) => {
-        return [...prevState, myTeam];
-      });
+    async (myTeam: TeamType) => {
+      //useStateとDBに渡すための値。
+      const newMyTeamList: TeamType[] = [...myTeamsList, myTeam];
+      setMyTeamList(newMyTeamList);
+      if (myTeam.championList) {
+        const postData = {
+          index: JSON.stringify(newMyTeamList.length - 1),
+          teamName: JSON.stringify(myTeam.teamName),
+          championList: JSON.stringify(Object.fromEntries(myTeam.championList)),
+        };
+        const url = `/api/teams/?id=${userID}`;
+        await fetch(url, {
+          method: 'post',
+          body: JSON.stringify(postData),
+        });
+      }
     },
     [myTeamsList]
   );
 
   //MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
-    (TeamList: TeamType[]) => {
+    async (TeamList: TeamType[], id?: string) => {
       setMyTeamList(TeamList);
+      //deleteのときに呼び出される処理
+      const postData = {
+        id: id,
+        action: 'delete',
+      };
+      const url = `/api/teams/?id=${userID}`;
+      await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(postData),
+      });
     },
     [myTeamsList]
   );

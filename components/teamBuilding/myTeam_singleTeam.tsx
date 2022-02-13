@@ -10,7 +10,7 @@ type Props = {
   drapTopTeam?: number;
   drapUnderTeam?: number;
   myTeamIndex: number;
-  sideButtonOnclick: (type: string, Index: number) => void;
+  sideButtonOnclick: (type: string, index: number) => void;
   outputChampionList: JSX.Element[];
 };
 

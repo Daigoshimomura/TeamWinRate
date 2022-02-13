@@ -12,7 +12,7 @@ type Props = {
 const Base: React.FC<Props> = ({
   className,
   isSideOpen,
-  index: Index,
+  index: index,
   sideButtonOnclick,
   setIsSideOpen,
 }) => {
@@ -25,7 +25,7 @@ const Base: React.FC<Props> = ({
       <div
         className={`${className}__sideButton`}
         onClick={() => {
-          sideButtonOnclick('UP', Index), setIsSideOpen(!isSideOpen);
+          sideButtonOnclick('UP', index), setIsSideOpen(!isSideOpen);
         }}
       >
         Up
@@ -33,14 +33,14 @@ const Base: React.FC<Props> = ({
       <div
         className={`${className}__sideButton`}
         onClick={() => {
-          sideButtonOnclick('UNDER', Index), setIsSideOpen(!isSideOpen);
+          sideButtonOnclick('UNDER', index), setIsSideOpen(!isSideOpen);
         }}
       >
         Under
       </div>
       <div
         onClick={() => {
-          sideButtonOnclick('REMOVE', Index), setIsSideOpen(!isSideOpen);
+          sideButtonOnclick('REMOVE', index), setIsSideOpen(!isSideOpen);
         }}
       >
         Remove
