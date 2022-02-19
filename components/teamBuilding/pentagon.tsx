@@ -23,7 +23,7 @@ const Base: React.FC<Props> = ({
   //championドラッグref
   const refDrag = (position: string) => {
     const [, ref] = useDrag({
-      item: { type: 'champion' },
+      type: 'champion',
       end: (draggedItem, monitor) => {
         if (monitor.didDrop()) {
           movePool(position);
@@ -38,13 +38,14 @@ const Base: React.FC<Props> = ({
     const types: string[] = useMemo(() => fetchChampionNameList(), [
       fetchChampionNameList,
     ]);
-    const [, ref] = useDrop({
+    const [, drop] = useDrop(() => ({
       accept: types,
-      drop: (item) => {
-        moveChampion(item.type, position);
+      drop: (item, monitor) => {
+        const items: string = monitor.getItemType() as string;
+        moveChampion(items, position);
       },
-    });
-    return ref;
+    }));
+    return drop;
   };
 
   const dragChampionImg = (dragPosition: string) => {

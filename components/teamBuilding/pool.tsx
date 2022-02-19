@@ -9,9 +9,9 @@ type Props = {
 
 const Base: React.FC<Props> = ({ className }) => {
   const championList = champions.map((elm, index) => {
-    const [, ref] = useDrag({
-      item: { type: `${elm.name}` },
-    });
+    const [, ref] = useDrag(() => ({
+      type: `${elm.name}`,
+    }));
     return (
       <ChampionImage
         key={index}

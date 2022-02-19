@@ -28,7 +28,8 @@ const Base: React.FC<Props> = ({
   //myteamドラッグのref
   const dragMyTeam = (index: number) => {
     const [, ref] = useDrag({
-      item: { type: 'team', MyTeam: myTeamsList[index], MyTeamIndex: index },
+      type: 'team',
+      item: { MyTeam: myTeamsList[index], MyTeamIndex: index },
     });
     return ref;
   };
