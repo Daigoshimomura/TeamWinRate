@@ -1,6 +1,7 @@
 import Button from 'components/teamBuilding/building_button';
 import Pentagon from 'components/teamBuilding/pentagon';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
+import { DeliveryTeam } from 'components/teamBuilding/myTeam_singleTeam';
 import Traits from 'components/teamBuilding/traitsList';
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
@@ -11,6 +12,7 @@ type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamType) => void;
   fetchDrap: (index?: number) => void;
+  myTeamsList: TeamType[];
   myTeamSideClick?: SideButtonType;
   type: string;
 };
@@ -19,6 +21,7 @@ const Base: React.FC<Props> = ({
   className,
   updateMyTeamList,
   fetchDrap,
+  myTeamsList,
   myTeamSideClick,
   type,
 }) => {
@@ -82,22 +85,24 @@ const Base: React.FC<Props> = ({
   const [, ref] = useDrop({
     accept: 'team',
     drop: (item, monitor) => {
-      const DropTeam = monitor.getItem();
-      bordDrop(DropTeam.MyTeam, DropTeam.MyTeamIndex);
+      const DropTeam: DeliveryTeam = monitor.getItem();
+      bordDrop(DropTeam.myTeam, DropTeam.index);
     },
   });
 
   //MyTeamsからbordへのドロップ処理
-  const bordDrop = (Myteam: TeamType, Index?: number) => {
-    setBoadPosition(Myteam.championList);
-    setTeamName(Myteam.teamName);
-    //ドロップされたchampionセット
-    const newChampionList: string[] = [];
-    Myteam.championList?.forEach((elm) => {
-      newChampionList.push(elm);
-    });
-    setChampionList(newChampionList);
-    fetchDrap(Index);
+  const bordDrop = (myTeam: TeamType, index?: number) => {
+    if (myTeam.championList && myTeam.teamName) {
+      setBoadPosition(myTeam.championList);
+      setTeamName(myTeam.teamName);
+      //ドロップされたchampionセット
+      const newChampionList: string[] = [];
+      myTeam.championList?.forEach((elm) => {
+        newChampionList.push(elm);
+      });
+      setChampionList(newChampionList);
+      fetchDrap(index);
+    }
   };
 
   //MyTeamSideButton検知用
