@@ -13,8 +13,9 @@ type Props = {
 
 export type TeamType = {
   id?: string;
+  index?: number;
   teamName?: string;
-  championList?: Map<string, string>;
+  championList: Map<string, string>;
 };
 
 //MyTeamサイドボタン押下時のType
@@ -22,6 +23,15 @@ export type SideButtonType = {
   teamList: TeamType;
   teamListIndex: number;
   buttonLable: string;
+};
+
+export type DbInfo = {
+  id: string;
+  teamInfo: {
+    championList: string;
+    index: string;
+    teamName: string;
+  };
 };
 
 const Base: React.FC<Props> = ({ className, user }) => {
@@ -36,7 +46,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
   useEffect(() => {
     const callBack = async () => {
       const result = await getDBdata();
-      const dbDataTeamList: TeamType[] = result.map((elm) => {
+      const dbDataTeamList: TeamType[] = result.map((elm: DbInfo) => {
         const dBdata = parseDBData(elm);
         const userMap = new Map<string, string>();
         userMap.set(dBdata.position, dBdata.champion);
@@ -52,7 +62,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
   }, []);
 
   //データ整形
-  const parseDBData = (championData) => {
+  const parseDBData = (championData: DbInfo) => {
     const teamWd = championData.teamInfo.teamName.slice(1, -1);
     const partitionWd = championData.teamInfo.championList.split('"');
     return {
@@ -151,6 +161,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
               type={'UP'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
+              myTeamsList={myTeamsList}
               myTeamSideClick={myTeamSideClick}
             />
           </div>
@@ -159,6 +170,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
               type={'UNDER'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
+              myTeamsList={myTeamsList}
               myTeamSideClick={myTeamSideClick}
             />
           </div>

@@ -1,4 +1,4 @@
-import SideButton from 'components/teamBuilding/myTeam_sideButton';
+import SideButton from 'components/teamBuilding/myTeam_sidebutton';
 import { TeamType } from 'components/teamBuilding/teamBuilding';
 import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
@@ -14,6 +14,11 @@ type Props = {
   outputChampionList: JSX.Element[];
 };
 
+export type DeliveryTeam = {
+  index?: number;
+  myTeam: TeamType;
+};
+
 const Base: React.FC<Props> = ({
   className,
   myTeamsList,
@@ -27,9 +32,10 @@ const Base: React.FC<Props> = ({
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
   //myteamドラッグのref
   const dragMyTeam = (index: number) => {
+    const setTeam: DeliveryTeam = { index: index, myTeam: myTeamsList[index] };
     const [, ref] = useDrag({
       type: 'team',
-      item: { MyTeam: myTeamsList[index], MyTeamIndex: index },
+      item: setTeam,
     });
     return ref;
   };
