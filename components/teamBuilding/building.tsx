@@ -1,7 +1,7 @@
 import Button from 'components/teamBuilding/building_button';
+import { DeliveryTeam } from 'components/teamBuilding/myTeam_singleTeam';
 import Pentagon from 'components/teamBuilding/pentagon';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
-import { DeliveryTeam } from 'components/teamBuilding/myTeam_singleTeam';
 import Traits from 'components/teamBuilding/traitsList';
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
@@ -12,7 +12,6 @@ type Props = {
   className?: string;
   updateMyTeamList: (myTeam: TeamType) => void;
   fetchDrap: (index?: number) => void;
-  myTeamsList: TeamType[];
   myTeamSideClick?: SideButtonType;
   type: string;
 };
@@ -21,7 +20,6 @@ const Base: React.FC<Props> = ({
   className,
   updateMyTeamList,
   fetchDrap,
-  myTeamsList,
   myTeamSideClick,
   type,
 }) => {

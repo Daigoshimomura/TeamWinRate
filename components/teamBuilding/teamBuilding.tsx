@@ -4,7 +4,6 @@ import Pool from 'components/teamBuilding/pool';
 import firebase from 'firebase';
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import useSWR from 'swr';
 
 type Props = {
   user: firebase.User | null | undefined;
@@ -39,8 +38,6 @@ const Base: React.FC<Props> = ({ className, user }) => {
   const userID = user?.uid;
   //MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
-
-  const { data, error } = useSWR(`/api/teams/?id=${userID}`);
 
   //画面遷移時の表示処理
   useEffect(() => {
@@ -161,7 +158,6 @@ const Base: React.FC<Props> = ({ className, user }) => {
               type={'UP'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
-              myTeamsList={myTeamsList}
               myTeamSideClick={myTeamSideClick}
             />
           </div>
@@ -170,7 +166,6 @@ const Base: React.FC<Props> = ({ className, user }) => {
               type={'UNDER'}
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
-              myTeamsList={myTeamsList}
               myTeamSideClick={myTeamSideClick}
             />
           </div>
