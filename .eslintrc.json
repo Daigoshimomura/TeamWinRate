@@ -4,12 +4,19 @@
     "es6": true,
     "node": true
   },
-  // "processors": ["stylelint-processor-styled-components"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "etc", "node"],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/errors"
+    // "plugin:react-app/recommended",
+    "airbnb",
+    "airbnb-base",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@next/next/recommended",
+    "prettier"
   ],
   "globals": {
     "React": true,
@@ -23,32 +30,109 @@
       "jsx": true
     },
     "ecmaVersion": 11,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "node", "prettier", "import"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "project": "."
+      }
+    }
+  },
   "rules": {
-    "indent": ["error", 2],
+    "no-use-before-define": ["off"],
     "linebreak-style": ["error", "unix"],
     "quotes": [
       "error",
       "single",
-      { "avoidEscape": true, "allowTemplateLiterals": true }
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
     ],
     "semi": ["error", "always"],
     "prefer-template": ["error"],
-
-    // added by me
-    "prettier/prettier": ["error", { "single": true }],
+    "no-restricted-imports": ["error", { "patterns": ["./", "../"] }],
     "react/prop-types": [0],
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "sort-imports": 0,
-    "import/order": [2, { "alphabetize": { "order": "asc" } }],
-    "import/no-unresolved": "off",
-    "no-unused-vars": "warn"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "@typescript-eslint/no-unused-vars": "error",
+    "eqeqeq": 2,
+    "no-console": "warn",
+    "object-shorthand": "warn",
+    "arrow-body-style": ["warn"],
+    "no-else-return": ["warn"],
+    "consistent-return": ["warn"],
+    "no-unneeded-ternary": ["warn"],
+    "prefer-object-spread": ["warn"],
+    "class-methods-use-this": ["warn"],
+    "no-plusplus": ["warn"],
+    "no-param-reassign": ["warn"],
+    "react/jsx-no-constructed-context-values": ["warn"],
+    "react/self-closing-comp": ["warn"],
+    "react/no-array-index-key": ["warn"],
+    "react/jsx-props-no-spreading": ["warn"],
+    "react/jsx-curly-brace-presence": ["warn"],
+    "react/button-has-type": ["warn"],
+    "react/jsx-no-useless-fragment": ["warn"],
+    // "react-app/react-hooks/exhaustive-deps": ["warn"],
+    // "react-app/import/first": ["warn"],
+    "@typescript-eslint/no-use-before-define": ["warn"],
+    "@typescript-eslint/dot-notation": ["warn"],
+    "@typescript-eslint/lines-between-class-members": ["warn"],
+    "@typescript-eslint/no-shadow": ["warn"],
+    "import/newline-after-import": ["warn"],
+    "import/no-duplicates": ["warn"],
+    "import/no-extraneous-dependencies": ["warn"],
+    "import/first": ["warn"],
+    "import/no-cycle": ["warn"],
+    "jsx-a11y/alt-text": ["warn"],
+    "jsx-a11y/anchor-is-valid": ["warn"],
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "memberLike",
+        "format": ["camelCase"]
+      },
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "method",
+        "format": ["camelCase"]
+      },
+      {
+        "selector": "variable",
+        "format": ["camelCase"]
+      },
+      {
+        "selector": "variable",
+        "types": ["function"],
+        "format": ["camelCase", "PascalCase"]
+      },
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "prefix": ["is", "has", "should"],
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "parameter",
+        "format": ["camelCase"]
+      }
+    ],
+    "react/require-default-props": ["off"],
+    "no-underscore-dangle": ["off"],
+    "prefer-destructuring": ["off"],
+    "react/destructuring-assignment": ["off"],
+    "react/function-component-definition": [
+      1,
+      { "namedComponents": "arrow-function" }
+    ],
+    "import/prefer-default-export": ["off"]
   }
 }
