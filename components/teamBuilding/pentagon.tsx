@@ -77,6 +77,7 @@ const Base: React.FC<Props> = ({
         key={dragPosition}
         className={`${className}__pentagonImg`}
         src={`/build/Pentagon-${color}.png`}
+        alt={`pentagon`}
       />
     );
   };

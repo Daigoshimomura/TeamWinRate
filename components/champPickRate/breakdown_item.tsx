@@ -14,18 +14,43 @@ const Base: React.FC<Props> = ({ className, rank }) => {
         <img
           className={`${className}__championImg`}
           src={`/champions/TFT4_Aatrox.png`}
+          alt={`/champions/TFT4_Aatrox.png`}
         />
         Aatrox
       </div>
       <div className={`${className}__synergies`}>
-        <img className={`${className}__traitsImg`} src={`/traits/adept.png`} />
-        <img className={`${className}__traitsImg`} src={`/traits/adept.png`} />
-        <img className={`${className}__traitsImg`} src={`/traits/adept.png`} />
+        <img
+          className={`${className}__traitsImg`}
+          src={`/traits/adept.png`}
+          alt={`/traits/adept.png`}
+        />
+        <img
+          className={`${className}__traitsImg`}
+          src={`/traits/adept.png`}
+          alt={`/traits/adept.png`}
+        />
+        <img
+          className={`${className}__traitsImg`}
+          src={`/traits/adept.png`}
+          alt={`/traits/adept.png`}
+        />
       </div>
       <div className={`${className}__item`}>
-        <img className={`${className}__itemImg`} src={`/items/99.png`} />
-        <img className={`${className}__itemImg`} src={`/items/99.png`} />
-        <img className={`${className}__itemImg`} src={`/items/99.png`} />
+        <img
+          className={`${className}__itemImg`}
+          src={`/items/99.png`}
+          alt={`/items/99.png`}
+        />
+        <img
+          className={`${className}__itemImg`}
+          src={`/items/99.png`}
+          alt={`/items/99.png`}
+        />
+        <img
+          className={`${className}__itemImg`}
+          src={`/items/99.png`}
+          alt={`/items/99.png`}
+        />
       </div>
       <div className={`${className}__pick`}>30%</div>
     </div>

@@ -95,6 +95,7 @@ const Base: React.FC<Props> = ({ className, championList }) => {
               <img
                 className={`${className}__traitsImg`}
                 src={`/traits/${value}.png`}
+                alt={`${value}`}
               />
             </div>
             <div className={`${className}__traitsNumber`}>{sets()}</div>
