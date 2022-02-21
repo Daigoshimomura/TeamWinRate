@@ -8,13 +8,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:import/errors",
-    "prettier/@typescript-eslint"
+    "plugin:import/errors"
   ],
   "globals": {
+    "React": true,
+    "JSX": true,
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
@@ -44,7 +43,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "sort-imports": 0,
     "import/order": [2, { "alphabetize": { "order": "asc" } }],
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "no-unused-vars": "warn"
   },
   "settings": {
     "react": {

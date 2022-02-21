@@ -35,9 +35,10 @@ const Base: React.FC<Props> = ({
 
   //空のドロップref
   const refdrop = (position: string) => {
-    const types: string[] = useMemo(() => fetchChampionNameList(), [
-      fetchChampionNameList,
-    ]);
+    const types: string[] = useMemo(
+      () => fetchChampionNameList(),
+      [fetchChampionNameList]
+    );
     const [, drop] = useDrop(() => ({
       accept: types,
       drop: (item, monitor) => {
@@ -62,6 +63,7 @@ const Base: React.FC<Props> = ({
                   ref={ref_Dr}
                   key={dragPosition}
                   src={`/champions/${boadPosition.get(dragPosition)}.png`}
+                  alt={`${boadPosition.get(dragPosition)}`}
                 />
               </div>
             </div>

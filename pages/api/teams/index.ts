@@ -1,4 +1,3 @@
-import { TeamType } from 'components/teamBuilding/teamBuilding';
 import firebase from 'firebase';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from 'util_user';
