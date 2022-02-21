@@ -11,8 +11,7 @@ type Props = {
   rank?: string;
 };
 
-const Base: React.FC<Props> = ({ page, children, className, rank }) => {
-  return (
+const Base: React.FC<Props> = ({ page, children, className, rank }) => (
     <div className={`${className}`}>
       <Header />
       <div className={`${className}__wrapper`}>
@@ -24,7 +23,6 @@ const Base: React.FC<Props> = ({ page, children, className, rank }) => {
       </div>
     </div>
   );
-};
 
 const Layout = styled(Base)`
   height: 100%;

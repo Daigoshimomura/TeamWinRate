@@ -6,13 +6,11 @@ type Props = {
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return (
+const Base: React.FC<Props> = ({ className }) => (
     <Layout page="Home">
-      <div className={className}></div>
+      <div className={className} />
     </Layout>
   );
-};
 
 const Index = styled(Base)``;
 

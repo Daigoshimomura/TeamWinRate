@@ -3,7 +3,7 @@ import Layout from 'components/layout';
 import { GetStaticPaths } from 'next';
 import React from 'react';
 
-//TODO 変数名修正。
+// TODO 変数名修正。
 type Props = {
   page: string;
   rank: string;
@@ -16,25 +16,20 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ rank }) => {
-  return (
-    <Layout page={'Champ Pick Rate'} rank={rank}>
+const Post: React.FC<Props> = ({ rank }) => (
+    <Layout page="Champ Pick Rate" rank={rank}>
       <ChampPickRate />
     </Layout>
   );
-};
 
-export const getStaticProps = async ({ params }: Paths) => {
-  return {
+export const getStaticProps = async ({ params }: Paths) => ({
     props: {
       page: 'Champ Pick Rate',
       rank: params.champRank,
     },
-  };
-};
+  });
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
+export const getStaticPaths: GetStaticPaths = async () => ({
     paths: [
       { params: { champRank: 'Challenger' } },
       { params: { champRank: 'Master' } },
@@ -46,7 +41,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
       { params: { champRank: 'Iron' } },
     ],
     fallback: false,
-  };
-};
+  });
 
 export default Post;

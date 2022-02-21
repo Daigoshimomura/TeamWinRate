@@ -7,13 +7,11 @@ type Props = {
   onClick: () => void;
 };
 
-const Base: React.FC<Props> = ({ className, type, onClick }) => {
-  return (
+const Base: React.FC<Props> = ({ className, type, onClick }) => (
     <button className={`${className}__${type}`} onClick={onClick}>
       {type}
     </button>
   );
-};
 
 const BuildingButton = styled(Base)`
   &__Save {

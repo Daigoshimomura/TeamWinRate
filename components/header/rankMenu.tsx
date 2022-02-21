@@ -9,8 +9,7 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, baseUrl }) => {
-  const rankMenu = rank.rank.map((elm, index) => {
-    return (
+  const rankMenu = rank.rank.map((elm, index) => (
       <Link href={`/${baseUrl}/${elm.name}`} key={index}>
         <div className={`${className}__rankList`}>
           <img
@@ -21,8 +20,7 @@ const Base: React.FC<Props> = ({ className, baseUrl }) => {
           <a className={`${className}__rankWord`}>{elm.name}</a>
         </div>
       </Link>
-    );
-  });
+    ));
   return <>{rankMenu}</>;
 };
 

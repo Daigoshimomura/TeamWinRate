@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
-  //mailClick判定
+  // mailClick判定
   const [isMailOpen, setIsMailOpen] = useState<boolean>(false);
 
   const user = useContext(AuthContext);
@@ -33,7 +33,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
               <div>
                 <img
                   className={`${className}__arrow`}
-                  src={`/button/arrow-up16.png`}
+                  src="/button/arrow-up16.png"
                   onClick={() => {
                     setIsMailOpen(!isMailOpen);
                   }}
@@ -42,7 +42,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             ) : (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
+                src="/button/arrow-down16.png"
                 onClick={() => {
                   setIsMailOpen(!isMailOpen);
                 }}

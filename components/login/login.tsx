@@ -12,13 +12,13 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [mail, setMail] = useState<string>();
   const [passwd, setPasswd] = useState<string>();
 
-  //状態リセット
+  // 状態リセット
   const closeClick = () => {
     onLoginClick();
     setIsCreateAccount(false);
   };
 
-  //ログイン処理
+  // ログイン処理
   const loginClick = async () => {
     try {
       // await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
@@ -37,7 +37,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
     }
   };
 
-  //新規登録
+  // 新規登録
   const createAccountClick = async () => {
     try {
       if (mail && passwd) {

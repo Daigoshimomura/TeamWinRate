@@ -12,11 +12,10 @@ type Props = {
 const Base: React.FC<Props> = ({
   className,
   isSideOpen,
-  index: index,
+  index,
   sideButtonOnclick,
   setIsSideOpen,
-}) => {
-  return (
+}) => (
     <div className={`${className}__sidemenu`}>
       <div
         className={`${className}__back`}
@@ -47,7 +46,6 @@ const Base: React.FC<Props> = ({
       </div>
     </div>
   );
-};
 
 const SideButton = styled(Base)`
   &__back {

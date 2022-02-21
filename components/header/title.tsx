@@ -5,9 +5,7 @@ type Props = {
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return <div className={`${className}`}>TeamWinRate</div>;
-};
+const Base: React.FC<Props> = ({ className }) => <div className={`${className}`}>TeamWinRate</div>;
 
 const Title = styled(Base)`
   font-size: 30px;

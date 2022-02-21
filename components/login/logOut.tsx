@@ -11,10 +11,10 @@ const Base: React.FC<Props> = ({ className }) => {
     firebase
       .auth()
       .signOut()
-      .then(function () {
+      .then(() => {
         alert('サインアウトしました。');
       })
-      .catch(function (error) {
+      .catch((error) => {
         alert(error);
       });
   };

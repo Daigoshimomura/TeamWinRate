@@ -6,70 +6,66 @@ type Props = {
   rank: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return (
-    <>
-      <div className={`${className}`}>
+const Base: React.FC<Props> = ({ className }) => (
+    <div className={`${className}`}>
         <div className={`${className}__symergies`}>Hunter/Adept</div>
         <div className={`${className}__traitsList`}>
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
-          <img className={`${className}__traits`} src={`/traits/adept.png`} />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
+          <img className={`${className}__traits`} src="/traits/adept.png" />
         </div>
         <div className={`${className}__championsList`}>
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
           <img
             className={`${className}__champions`}
-            src={`/champions/TFT4_Ahri.png`}
+            src="/champions/TFT4_Ahri.png"
           />
         </div>
         <div className={`${className}__1st`}>90.5%</div>
         <div className={`${className}__4th`}>60.9%</div>
       </div>
-    </>
   );
-};
 
 const winList = styled(Base)`
   display: flex;

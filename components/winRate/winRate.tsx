@@ -7,8 +7,7 @@ type Props = {
   rank: string;
 };
 
-const Base: React.FC<Props> = ({ className, rank }) => {
-  return (
+const Base: React.FC<Props> = ({ className, rank }) => (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__itemList`}>
         <div className={`${className}__teamType`}>Team Type</div>
@@ -32,7 +31,6 @@ const Base: React.FC<Props> = ({ className, rank }) => {
       <WinList rank={rank} />
     </div>
   );
-};
 
 const WinRate = styled(Base)`
   height: 100%;

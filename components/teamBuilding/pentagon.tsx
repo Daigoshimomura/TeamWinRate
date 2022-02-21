@@ -20,7 +20,7 @@ const Base: React.FC<Props> = ({
   moveChampion,
   movePool,
 }) => {
-  //championドラッグref
+  // championドラッグref
   const refDrag = (position: string) => {
     const [, ref] = useDrag({
       type: 'champion',
@@ -33,7 +33,7 @@ const Base: React.FC<Props> = ({
     return ref;
   };
 
-  //空のドロップref
+  // 空のドロップref
   const refdrop = (position: string) => {
     const types: string[] = useMemo(
       () => fetchChampionNameList(),
@@ -77,14 +77,14 @@ const Base: React.FC<Props> = ({
         key={dragPosition}
         className={`${className}__pentagonImg`}
         src={`/build/Pentagon-${color}.png`}
-        alt={`pentagon`}
+        alt="pentagon"
       />
     );
   };
 
   const newpentagon: JSX.Element[] = [];
   for (let i = 0; i < 7; i++) {
-    //ドラッグされた位置
+    // ドラッグされた位置
     const dragPosition = `${id}-${i}`;
     newpentagon.push(dragChampionImg(dragPosition));
   }

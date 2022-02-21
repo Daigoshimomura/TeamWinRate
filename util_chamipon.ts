@@ -7,7 +7,7 @@ export type ChampionInfo = {
   traits: string[];
 };
 
-//championNameを受け取りchampion情報を返す
+// championNameを受け取りchampion情報を返す
 export const fetchChampionFindName = (championName: string): ChampionInfo => {
   const index: number = champions.findIndex(
     (champion) => champion.name === championName
@@ -15,7 +15,7 @@ export const fetchChampionFindName = (championName: string): ChampionInfo => {
   return champions[index];
 };
 
-//championIDを受け取りchampion情報を返す
+// championIDを受け取りchampion情報を返す
 export const fetchChampionFindId = (championID: string): ChampionInfo => {
   const index: number = champions.findIndex(
     (champion) => champion.championId === championID
@@ -23,9 +23,5 @@ export const fetchChampionFindId = (championID: string): ChampionInfo => {
   return champions[index];
 };
 
-//championのnameをすべて返す
-export const fetchChampionNameList = () => {
-  return champions.map((elm) => {
-    return elm.name;
-  });
-};
+// championのnameをすべて返す
+export const fetchChampionNameList = () => champions.map((elm) => elm.name);

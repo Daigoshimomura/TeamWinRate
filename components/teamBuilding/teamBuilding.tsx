@@ -17,7 +17,7 @@ export type TeamType = {
   championList: Map<string, string>;
 };
 
-//MyTeamサイドボタン押下時のType
+// MyTeamサイドボタン押下時のType
 export type SideButtonType = {
   teamList: TeamType;
   teamListIndex: number;
@@ -34,12 +34,12 @@ export type DbInfo = {
 };
 
 const Base: React.FC<Props> = ({ className, user }) => {
-  //api取得
+  // api取得
   const userID = user?.uid;
-  //MyTeam_チーム出力用
+  // MyTeam_チーム出力用
   const [myTeamsList, setMyTeamList] = useState<TeamType[]>([]);
 
-  //画面遷移時の表示処理
+  // 画面遷移時の表示処理
   useEffect(() => {
     const callBack = async () => {
       const result = await getDBdata();
@@ -58,7 +58,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
     callBack();
   }, []);
 
-  //データ整形
+  // データ整形
   const parseDBData = (championData: DbInfo) => {
     const teamWd = championData.teamInfo.teamName.slice(1, -1);
     const partitionWd = championData.teamInfo.championList.split('"');
@@ -70,7 +70,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
     };
   };
 
-  //data取得
+  // data取得
   const getDBdata = async () => {
     const url = `/api/teams/?id=${userID}`;
     const getData = await fetch(url, {
@@ -80,10 +80,10 @@ const Base: React.FC<Props> = ({ className, user }) => {
     return result;
   };
 
-  //Building_SaveClick
+  // Building_SaveClick
   const updateMyTeamList = useCallback(
     async (myTeam: TeamType) => {
-      //useStateとDBに渡すための値。
+      // useStateとDBに渡すための値。
       const newMyTeamList: TeamType[] = [...myTeamsList, myTeam];
       setMyTeamList(newMyTeamList);
       if (myTeam.championList) {
@@ -102,13 +102,13 @@ const Base: React.FC<Props> = ({ className, user }) => {
     [myTeamsList]
   );
 
-  //MyTeam_deleteClick
+  // MyTeam_deleteClick
   const deleteMyTeamList = useCallback(
     async (TeamList: TeamType[], id?: string) => {
       setMyTeamList(TeamList);
-      //deleteのときに呼び出される処理
+      // deleteのときに呼び出される処理
       const postData = {
-        id: id,
+        id,
         action: 'delete',
       };
       const url = `/api/teams/?id=${userID}`;
@@ -120,19 +120,19 @@ const Base: React.FC<Props> = ({ className, user }) => {
     [myTeamsList]
   );
 
-  //MyTeam_削除チーム認識用
+  // MyTeam_削除チーム認識用
   const [drapTopTeam, setDrapTopTeam] = useState<number | undefined>(undefined);
   const [drapUnderTeam, setDrapUnderTeam] = useState<number | undefined>(
     undefined
   );
-  //Building_上部Bordドロップ認識
+  // Building_上部Bordドロップ認識
   const fetchDrapTop = useCallback(
     (index?: number) => {
       setDrapTopTeam(index);
     },
     [setDrapTopTeam]
   );
-  //Building_下部Bordドロップ認識
+  // Building_下部Bordドロップ認識
   const fetchDrapUnder = useCallback(
     (index?: number) => {
       setDrapUnderTeam(index);
@@ -140,11 +140,11 @@ const Base: React.FC<Props> = ({ className, user }) => {
     [setDrapUnderTeam]
   );
 
-  //Building_myTeamsideButton処理用
+  // Building_myTeamsideButton処理用
   const [myTeamSideClick, setMyTeamSideClick] = useState<
     SideButtonType | undefined
   >();
-  //MyTeam_SideButtonClickType
+  // MyTeam_SideButtonClickType
   const distinguish_button = (type: SideButtonType) => {
     setMyTeamSideClick(type);
   };
@@ -155,7 +155,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
         <div className={`${className}__building`}>
           <div className={`${className}__topTeam`}>
             <Building
-              type={'UP'}
+              type="UP"
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapTop}
               myTeamSideClick={myTeamSideClick}
@@ -163,7 +163,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
           </div>
           <div className={`${className}__underTeam`}>
             <Building
-              type={'UNDER'}
+              type="UNDER"
               updateMyTeamList={updateMyTeamList}
               fetchDrap={fetchDrapUnder}
               myTeamSideClick={myTeamSideClick}

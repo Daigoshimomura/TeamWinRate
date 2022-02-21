@@ -3,7 +3,7 @@ import WinRate from 'components/winRate/winRate';
 import { GetStaticPaths } from 'next';
 import React from 'react';
 
-//TODO 変数名修正。
+// TODO 変数名修正。
 type Props = {
   className?: string;
   page: string;
@@ -16,25 +16,20 @@ type Paths = {
   };
 };
 
-const Post: React.FC<Props> = ({ rank }) => {
-  return (
-    <Layout page={'WinRate'} rank={rank}>
-      <WinRate rank={rank}></WinRate>
+const Post: React.FC<Props> = ({ rank }) => (
+    <Layout page="WinRate" rank={rank}>
+      <WinRate rank={rank} />
     </Layout>
   );
-};
 
-export const getStaticProps = async ({ params }: Paths) => {
-  return {
+export const getStaticProps = async ({ params }: Paths) => ({
     props: {
       page: 'WinRate',
       rank: params.winRank,
     },
-  };
-};
+  });
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
+export const getStaticPaths: GetStaticPaths = async () => ({
     paths: [
       { params: { winRank: 'Challenger' } },
       { params: { winRank: 'Master' } },
@@ -46,7 +41,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
       { params: { winRank: 'Iron' } },
     ],
     fallback: false,
-  };
-};
+  });
 
 export default Post;

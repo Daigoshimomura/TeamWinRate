@@ -7,8 +7,7 @@ type Props = {
   title: string;
 };
 
-const Meta: React.FC<Props> = ({ description, ogImageUrl, title }) => {
-  return (
+const Meta: React.FC<Props> = ({ description, ogImageUrl, title }) => (
     <Head>
       <link
         rel="apple-touch-icon"
@@ -28,7 +27,7 @@ const Meta: React.FC<Props> = ({ description, ogImageUrl, title }) => {
         href="/favicon/favicon-16x16.png"
       />
       <link rel="manifest" href="/favicon/site.webmanifest" />
-      <link rel="shortcut icon" href="/favicon/favicon.ico" />
+      <link rel="icon" href="/favicon/favicon.ico" />
       <meta name="msapplication-TileColor" content="#000000" />
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
@@ -38,6 +37,5 @@ const Meta: React.FC<Props> = ({ description, ogImageUrl, title }) => {
       <meta property="og:image" content={ogImageUrl} />
     </Head>
   );
-};
 
 export default Meta;

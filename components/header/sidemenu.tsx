@@ -8,20 +8,20 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //WinRateflag
+  // WinRateflag
   const [isWinOpen, setIsWinOpen] = useState(false);
-  //ChampPickflag
+  // ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
         <div className={`${className}__flame`}>
-          <Link href={`/`}>
+          <Link href="/">
             <a className={`${className}__menuButton`}>Home</a>
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <Link href={`/teamBuilding/teamBuilding`}>
+          <Link href="/teamBuilding/teamBuilding">
             <a className={`${className}__menuButton`}>Team Building</a>
           </Link>
         </div>
@@ -36,12 +36,12 @@ const Base: React.FC<Props> = ({ className }) => {
             {isWinOpen ? (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-up16.png`}
+                src="/button/arrow-up16.png"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
+                src="/button/arrow-down16.png"
               />
             )}
           </div>
@@ -62,12 +62,12 @@ const Base: React.FC<Props> = ({ className }) => {
             {isChampOpen ? (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-up16.png`}
+                src="/button/arrow-up16.png"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
+                src="/button/arrow-down16.png"
               />
             )}
           </div>

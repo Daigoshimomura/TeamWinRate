@@ -34,19 +34,19 @@ const Base: React.FC<Props> = ({ className }) => {
   );
 };
 
-//チャンピオン画像枠の色用
+// チャンピオン画像枠の色用
 export const chooseColor = (color?: string) => {
   if (color === `5`) {
     return `#DBDF1D`;
-  } else if (color === `4`) {
+  } if (color === `4`) {
     return `#cd59b3`;
-  } else if (color === `3`) {
+  } if (color === `3`) {
     return `#2446f0`;
-  } else if (color === `2`) {
+  } if (color === `2`) {
     return `#2AEB3D`;
-  } else {
+  } 
     return `#9C9494`;
-  }
+  
 };
 
 const ChampionImage = styled.img`
