@@ -58,7 +58,11 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   return (
     <div className={`${className}`}>
       <div className={`${className}__mainSection`}>
-        <button className={`${className}__batsu`} onClick={closeClick}>
+        <button
+          type="button"
+          className={`${className}__batsu`}
+          onClick={closeClick}
+        >
           ×
         </button>
         <div className={`${className}__inputSection`}>
@@ -86,6 +90,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
           </div>
           {isCreateAccount ? (
             <button
+              type="button"
               className={`${className}__loginButton`}
               onClick={() => {
                 createAccountClick();
@@ -95,6 +100,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             </button>
           ) : (
             <button
+              type="button"
               className={`${className}__loginButton`}
               onClick={() => {
                 loginClick();
@@ -104,14 +110,16 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             </button>
           )}
         </div>
-        <div
+
+        <button
+          type="button"
           className={`${className}__createButton`}
           onClick={() => {
             setIsCreateAccount(!isCreateAccount);
           }}
         >
           {isCreateAccount ? null : `Create Account`}
-        </div>
+        </button>
       </div>
     </div>
   );
@@ -177,6 +185,7 @@ export const Login = styled(Base)`
     border-radius: 3px;
   }
   &__createButton {
+    width: 100%;
     font-size: 16px;
     text-align: center;
     color: #999;

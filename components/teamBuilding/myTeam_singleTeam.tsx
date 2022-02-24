@@ -54,14 +54,14 @@ const Base: React.FC<Props> = ({
     >
       <div className={`${className}__teamName`}>
         {myTeamsList[myTeamIndex].teamName}
-
-        <div
+        <button
+          type="button"
           onClick={() => {
             setIsSideOpen(!isSideOpen);
           }}
         >
           ︙
-        </div>
+        </button>
       </div>
       {isSideOpen ? (
         <SideButton

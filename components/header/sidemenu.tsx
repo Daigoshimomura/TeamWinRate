@@ -26,7 +26,8 @@ const Base: React.FC<Props> = ({ className }) => {
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <div
+          <button
+            type="button"
             className={`${className}__menuButton`}
             onClick={() => {
               setIsWinOpen(!isWinOpen);
@@ -37,14 +38,16 @@ const Base: React.FC<Props> = ({ className }) => {
               <img
                 className={`${className}__arrow`}
                 src="/button/arrow-up16.png"
+                alt="arrow"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
                 src="/button/arrow-down16.png"
+                alt="arrow"
               />
             )}
-          </div>
+          </button>
         </div>
         {isWinOpen ? (
           <div className={`${className}__flameList`}>
@@ -52,7 +55,8 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         ) : null}
         <div className={`${className}__flame`}>
-          <div
+          <button
+            type="button"
             className={`${className}__menuButton`}
             onClick={() => {
               setIsChampOpen(!isChampOpen);
@@ -63,14 +67,16 @@ const Base: React.FC<Props> = ({ className }) => {
               <img
                 className={`${className}__arrow`}
                 src="/button/arrow-up16.png"
+                alt="arrow"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
                 src="/button/arrow-down16.png"
+                alt="arrow"
               />
             )}
-          </div>
+          </button>
         </div>
         {isChampOpen ? (
           <div className={`${className}__flameList`}>
@@ -101,6 +107,10 @@ const Header = styled(Base)`
     border-color: #8c8c8c;
   }
   &__menuButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 18px;
     color: #b2b2b2;
     text-decoration: none;

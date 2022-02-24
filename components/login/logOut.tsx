@@ -19,18 +19,21 @@ const Base: React.FC<Props> = ({ className }) => {
       });
   };
   return (
-    <div
+    <button
+      type="button"
       className={`${className}`}
       onClick={() => {
         logOutClick();
       }}
     >
       <div className={`${className}__word`}>Logout</div>
-    </div>
+    </button>
   );
 };
 
 export const LogOut = styled(Base)`
+  display: flex;
+  align-items: center;
   position: absolute;
   z-index: 9999;
   height: 50px;
