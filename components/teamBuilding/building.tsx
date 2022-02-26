@@ -105,7 +105,7 @@ const Base: React.FC<Props> = ({
   useEffect(() => {
     if (
       type === myTeamSideClick?.buttonLable &&
-      myTeamSideClick?.teamList != undefined
+      myTeamSideClick?.teamList !== undefined
     ) {
       bordDrop(myTeamSideClick.teamList, myTeamSideClick.teamListIndex);
     }

@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       action: string;
     } = JSON.parse(req.body);
 
-    if (post.action == 'delete') {
+    if (post.action === 'delete') {
       await teamsRef.collection('teamList').doc(`${post.id}`).delete();
     } else {
       const reqest: {
