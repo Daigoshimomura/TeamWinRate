@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
-  rank: string;
 };
 
 const Base: React.FC<Props> = ({ className }) => (

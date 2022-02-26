@@ -5,8 +5,6 @@ import React from 'react';
 
 // TODO 変数名修正。
 type Props = {
-  className?: string;
-  page: string;
   rank: string;
 };
 
@@ -17,30 +15,30 @@ type Paths = {
 };
 
 const Post: React.FC<Props> = ({ rank }) => (
-    <Layout page="WinRate" rank={rank}>
-      <WinRate rank={rank} />
-    </Layout>
-  );
+  <Layout page="WinRate" rank={rank}>
+    <WinRate rank={rank} />
+  </Layout>
+);
 
 export const getStaticProps = async ({ params }: Paths) => ({
-    props: {
-      page: 'WinRate',
-      rank: params.winRank,
-    },
-  });
+  props: {
+    page: 'WinRate',
+    rank: params.winRank,
+  },
+});
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-    paths: [
-      { params: { winRank: 'Challenger' } },
-      { params: { winRank: 'Master' } },
-      { params: { winRank: 'Diamond' } },
-      { params: { winRank: 'Platinum' } },
-      { params: { winRank: 'Gold' } },
-      { params: { winRank: 'Silver' } },
-      { params: { winRank: 'Bronze' } },
-      { params: { winRank: 'Iron' } },
-    ],
-    fallback: false,
-  });
+  paths: [
+    { params: { winRank: 'Challenger' } },
+    { params: { winRank: 'Master' } },
+    { params: { winRank: 'Diamond' } },
+    { params: { winRank: 'Platinum' } },
+    { params: { winRank: 'Gold' } },
+    { params: { winRank: 'Silver' } },
+    { params: { winRank: 'Bronze' } },
+    { params: { winRank: 'Iron' } },
+  ],
+  fallback: false,
+});
 
 export default Post;

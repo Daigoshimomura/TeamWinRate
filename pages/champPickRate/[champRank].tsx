@@ -5,9 +5,7 @@ import React from 'react';
 
 // TODO 変数名修正。
 type Props = {
-  page: string;
   rank: string;
-  className?: string;
 };
 
 type Paths = {
