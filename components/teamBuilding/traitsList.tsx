@@ -21,9 +21,10 @@ const Base: React.FC<Props> = ({ className, championList }) => {
     selectChampion.traits.forEach((item) => {
       // チャンピオン特性名から画像名に変換
       const trait = traitsList.find((innerTrait) => {
-        if (item === innerTrait.key) {
-          return innerTrait.name;
+        if (item !== innerTrait.key) {
+          return '';
         }
+        return innerTrait.name;
       });
       if (trait?.name) {
         // 前回特性値
