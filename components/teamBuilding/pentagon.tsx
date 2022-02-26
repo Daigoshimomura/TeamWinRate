@@ -35,10 +35,7 @@ const Base: React.FC<Props> = ({
 
   // 空のドロップref
   const refdrop = (position: string) => {
-    const types: string[] = useMemo(
-      () => fetchChampionNameList(),
-      [fetchChampionNameList]
-    );
+    const types: string[] = useMemo(() => fetchChampionNameList(), []);
     const [, drop] = useDrop(() => ({
       accept: types,
       drop: (item, monitor) => {
