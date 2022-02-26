@@ -76,7 +76,7 @@ const Base: React.FC<Props> = ({ className, championList }) => {
     newoutputTraitsList.forEach((key, value) => {
       const sets = () => {
         // 特性の表示する数値
-        for (const item of traitsList) {
+        const output = traitsList.map((item) => {
           if (item.name === value) {
             const result: (string | JSX.Element)[] = item.sets.map(
               (elm, index) =>
@@ -84,7 +84,9 @@ const Base: React.FC<Props> = ({ className, championList }) => {
             );
             return result;
           }
-        }
+          return '';
+        });
+        return output;
       };
       screenOutput.push(
         <div className={`${className}__mainElement`}>
