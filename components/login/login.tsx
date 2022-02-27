@@ -12,13 +12,13 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   const [mail, setMail] = useState<string>();
   const [passwd, setPasswd] = useState<string>();
 
-  //状態リセット
+  // 状態リセット
   const closeClick = () => {
     onLoginClick();
     setIsCreateAccount(false);
   };
 
-  //ログイン処理
+  // ログイン処理
   const loginClick = async () => {
     try {
       // await auth.signInWithEmailAndPassword('aaa@gmali.com', '123456');
@@ -37,7 +37,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
     }
   };
 
-  //新規登録
+  // 新規登録
   const createAccountClick = async () => {
     try {
       if (mail && passwd) {
@@ -58,7 +58,11 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
   return (
     <div className={`${className}`}>
       <div className={`${className}__mainSection`}>
-        <button className={`${className}__batsu`} onClick={closeClick}>
+        <button
+          type="button"
+          className={`${className}__batsu`}
+          onClick={closeClick}
+        >
           ×
         </button>
         <div className={`${className}__inputSection`}>
@@ -86,6 +90,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
           </div>
           {isCreateAccount ? (
             <button
+              type="button"
               className={`${className}__loginButton`}
               onClick={() => {
                 createAccountClick();
@@ -95,6 +100,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             </button>
           ) : (
             <button
+              type="button"
               className={`${className}__loginButton`}
               onClick={() => {
                 loginClick();
@@ -104,14 +110,16 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             </button>
           )}
         </div>
-        <div
+
+        <button
+          type="button"
           className={`${className}__createButton`}
           onClick={() => {
             setIsCreateAccount(!isCreateAccount);
           }}
         >
           {isCreateAccount ? null : `Create Account`}
-        </div>
+        </button>
       </div>
     </div>
   );
@@ -177,6 +185,7 @@ export const Login = styled(Base)`
     border-radius: 3px;
   }
   &__createButton {
+    width: 100%;
     font-size: 16px;
     text-align: center;
     color: #999;

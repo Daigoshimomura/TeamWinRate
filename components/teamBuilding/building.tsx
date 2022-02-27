@@ -23,18 +23,18 @@ const Base: React.FC<Props> = ({
   myTeamSideClick,
   type,
 }) => {
-  //ボード上List位置
+  // ボード上List位置
   const [boadPosition, setBoadPosition] = useState<Map<string, string>>(
     new Map()
   );
 
-  //特性の出力
+  // 特性の出力
   const [championList, setChampionList] = useState<string[]>([]);
 
-  //画面上のTeamName取得
+  // 画面上のTeamName取得
   const [teamName, setTeamName] = useState<string>('');
 
-  //bulidingにあるchampionがpoolにドラッグされたときの処理
+  // bulidingにあるchampionがpoolにドラッグされたときの処理
   const movePool = (position: string) => {
     const index = championList.findIndex(
       (item) => item === boadPosition.get(position)
@@ -45,7 +45,7 @@ const Base: React.FC<Props> = ({
     setBoadPosition(new Map(boadPosition.entries()));
   };
 
-  //poolからのドロップ処理
+  // poolからのドロップ処理
   const moveChampion = (monitor: string | symbol, position: string) => {
     const selectChampion: ChampionInfo = fetchChampionFindName(
       monitor as string
@@ -53,16 +53,14 @@ const Base: React.FC<Props> = ({
     setBoadPosition(
       new Map(boadPosition.set(position, selectChampion.championId).entries())
     );
-    setChampionList((prevState) => {
-      return [...prevState, selectChampion.championId];
-    });
+    setChampionList((prevState) => [...prevState, selectChampion.championId]);
   };
 
-  //saveボタン処理
+  // saveボタン処理
   const saveClick = () => {
     if (teamName) {
       const myTeam: TeamType = {
-        teamName: teamName,
+        teamName,
         championList: boadPosition,
       };
       updateMyTeamList(myTeam);
@@ -71,7 +69,7 @@ const Base: React.FC<Props> = ({
     }
   };
 
-  //newボタン処理
+  // newボタン処理
   const newClick = () => {
     setBoadPosition(new Map());
     setChampionList([]);
@@ -79,7 +77,7 @@ const Base: React.FC<Props> = ({
     fetchDrap(undefined);
   };
 
-  //MyTeamsからbordへのドロップのref
+  // MyTeamsからbordへのドロップのref
   const [, ref] = useDrop({
     accept: 'team',
     drop: (item, monitor) => {
@@ -88,12 +86,12 @@ const Base: React.FC<Props> = ({
     },
   });
 
-  //MyTeamsからbordへのドロップ処理
+  // MyTeamsからbordへのドロップ処理
   const bordDrop = (myTeam: TeamType, index?: number) => {
     if (myTeam.championList && myTeam.teamName) {
       setBoadPosition(myTeam.championList);
       setTeamName(myTeam.teamName);
-      //ドロップされたchampionセット
+      // ドロップされたchampionセット
       const newChampionList: string[] = [];
       myTeam.championList?.forEach((elm) => {
         newChampionList.push(elm);
@@ -103,15 +101,15 @@ const Base: React.FC<Props> = ({
     }
   };
 
-  //MyTeamSideButton検知用
+  // MyTeamSideButton検知用
   useEffect(() => {
     if (
       type === myTeamSideClick?.buttonLable &&
-      myTeamSideClick?.teamList != undefined
+      myTeamSideClick?.teamList !== undefined
     ) {
       bordDrop(myTeamSideClick.teamList, myTeamSideClick.teamListIndex);
     }
-  }, [myTeamSideClick]);
+  });
 
   return (
     <div className={`${className}`} ref={ref}>
@@ -137,8 +135,8 @@ const Base: React.FC<Props> = ({
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
             <Pentagon
-              color={'gray'}
-              id={'1'}
+              color="gray"
+              id="1"
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -146,8 +144,8 @@ const Base: React.FC<Props> = ({
           </div>
           <div className={`${className}__pentagonWhiteList`}>
             <Pentagon
-              color={'white'}
-              id={'2'}
+              color="white"
+              id="2"
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -155,8 +153,8 @@ const Base: React.FC<Props> = ({
           </div>
           <div className={`${className}__pentagonGrayListDown`}>
             <Pentagon
-              color={'gray'}
-              id={'3'}
+              color="gray"
+              id="3"
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}
@@ -164,8 +162,8 @@ const Base: React.FC<Props> = ({
           </div>
           <div className={`${className}__pentagonWhiteList`}>
             <Pentagon
-              color={'white'}
-              id={'4'}
+              color="white"
+              id="4"
               boadPosition={boadPosition}
               moveChampion={moveChampion}
               movePool={movePool}

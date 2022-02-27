@@ -11,25 +11,21 @@ type Props = {
 const Post: React.FC<Props> = () => {
   const user = useContext(AuthContext);
   return (
-    <Layout page={'TeamBuilding'}>
-      <Building user={user}></Building>
+    <Layout page="TeamBuilding">
+      <Building user={user} />
     </Layout>
   );
 };
 
-export const getStaticProps = async () => {
-  return {
+export const getStaticProps = async () => ({
     props: {
       page: 'WinRate',
     },
-  };
-};
+  });
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
+export const getStaticPaths: GetStaticPaths = async () => ({
     paths: [{ params: { teamBuilding: 'teamBuilding' } }],
     fallback: false,
-  };
-};
+  });
 
 export default Post;

@@ -8,11 +8,11 @@ type Props = {
   handleSearchMyteam: (page: number) => void;
 };
 
-//1ページに表示する件数
+// 1ページに表示する件数
 const onePage = 5;
-//最終ページに表示する件数
+// 最終ページに表示する件数
 const lastPage = 5;
-//選択位置の前後で表示する件数
+// 選択位置の前後で表示する件数
 const aroundPage = 2;
 
 const Base: React.FC<Props> = ({
@@ -21,18 +21,18 @@ const Base: React.FC<Props> = ({
   handleSearchMyteam,
 }) => {
   const handlePaginate = (selectedItem: { selected: number }) => {
-    //表示しているページ番号
+    // 表示しているページ番号
     const page = selectedItem.selected + 1;
     handleSearchMyteam(page);
   };
 
-  //表示するページ数
+  // 表示するページ数
   const calculatePageCount = () => {
-    if (0 > Math.ceil(myTeamSize / onePage)) {
+    if (Math.ceil(myTeamSize / onePage) < 0) {
       return 1;
-    } else {
+    } 
       return Math.ceil(myTeamSize / onePage);
-    }
+    
   };
 
   return (

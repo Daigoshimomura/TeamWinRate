@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-//デザイン表示用
+// デザイン表示用
 const items = () => {
   const result: JSX.Element[] = [];
   for (let i = 1; i <= 12; i++) {
@@ -15,9 +15,7 @@ const items = () => {
   return result;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return <div className={`${className}`}>{items()}</div>;
-};
+const Base: React.FC<Props> = ({ className }) => <div className={`${className}`}>{items()}</div>;
 
 export const ItemList = styled(Base)`
   display: flex;

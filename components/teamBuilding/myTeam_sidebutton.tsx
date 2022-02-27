@@ -12,42 +12,45 @@ type Props = {
 const Base: React.FC<Props> = ({
   className,
   isSideOpen,
-  index: index,
+  index,
   sideButtonOnclick,
   setIsSideOpen,
-}) => {
-  return (
-    <div className={`${className}__sidemenu`}>
-      <div
-        className={`${className}__back`}
-        onClick={() => setIsSideOpen(false)}
-      />
-      <div
-        className={`${className}__sideButton`}
-        onClick={() => {
-          sideButtonOnclick('UP', index), setIsSideOpen(!isSideOpen);
-        }}
-      >
-        Up
-      </div>
-      <div
-        className={`${className}__sideButton`}
-        onClick={() => {
-          sideButtonOnclick('UNDER', index), setIsSideOpen(!isSideOpen);
-        }}
-      >
-        Under
-      </div>
-      <div
-        onClick={() => {
-          sideButtonOnclick('REMOVE', index), setIsSideOpen(!isSideOpen);
-        }}
-      >
-        Remove
-      </div>
-    </div>
-  );
-};
+}) => (
+  <div className={`${className}__sidemenu`}>
+    <button type="button" onClick={() => setIsSideOpen(false)}>
+      <div className={`${className}__back`} />
+    </button>
+    <button
+      type="button"
+      className={`${className}__sideButton`}
+      onClick={() => {
+        sideButtonOnclick('UP', index);
+        setIsSideOpen(!isSideOpen);
+      }}
+    >
+      Up
+    </button>
+    <button
+      type="button"
+      className={`${className}__sideButton`}
+      onClick={() => {
+        sideButtonOnclick('UNDER', index);
+        setIsSideOpen(!isSideOpen);
+      }}
+    >
+      Under
+    </button>
+    <button
+      type="button"
+      onClick={() => {
+        sideButtonOnclick('REMOVE', index);
+        setIsSideOpen(!isSideOpen);
+      }}
+    >
+      Remove
+    </button>
+  </div>
+);
 
 const SideButton = styled(Base)`
   &__back {
@@ -79,6 +82,8 @@ const SideButton = styled(Base)`
     opacity: 0.95;
   }
   &__sideButton {
+    text-align: left;
+    padding-left: 5px;
     padding-bottom: 2px;
     border-bottom: 1px solid;
     border-color: #656565;

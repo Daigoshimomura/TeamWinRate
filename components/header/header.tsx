@@ -1,8 +1,8 @@
 import { Login } from 'components/login/login';
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { LoginButton } from './loginButton';
-import Title from './title';
+import { LoginButton } from 'components/header/loginButton';
+import Title from 'components/header/title';
 
 type Props = {
   className?: string;

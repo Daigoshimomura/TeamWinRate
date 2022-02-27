@@ -26,25 +26,23 @@ const Base: React.FC<Props> = ({
   // 表示しているページ番号
   const [handlePaginate, setHandlePaginate] = useState<number>(0);
 
-  //アルファベット順かつコスト順に並べ替えした出力用リスト
+  // アルファベット順かつコスト順に並べ替えした出力用リスト
   const outputMyTeamList = (championList: Map<string, string>) => {
     const newMyTeamList: string[] = [];
     championList.forEach((innerElm) => {
       newMyTeamList.push(innerElm);
     });
     newMyTeamList.sort();
-    //championコスト順に並び替え
-    newMyTeamList.sort((a, b) => {
-      return fetchChampionFindId(b).cost - fetchChampionFindId(a).cost;
-    });
+    // championコスト順に並び替え
+    newMyTeamList.sort((a, b) => fetchChampionFindId(b).cost - fetchChampionFindId(a).cost);
     return newMyTeamList;
   };
 
-  //paginationでページを変更したときに画面表示の処理
+  // paginationでページを変更したときに画面表示の処理
   const handleSearchMyteam = (page: number) => {
-    //ページ番号とList番号の合計
+    // ページ番号とList番号の合計
     let newPage;
-    if (0 <= page) {
+    if (page >= 0) {
       newPage = (page - 1) * 5;
     } else {
       newPage = 0;
@@ -52,15 +50,15 @@ const Base: React.FC<Props> = ({
     setHandlePaginate(newPage);
   };
 
-  //sidebuttonクリック処理
+  // sidebuttonクリック処理
   const sideButtonOnclick = (type: string, Index: number) => {
-    //Removeボタン押下時
-    if ('REMOVE' === type) {
+    // Removeボタン押下時
+    if (type === 'REMOVE') {
       const newMyTeamList: TeamType[] = [...myTeamsList];
       const deleTeam = newMyTeamList[Index];
       newMyTeamList.splice(Index, 1);
       deleteMyTeamList(newMyTeamList, deleTeam.id);
-    } else if ('UP' === type || 'UNDER' === type) {
+    } else if (type === 'UP' || type === 'UNDER') {
       distinguishbutton({
         teamList: myTeamsList[Index],
         teamListIndex: Index,
@@ -70,7 +68,7 @@ const Base: React.FC<Props> = ({
   };
 
   const teamList = () => {
-    //champion出力処理
+    // champion出力処理
     const result: JSX.Element[] = [];
     for (let index = 0; index < 5; index++) {
       const outputChampionList: JSX.Element[] = [];

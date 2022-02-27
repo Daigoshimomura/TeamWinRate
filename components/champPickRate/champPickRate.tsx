@@ -6,8 +6,7 @@ type Props = {
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return (
+const Base: React.FC<Props> = ({ className }) => (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__costSection`}>
         <div className={`${className}__cost`}>Cost 1</div>
@@ -17,12 +16,11 @@ const Base: React.FC<Props> = ({ className }) => {
         <div className={`${className}__cost`}>Cost 5</div>
       </div>
       <div className={`${className}__mainSection`}>
-        <div className={`${className}__circleSection`}></div>
+        <div className={`${className}__circleSection`} />
         <Breakdown />
       </div>
     </div>
   );
-};
 
 export const ChampPickRate = styled(Base)`
   &__mainElement {

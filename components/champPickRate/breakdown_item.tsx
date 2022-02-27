@@ -6,56 +6,54 @@ type Props = {
   rank: number;
 };
 
-const Base: React.FC<Props> = ({ className, rank }) => {
-  return (
+const Base: React.FC<Props> = ({ className, rank }) => (
     <div className={`${className}`}>
       <div className={`${className}__rank`}>{rank}</div>
       <div className={`${className}__champions`}>
         <img
           className={`${className}__championImg`}
-          src={`/champions/TFT4_Aatrox.png`}
-          alt={`/champions/TFT4_Aatrox.png`}
+          src="/champions/TFT4_Aatrox.png"
+          alt="/champions/TFT4_Aatrox.png"
         />
         Aatrox
       </div>
       <div className={`${className}__synergies`}>
         <img
           className={`${className}__traitsImg`}
-          src={`/traits/adept.png`}
-          alt={`/traits/adept.png`}
+          src="/traits/adept.png"
+          alt="/traits/adept.png"
         />
         <img
           className={`${className}__traitsImg`}
-          src={`/traits/adept.png`}
-          alt={`/traits/adept.png`}
+          src="/traits/adept.png"
+          alt="/traits/adept.png"
         />
         <img
           className={`${className}__traitsImg`}
-          src={`/traits/adept.png`}
-          alt={`/traits/adept.png`}
+          src="/traits/adept.png"
+          alt="/traits/adept.png"
         />
       </div>
       <div className={`${className}__item`}>
         <img
           className={`${className}__itemImg`}
-          src={`/items/99.png`}
-          alt={`/items/99.png`}
+          src="/items/99.png"
+          alt="/items/99.png"
         />
         <img
           className={`${className}__itemImg`}
-          src={`/items/99.png`}
-          alt={`/items/99.png`}
+          src="/items/99.png"
+          alt="/items/99.png"
         />
         <img
           className={`${className}__itemImg`}
-          src={`/items/99.png`}
-          alt={`/items/99.png`}
+          src="/items/99.png"
+          alt="/items/99.png"
         />
       </div>
       <div className={`${className}__pick`}>30%</div>
     </div>
   );
-};
 
 export const Item = styled(Base)`
   height: 38px;

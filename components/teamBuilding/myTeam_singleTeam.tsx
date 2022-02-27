@@ -28,11 +28,11 @@ const Base: React.FC<Props> = ({
   sideButtonOnclick,
   outputChampionList,
 }) => {
-  //サイドメニューflag
+  // サイドメニューflag
   const [isSideOpen, setIsSideOpen] = useState<boolean>(false);
-  //myteamドラッグのref
+  // myteamドラッグのref
   const dragMyTeam = (index: number) => {
-    const setTeam: DeliveryTeam = { index: index, myTeam: myTeamsList[index] };
+    const setTeam: DeliveryTeam = { index, myTeam: myTeamsList[index] };
     const [, ref] = useDrag({
       type: 'team',
       item: setTeam,
@@ -54,14 +54,14 @@ const Base: React.FC<Props> = ({
     >
       <div className={`${className}__teamName`}>
         {myTeamsList[myTeamIndex].teamName}
-
-        <div
+        <button
+          type="button"
           onClick={() => {
             setIsSideOpen(!isSideOpen);
           }}
         >
           ︙
-        </div>
+        </button>
       </div>
       {isSideOpen ? (
         <SideButton

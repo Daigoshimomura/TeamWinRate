@@ -3,22 +3,22 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { db } from 'util_user';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  //useID
+  // useID
   const queryID: string = req.query.id as string;
 
-  //db
+  // db
   const teamsRef = db.collection('teams').doc(queryID);
 
   const method = req.method;
 
-  //チーム追加処理
+  // チーム追加処理
   if (method === 'POST') {
     const post: {
       id: string;
       action: string;
     } = JSON.parse(req.body);
 
-    if (post.action == 'delete') {
+    if (post.action === 'delete') {
       await teamsRef.collection('teamList').doc(`${post.id}`).delete();
     } else {
       const reqest: {

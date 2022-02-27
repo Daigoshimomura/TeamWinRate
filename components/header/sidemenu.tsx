@@ -8,25 +8,26 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className }) => {
-  //WinRateflag
+  // WinRateflag
   const [isWinOpen, setIsWinOpen] = useState(false);
-  //ChampPickflag
+  // ChampPickflag
   const [isChampOpen, setIsChampOpen] = useState(false);
   return (
     <div className={`${className}`}>
       <div className={`${className}__menu`}>
         <div className={`${className}__flame`}>
-          <Link href={`/`}>
+          <Link href="/">
             <a className={`${className}__menuButton`}>Home</a>
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <Link href={`/teamBuilding/teamBuilding`}>
+          <Link href="/teamBuilding/teamBuilding">
             <a className={`${className}__menuButton`}>Team Building</a>
           </Link>
         </div>
         <div className={`${className}__flame`}>
-          <div
+          <button
+            type="button"
             className={`${className}__menuButton`}
             onClick={() => {
               setIsWinOpen(!isWinOpen);
@@ -36,15 +37,17 @@ const Base: React.FC<Props> = ({ className }) => {
             {isWinOpen ? (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-up16.png`}
+                src="/button/arrow-up16.png"
+                alt="arrow"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
+                src="/button/arrow-down16.png"
+                alt="arrow"
               />
             )}
-          </div>
+          </button>
         </div>
         {isWinOpen ? (
           <div className={`${className}__flameList`}>
@@ -52,7 +55,8 @@ const Base: React.FC<Props> = ({ className }) => {
           </div>
         ) : null}
         <div className={`${className}__flame`}>
-          <div
+          <button
+            type="button"
             className={`${className}__menuButton`}
             onClick={() => {
               setIsChampOpen(!isChampOpen);
@@ -62,15 +66,17 @@ const Base: React.FC<Props> = ({ className }) => {
             {isChampOpen ? (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-up16.png`}
+                src="/button/arrow-up16.png"
+                alt="arrow"
               />
             ) : (
               <img
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
+                src="/button/arrow-down16.png"
+                alt="arrow"
               />
             )}
-          </div>
+          </button>
         </div>
         {isChampOpen ? (
           <div className={`${className}__flameList`}>
@@ -101,6 +107,10 @@ const Header = styled(Base)`
     border-color: #8c8c8c;
   }
   &__menuButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 18px;
     color: #b2b2b2;
     text-decoration: none;

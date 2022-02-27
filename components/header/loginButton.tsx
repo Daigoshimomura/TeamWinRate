@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Base: React.FC<Props> = ({ className, onLoginClick }) => {
-  //mailClick判定
+  // mailClick判定
   const [isMailOpen, setIsMailOpen] = useState<boolean>(false);
 
   const user = useContext(AuthContext);
@@ -18,6 +18,7 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
     <div className={`${className}`}>
       {!user?.email ? (
         <button
+          type="button"
           className={`${className}__login`}
           onClick={() => {
             onLoginClick();
@@ -31,22 +32,26 @@ const Base: React.FC<Props> = ({ className, onLoginClick }) => {
             <div className={`${className}__email`}>{user?.email}</div>
             {isMailOpen ? (
               <div>
-                <img
+                <button
+                  type="button"
                   className={`${className}__arrow`}
-                  src={`/button/arrow-up16.png`}
                   onClick={() => {
                     setIsMailOpen(!isMailOpen);
                   }}
-                />
+                >
+                  <img src="/button/arrow-up16.png" alt="arrow" />
+                </button>
               </div>
             ) : (
-              <img
+              <button
+                type="button"
                 className={`${className}__arrow`}
-                src={`/button/arrow-down16.png`}
                 onClick={() => {
                   setIsMailOpen(!isMailOpen);
                 }}
-              />
+              >
+                <img src="/button/arrow-down16.png" alt="arrow" />
+              </button>
             )}
           </div>
           {isMailOpen ? <LogOut /> : null}

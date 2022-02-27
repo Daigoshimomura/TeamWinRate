@@ -7,8 +7,7 @@ type Props = {
   rank?: string;
 };
 
-const Base: React.FC<Props> = ({ page, className, rank }) => {
-  return (
+const Base: React.FC<Props> = ({ page, className, rank }) => (
     <div className={rank ? `${className}__mainRank` : `${className}__main`}>
       <div className={`${className}__word`}>{page}</div>
       {rank ? (
@@ -22,7 +21,6 @@ const Base: React.FC<Props> = ({ page, className, rank }) => {
       ) : null}
     </div>
   );
-};
 
 const PageTitle = styled(Base)`
   &__main {

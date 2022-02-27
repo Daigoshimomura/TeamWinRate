@@ -6,8 +6,7 @@ type Props = {
   className?: string;
 };
 
-const Base: React.FC<Props> = ({ className }) => {
-  return (
+const Base: React.FC<Props> = ({ className }) => (
     <div className={`${className}`}>
       <div className={`${className}__itemNameList`}>
         <div className={`${className}__champions`}>Champions</div>
@@ -18,7 +17,6 @@ const Base: React.FC<Props> = ({ className }) => {
       <ItemList />
     </div>
   );
-};
 
 export const Breakdown = styled(Base)`
   height: 480px;
