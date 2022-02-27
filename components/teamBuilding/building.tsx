@@ -1,6 +1,6 @@
 import Button from 'components/teamBuilding/building_button';
 import { DeliveryTeam } from 'components/teamBuilding/myTeam_singleTeam';
-import Pentagon from 'components/teamBuilding/pentagon';
+import { PentagonList } from 'components/teamBuilding/pentagon/PentagonList';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import Traits from 'components/teamBuilding/traitsList';
 import React, { useState, useEffect } from 'react';
@@ -134,7 +134,7 @@ const Base: React.FC<Props> = ({
         </div>
         <div className={`${className}__placementPlace`}>
           <div className={`${className}__pentagonGrayListUp`}>
-            <Pentagon
+            <PentagonList
               color="gray"
               id="1"
               boadPosition={boadPosition}
@@ -143,7 +143,7 @@ const Base: React.FC<Props> = ({
             />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            <Pentagon
+            <PentagonList
               color="white"
               id="2"
               boadPosition={boadPosition}
@@ -152,7 +152,7 @@ const Base: React.FC<Props> = ({
             />
           </div>
           <div className={`${className}__pentagonGrayListDown`}>
-            <Pentagon
+            <PentagonList
               color="gray"
               id="3"
               boadPosition={boadPosition}
@@ -161,7 +161,7 @@ const Base: React.FC<Props> = ({
             />
           </div>
           <div className={`${className}__pentagonWhiteList`}>
-            <Pentagon
+            <PentagonList
               color="white"
               id="4"
               boadPosition={boadPosition}
