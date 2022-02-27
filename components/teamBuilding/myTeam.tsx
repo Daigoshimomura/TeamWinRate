@@ -1,6 +1,6 @@
 import SingleTeam from 'components/teamBuilding/myTeam_singleTeam';
 import Pagination from 'components/teamBuilding/pagination';
-import { chooseColor } from 'components/teamBuilding/pool';
+import { chooseColor } from 'components/teamBuilding/pool/ChampionList';
 import { TeamType, SideButtonType } from 'components/teamBuilding/teamBuilding';
 import React, { useState } from 'react';
 import styled from 'styled-components';
