@@ -4,10 +4,9 @@ import styled from 'styled-components';
 
 type Props = {
   className?: string;
-  rank: string;
 };
 
-const Base: React.FC<Props> = ({ className, rank }) => (
+const Base: React.FC<Props> = ({ className }) => (
     <div className={`${className}__mainElement`}>
       <div className={`${className}__itemList`}>
         <div className={`${className}__teamType`}>Team Type</div>
@@ -16,19 +15,19 @@ const Base: React.FC<Props> = ({ className, rank }) => (
         <div className={`${className}__1st`}>1st</div>
         <div className={`${className}__4th`}>4th</div>
       </div>
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
-      <WinList rank={rank} />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
+      <WinList />
     </div>
   );
 
