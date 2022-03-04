@@ -44,7 +44,6 @@ const Base: React.FC<Props> = ({
 
   return (
     <div
-      key={myTeamIndex}
       ref={refDrag}
       className={
         drapTopTeam === myTeamIndex || drapUnderTeam === myTeamIndex

@@ -50,6 +50,7 @@ export const PentagonList: React.FC<Props> = ({
     const dragPosition = `${id}-${i}`;
     newpentagon.push(
       <DragChampionImg
+        key={i}
         position={dragPosition}
         useDragRef={useDragRef}
         useDropRef={useDropRef}

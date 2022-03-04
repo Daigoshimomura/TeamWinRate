@@ -34,7 +34,9 @@ const Base: React.FC<Props> = ({
     });
     newMyTeamList.sort();
     // championコスト順に並び替え
-    newMyTeamList.sort((a, b) => fetchChampionFindId(b).cost - fetchChampionFindId(a).cost);
+    newMyTeamList.sort(
+      (a, b) => fetchChampionFindId(b).cost - fetchChampionFindId(a).cost
+    );
     return newMyTeamList;
   };
 
@@ -80,11 +82,16 @@ const Base: React.FC<Props> = ({
         newMyTeamList.forEach((item) => {
           const color: number = fetchChampionFindId(item).cost;
           outputChampionList.push(
-            <ChampionImage src={`/champions/${item}.png`} color={`${color}`} />
+            <ChampionImage
+              key={index}
+              src={`/champions/${item}.png`}
+              color={`${color}`}
+            />
           );
         });
         result.push(
           <SingleTeam
+            key={index}
             myTeamsList={myTeamsList}
             drapTopTeam={drapTopTeam}
             drapUnderTeam={drapUnderTeam}
