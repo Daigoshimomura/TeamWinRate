@@ -89,7 +89,7 @@ const Base: React.FC<Props> = ({ className, championList }) => {
         return output;
       };
       screenOutput.push(
-        <div className={`${className}__mainElement`}>
+        <div className={`${className}__mainElement`} key={value}>
           <div className={`${className}__traits`}>
             <div className={`${className}__activateNumber`}>{key}</div>
             <div>
