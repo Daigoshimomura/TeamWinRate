@@ -109,7 +109,7 @@ const Base: React.FC<Props> = ({
     ) {
       bordDrop(myTeamSideClick.teamList, myTeamSideClick.teamListIndex);
     }
-  });
+  }, [myTeamSideClick]);
 
   return (
     <div className={`${className}`} ref={ref}>

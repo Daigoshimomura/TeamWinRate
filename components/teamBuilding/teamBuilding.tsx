@@ -56,7 +56,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
       setMyTeamList(dbDataTeamList);
     };
     callBack();
-  }, []);
+  });
 
   // データ整形
   const parseDBData = (championData: DbInfo) => {
