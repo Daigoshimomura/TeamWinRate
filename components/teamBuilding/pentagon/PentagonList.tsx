@@ -44,8 +44,8 @@ export const PentagonList: React.FC<Props> = ({
     return drop;
   };
 
-  const newpentagon: JSX.Element[] = [];
-  for (let i = 0; i < 7; i++) {
+  const newpentagon = [];
+  for (let i = 0; i < 7; i+=1) {
     // ドラッグされた位置
     const dragPosition = `${id}-${i}`;
     newpentagon.push(

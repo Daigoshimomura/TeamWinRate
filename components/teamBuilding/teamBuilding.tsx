@@ -1,6 +1,6 @@
 import Building from 'components/teamBuilding/building';
 import MyTeam from 'components/teamBuilding/myTeam';
-import Pool from 'components/teamBuilding/pool';
+import { Pool } from 'components/teamBuilding/pool/pool';
 import firebase from 'firebase';
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
@@ -56,7 +56,7 @@ const Base: React.FC<Props> = ({ className, user }) => {
       setMyTeamList(dbDataTeamList);
     };
     callBack();
-  }, []);
+  });
 
   // データ整形
   const parseDBData = (championData: DbInfo) => {

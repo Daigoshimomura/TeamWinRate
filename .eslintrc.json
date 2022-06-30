@@ -45,7 +45,7 @@
   },
   "rules": {
     "no-use-before-define": ["off"],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["off", "windows"],
     "quotes": [
       "error",
       "single",
